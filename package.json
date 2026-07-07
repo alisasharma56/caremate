@@ -12,6 +12,7 @@
   "dependencies": {
     "@tanstack/react-router": "^1.170.17",
     "@vanilla-extract/css": "^1.21.1",
+    "lucide-react": "^1.23.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
   },
@@ -25,5 +26,6 @@
     "oxlint": "^1.71.0",
     "typescript": "~6.0.2",
     "vite": "^8.1.1"
-  }
+  },
+  "packageManager": "pnpm@10.26.0+sha512.3b3f6c725ebe712506c0ab1ad4133cf86b1f4b687effce62a9b38b4d72e3954242e643190fc51fa1642949c735f403debd44f5cb0edd657abe63a8b6a7e1e402"
 }
