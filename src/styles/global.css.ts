@@ -1,5 +1,5 @@
 import { globalStyle } from '@vanilla-extract/css'
-import { colors, typography } from './theme/tokens.css'
+import { colors, typography } from '@/styles/theme/tokens.css'
 
 globalStyle('*', {
   boxSizing: 'border-box',

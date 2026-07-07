@@ -1,1 +1,1 @@
-export { breakpoints, media } from './breakpoints.css'
+export { breakpoints, media } from '@/styles/breakpoints.css'
