@@ -47,6 +47,7 @@ export function FeedCard() {
                 <button type="button" className={styles.filterChip}>
                     Allied Health Performance
                     <ChevronDown size={14} strokeWidth={2} />
+                    <ChevronDown size={14} strokeWidth={2} />
                 </button>
             </div>
 

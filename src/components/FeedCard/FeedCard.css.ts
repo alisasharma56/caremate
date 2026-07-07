@@ -22,7 +22,7 @@ const color = {
     softBg: "#F7F8FA",
     sentimentGreen: "#2FBF71",
     sentimentBlue: "#3B82F6",
-    sentimentRed: "#EF4444",
+
 };
 
 const fadeIn = keyframes({
