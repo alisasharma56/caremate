@@ -1,6 +1,11 @@
-import { Flame, ChevronDown, Heart, MessageCircle, Share2, ExternalLink } from "lucide-react";
 import * as styles from "./FeedCard.css.ts";
-import image from "../../assets/image (2).png"
+import Flame from "@/components/icons/Flame";
+import Share from "@/components/icons/Share";
+import Dropdown from "@/components/icons/Dropdown";
+import UnLike from "@/components/icons/UnLike";
+import MessageCircle from "@/components/icons/MessageCircle";
+import ExternalLink from "@/components/icons/ExternalLink";
+
 
 export function FeedCard() {
     return (
@@ -18,7 +23,7 @@ export function FeedCard() {
             <span>3 min read</span>
             <span className={styles.hotBadge}>
               <span className={styles.dot} />
-              <Flame size={12} strokeWidth={2.5} fill="currentColor" />
+              <Flame/>
               Hot
             </span>
           </span>
@@ -38,24 +43,22 @@ export function FeedCard() {
             <div className={styles.filterRow}>
                 <button type="button" className={styles.filterChip}>
                     Price Guide History
-                    <ChevronDown size={14} strokeWidth={2} />
+                    <Dropdown/>
                 </button>
                 <button type="button" className={styles.filterChip}>
                     OT Billing Updates
-                    <ChevronDown size={14} strokeWidth={2} />
+                    <Dropdown/>
                 </button>
                 <button type="button" className={styles.filterChip}>
                     Allied Health Performance
-                    <ChevronDown size={14} strokeWidth={2} />
-                    <ChevronDown size={14} strokeWidth={2} />
+                    <Dropdown/>
                 </button>
             </div>
 
             {/* media */}
             <div className={styles.media}>
                 <img
-                    // src="https://images.unsplash.com/photo-1573497491208-6b1acb260507?w=800&q=80"
-                    src={image}
+                    src="https://images.unsplash.com/photo-1573497491208-6b1acb260507?w=800&q=80"
                     alt="Community consultation session"
                     className={styles.mediaImg}
                 />
@@ -131,21 +134,21 @@ export function FeedCard() {
             <div className={styles.footer}>
                 <div className={styles.footerActions}>
                     <button type="button" className={styles.footerItem}>
-                        <Heart size={16} strokeWidth={2} />
+                        <UnLike/>
                         128 likes
                     </button>
                     <button type="button" className={styles.footerItem}>
-                        <MessageCircle size={16} strokeWidth={2} />
+                        <MessageCircle/>
                         34 Comment
                     </button>
                     <button type="button" className={styles.footerItem}>
-                        <Share2 size={16} strokeWidth={2} />
+                        <Share/>
                         10 Share
                     </button>
                 </div>
                 <div className={styles.footerSpacer} />
                 <button type="button" className={styles.fullArticle}>
-                    <ExternalLink size={14} strokeWidth={2} />
+                    <ExternalLink/>
                     Full article
                 </button>
             </div>

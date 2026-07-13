@@ -1,58 +1,23 @@
 import { style, styleVariants, keyframes } from "@vanilla-extract/css";
-
-
-const color = {
-    pageBg: "#F4F5F7",
-    cardBg: "#FFFFFF",
-    border: "#EAEBEE",
-    borderSoft: "#F0F1F3",
-    textPrimary: "#16181D",
-    textSecondary: "#6B7280",
-    textTertiary: "#9AA0A8",
-    hot: "#E5484D",
-    blueBg: "#E8F3FF",
-    blueText: "#1E7FE0",
-    grayBg: "#F1F2F4",
-    grayText: "#5B5F66",
-    redBg: "#FDEAEB",
-    redText: "#E5484D",
-    orangeBg: "#FFF1E3",
-    orangeText: "#F0883E",
-    green: "#1FA774",
-    softBg: "#F7F8FA",
-    sentimentGreen: "#2FBF71",
-    sentimentBlue: "#3B82F6",
-
-};
+import { vars, colors, space, radii, typography } from "@/styles/theme/tokens.css";
 
 const fadeIn = keyframes({
     from: { opacity: 0, transform: "translateY(4px)" },
     to: { opacity: 1, transform: "translateY(0)" },
 });
 
-export const page = style({
-    background: color.pageBg,
-    padding: "24px 0",
-    minHeight: "100%",
-});
-
-export const list = style({
-    display: "flex",
-    flexDirection: "column",
-    gap: 16,
-    width: "100%",
-    maxWidth: 560,
-    margin: "0 auto",
-});
 
 export const card = style({
-    background: color.cardBg,
-    border: `1px solid ${color.border}`,
+    width: 724,
+    height: 796,
+    background: colors.surface,
+    border: `1px solid ${colors.border}`,
     borderRadius: 16,
-    padding: 16,
+    padding: space[4],
     display: "flex",
     flexDirection: "column",
-    gap: 14,
+    gap: space[4],
+    fontFamily: typography.body,
     animation: `${fadeIn} 0.35s ease both`,
 });
 
@@ -60,7 +25,7 @@ export const card = style({
 export const header = style({
     display: "flex",
     alignItems: "flex-start",
-    gap: 10,
+    gap: space[2],
 });
 
 export const avatar = style({
@@ -78,18 +43,20 @@ export const headerText = style({
 });
 
 export const authorName = style({
-    fontSize: 14,
-    fontWeight: 700,
-    color: color.textPrimary,
-    lineHeight: 1.3,
+        fontSize: vars.fontSize.xs, // 12px — matches your xs token exactly
+        fontWeight: 700,
+        lineHeight: "18px",
+        letterSpacing: "0%",
+        color: colors.foreground,
+
 });
 
 export const metaRow = style({
     display: "flex",
     alignItems: "center",
-    gap: 6,
-    fontSize: 12.5,
-    color: color.textTertiary,
+    gap: space[1],
+    fontSize: vars.fontSize.xs,
+    color: vars.color.gray.main,
     lineHeight: 1.3,
 });
 
@@ -97,7 +64,7 @@ export const dot = style({
     width: 3,
     height: 3,
     borderRadius: "50%",
-    background: color.textTertiary,
+    background: vars.color.gray.light,
     flexShrink: 0,
 });
 
@@ -105,7 +72,7 @@ export const hotBadge = style({
     display: "inline-flex",
     alignItems: "center",
     gap: 3,
-    color: color.hot,
+    color: vars.color.error.main,
     fontWeight: 600,
 });
 
@@ -113,48 +80,48 @@ export const hotBadge = style({
 export const tagRow = style({
     display: "flex",
     flexWrap: "wrap",
-    gap: 6,
+    gap: space[2],
 });
 
 export const tagBase = style({
-    fontSize: 12,
+    fontSize: vars.fontSize.xs,
     fontWeight: 600,
-    padding: "4px 10px",
-    borderRadius: 7,
+    padding: `${space[1]} ${space[2]}`,
+    borderRadius: radii.sm,
     lineHeight: 1.4,
     whiteSpace: "nowrap",
 });
 
 export const tagTone = styleVariants({
-    blue: { background: color.blueBg, color: color.blueText },
-    gray: { background: color.grayBg, color: color.grayText },
-    red: { background: color.redBg, color: color.redText },
-    orange: { background: color.orangeBg, color: color.orangeText },
+    blue: { background: vars.color.info.lighter, color: vars.color.info.dark },
+    gray: { background: vars.color.gray.lighter, color: vars.color.gray.dark },
+    red: { background: vars.color.error.lighter, color: vars.color.error.dark },
+    orange: { background: vars.color.warning.lighter, color: vars.color.warning.dark },
 });
 
 // ---- filter chips ----
 export const filterRow = style({
     display: "flex",
     flexWrap: "wrap",
-    gap: 8,
+    gap: space[2],
 });
 
 export const filterChip = style({
     display: "inline-flex",
     alignItems: "center",
-    gap: 4,
-    fontSize: 12.5,
+    gap: space[1],
+    fontSize: vars.fontSize.xs,
     fontWeight: 500,
-    color: color.textPrimary,
+    color: colors.foreground,
     background: "transparent",
-    border: `1px solid ${color.border}`,
+    border: `1px solid ${colors.border}`,
     borderRadius: 999,
-    padding: "6px 10px 6px 12px",
+    padding: `${space[2]} ${space[3]}`,
     cursor: "pointer",
     transition: "background 0.15s ease, border-color 0.15s ease",
     ":hover": {
-        background: color.softBg,
-        borderColor: "#DEE0E3",
+        background: colors.background,
+        borderColor: vars.color.gray.light,
     },
 });
 
@@ -162,9 +129,9 @@ export const filterChip = style({
 export const media = style({
     width: "100%",
     aspectRatio: "16 / 9",
-    borderRadius: 12,
+    borderRadius: radii.lg,
     overflow: "hidden",
-    background: color.grayBg,
+    background: vars.color.gray.lighter,
 });
 
 export const mediaImg = style({
@@ -176,83 +143,83 @@ export const mediaImg = style({
 
 // ---- headline / body ----
 export const headline = style({
-    fontSize: 17,
+    fontSize: vars.fontSize.lg,
     fontWeight: 700,
-    color: color.textPrimary,
+    color: colors.foreground,
     lineHeight: 1.35,
     margin: 0,
 });
 
 export const description = style({
-    fontSize: 14,
-    color: color.textSecondary,
+    fontSize: vars.fontSize.sm,
+    color: colors.muted,
     lineHeight: 1.55,
     margin: 0,
 });
 
 // ---- rate change block ----
 export const rateBox = style({
-    background: color.softBg,
-    borderRadius: 12,
-    padding: "12px 14px",
+    background: colors.background,
+    borderRadius: radii.lg,
+    padding: `${space[3]} ${space[3]}`,
     display: "flex",
     flexDirection: "column",
-    gap: 10,
+    gap: space[2],
 });
 
 export const rateHeader = style({
     display: "flex",
     alignItems: "center",
-    gap: 8,
-    fontSize: 13,
+    gap: space[2],
+    fontSize: vars.fontSize.sm,
 });
 
 export const rateDot = style({
     width: 7,
     height: 7,
     borderRadius: "50%",
-    background: color.orangeText,
+    background: vars.color.warning.main,
     flexShrink: 0,
 });
 
 export const rateTitle = style({
     fontWeight: 700,
-    color: color.textPrimary,
+    color: colors.foreground,
 });
 
 export const rateEffective = style({
-    color: color.textTertiary,
+    color: vars.color.gray.light,
 });
 
 export const rateRow = style({
     display: "flex",
     alignItems: "center",
-    gap: 8,
-    fontSize: 13.5,
+    gap: space[2],
+    fontSize: vars.fontSize.sm,
 });
 
 export const rateLabel = style({
-    color: color.textSecondary,
+    color: colors.muted,
     minWidth: 82,
     flexShrink: 0,
 });
 
 export const rateOld = style({
-    color: color.textTertiary,
+    color: vars.color.gray.light,
     textDecoration: "line-through",
 });
 
 export const rateArrow = style({
-    color: color.textTertiary,
+    color: vars.color.gray.light,
 });
 
 export const rateNew = style({
     fontWeight: 700,
-    color: color.textPrimary,
+    color: colors.foreground,
 });
 
 export const rateDelta = style({
-    color: color.green,
+    color: vars.color.success.main,
     fontWeight: 700,
     marginLeft: "auto",
 });
@@ -261,19 +228,19 @@ export const rateDelta = style({
 export const sentimentWrap = style({
     display: "flex",
     flexDirection: "column",
-    gap: 8,
+    gap: space[2],
 });
 
 export const sentimentTop = style({
     display: "flex",
     alignItems: "center",
-    gap: 10,
+    gap: space[3],
 });
 
 export const sentimentLabel = style({
-    fontSize: 12.5,
+    fontSize: vars.fontSize.xs,
     fontWeight: 600,
-    color: color.textSecondary,
+    color: colors.muted,
     flexShrink: 0,
 });
 
@@ -283,7 +250,7 @@ export const sentimentBar = style({
     borderRadius: 999,
     overflow: "hidden",
     display: "flex",
-    background: color.grayBg,
+    background: vars.color.gray.lighter,
 });
 
 export const sentimentSegment = style({
@@ -291,7 +258,7 @@ export const sentimentSegment = style({
 });
 
 export const sentimentPct = style({
-    fontSize: 12.5,
+    fontSize: vars.fontSize.xs,
     fontWeight: 600,
     flexShrink: 0,
 });
@@ -300,22 +267,22 @@ export const sentimentPct = style({
 export const footer = style({
     display: "flex",
     alignItems: "center",
-    paddingTop: 10,
-    borderTop: `1px solid ${color.borderSoft}`,
+    paddingTop: space[2],
+    borderTop: `1px solid ${colors.border}`,
 });
 
 export const footerActions = style({
     display: "flex",
     alignItems: "center",
-    gap: 18,
+    gap: space[4],
 });
 
 export const footerItem = style({
     display: "inline-flex",
     alignItems: "center",
     gap: 5,
-    fontSize: 13,
-    color: color.textSecondary,
+    fontSize: vars.fontSize.sm,
+    color: colors.muted,
     background: "none",
     border: "none",
     padding: 0,
@@ -330,16 +297,20 @@ export const fullArticle = style({
     display: "inline-flex",
     alignItems: "center",
     gap: 5,
-    fontSize: 13,
+    fontSize: vars.fontSize.sm,
     fontWeight: 600,
-    color: color.textSecondary,
+    color: colors.muted,
     background: "none",
     border: "none",
     padding: 0,
     cursor: "pointer",
     ":hover": {
-        color: color.textPrimary,
+        color: colors.foreground,
     },
 });
 
-export const colorTokens = color;
+export const colorTokens = {
+    sentimentGreen: vars.color.success.main,
+    sentimentBlue: vars.color.info.main,
+    sentimentRed: vars.color.error.main,
+};

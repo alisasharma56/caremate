@@ -1,3 +1,8 @@
+import {FeedCard} from "@/components/FeedCard/FeedCard.tsx";
+
 export function HomePage() {
-  return <h1>CareMate</h1>
+  return <>
+    <FeedCard/>
+  </>
+
 }
