@@ -1,157 +1,195 @@
-import * as styles from "./FeedCard.css.ts";
-import Flame from "@/components/icons/Flame";
-import Share from "@/components/icons/Share";
-import Dropdown from "@/components/icons/Dropdown";
-import UnLike from "@/components/icons/UnLike";
-import MessageCircle from "@/components/icons/MessageCircle";
-import ExternalLink from "@/components/icons/ExternalLink";
+import type { Item } from '@/features/home/data/feed'
+import Dropdown from '@/components/icons/Dropdown'
+import ExternalLink from '@/components/icons/ExternalLink'
+import Flame from '@/components/icons/Flame'
+import * as styles from './FeedCard.css'
 
+interface FeedCardProps {
+  item: Item
+}
 
-export function FeedCard() {
-    return (
-        <article className={styles.card}>
-            {/* header */}
-            <div className={styles.header}>
-                <span className={styles.avatar} style={{ background: "#17A8B0" }} />
-                <div className={styles.headerText}>
-                    <span className={styles.authorName}>NDIS Commission</span>
-                    <span className={styles.metaRow}>
-            <span>All States</span>
+function formatLabel(value: string) {
+  return value.replaceAll('_', ' ').replace(/\b\w/g, (letter) => letter.toUpperCase())
+}
+
+function formatDate(value: string) {
+  if (!value) return ''
+
+  const date = new Date(value)
+  return Number.isNaN(date.getTime())
+    ? value
+    : new Intl.DateTimeFormat('en-AU', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+      }).format(date)
+}
+
+function readingTime(text: string) {
+  return Math.max(1, Math.ceil(text.trim().split(/\s+/).filter(Boolean).length / 200))
+}
+
+export function FeedCard({ item }: FeedCardProps) {
+  const { news, analytics, time_ago: timeAgo } = item
+  const description = news.summary || news.snippet
+  const states = analytics.affected_states.join(', ') || 'All States'
+  const primaryTags = analytics.primary_filter.length
+    ? analytics.primary_filter
+    : (news.categories ?? [])
+  const deadline = formatDate(analytics.action_deadline)
+  const effectiveDate = formatDate(analytics.key_element.effective_date)
+  const hasKeyElement = Boolean(
+    analytics.key_element.description ||
+      analytics.key_element.old_value ||
+      analytics.key_element.new_value,
+  )
+  const sourceInitial = news.source.trim().charAt(0).toUpperCase() || 'N'
+
+  return (
+    <article className={styles.card}>
+      <div className={styles.header}>
+        <span className={styles.avatar} aria-hidden="true">
+          {sourceInitial}
+        </span>
+        <div className={styles.headerText}>
+          <span className={styles.authorName}>{news.source}</span>
+          <span className={styles.metaRow}>
+            <span>{states}</span>
             <span className={styles.dot} />
-            <span>2h ago</span>
+            <span>{timeAgo}</span>
             <span className={styles.dot} />
-            <span>3 min read</span>
-            <span className={styles.hotBadge}>
-              <span className={styles.dot} />
-              <Flame/>
-              Hot
+            <span>{readingTime(description)} min read</span>
+            {analytics.urgency.toLowerCase() === 'high' ? (
+              <span className={styles.hotBadge}>
+                <Flame />
+                Hot
+              </span>
+            ) : null}
+          </span>
+        </div>
+      </div>
+
+      <div className={styles.tagRow}>
+        {primaryTags.map((tag, index) => (
+          <span
+            className={`${styles.tagBase} ${index === 0 ? styles.tagTone.blue : styles.tagTone.gray}`}
+            key={`primary-${tag}-${index}`}
+          >
+            {formatLabel(tag)}
+          </span>
+        ))}
+        {analytics.target_audience.map((audience, index) => (
+          <span
+            className={`${styles.tagBase} ${styles.tagTone.gray}`}
+            key={`audience-${audience}-${index}`}
+          >
+            {formatLabel(audience)}
+          </span>
+        ))}
+        {analytics.action_required ? (
+          <span className={`${styles.tagBase} ${styles.tagTone.red}`}>
+            {deadline ? `Action by ${deadline}` : 'Action required'}
+          </span>
+        ) : null}
+        <span className={`${styles.tagBase} ${styles.tagTone.orange}`}>
+          Impact {analytics.impactness}/10
+        </span>
+      </div>
+
+      {analytics.secondary_filter.length ? (
+        <div className={styles.filterRow}>
+          {analytics.secondary_filter.map((filter, index) => (
+            <span className={styles.filterChip} key={`${filter}-${index}`}>
+              {formatLabel(filter)}
+              <Dropdown />
             </span>
-          </span>
-                </div>
+          ))}
+        </div>
+      ) : null}
+
+      <h2 className={styles.headline}>{news.title}</h2>
+      {description ? <p className={styles.description}>{description}</p> : null}
+
+      {hasKeyElement ? (
+        <div className={styles.rateBox}>
+          <div className={styles.rateHeader}>
+            <span className={styles.rateDot} />
+            <span className={styles.rateTitle}>
+              {formatLabel(analytics.key_element.type || 'Key update')}
+            </span>
+            {effectiveDate ? (
+              <span className={styles.rateEffective}>Effective {effectiveDate}</span>
+            ) : null}
+          </div>
+
+          {analytics.key_element.description ? (
+            <p className={styles.keyDescription}>{analytics.key_element.description}</p>
+          ) : null}
+
+          {analytics.key_element.old_value || analytics.key_element.new_value ? (
+            <div className={styles.rateRow}>
+              {analytics.key_element.old_value ? (
+                <span className={styles.rateOld}>{analytics.key_element.old_value}</span>
+              ) : null}
+              {analytics.key_element.old_value && analytics.key_element.new_value ? (
+                <span className={styles.rateArrow}>›</span>
+              ) : null}
+              {analytics.key_element.new_value ? (
+                <span className={styles.rateNew}>{analytics.key_element.new_value}</span>
+              ) : null}
+              {analytics.key_element.financial_impact ? (
+                <span className={styles.rateDelta}>
+                  {analytics.key_element.financial_impact}
+                </span>
+              ) : null}
             </div>
+          ) : null}
+        </div>
+      ) : null}
 
-            {/* tags */}
-            <div className={styles.tagRow}>
-                <span className={`${styles.tagBase} ${styles.tagTone.blue}`}>Funding</span>
-                <span className={`${styles.tagBase} ${styles.tagTone.gray}`}>Provider</span>
-                <span className={`${styles.tagBase} ${styles.tagTone.gray}`}>Participant</span>
-                <span className={`${styles.tagBase} ${styles.tagTone.red}`}>Action by 30 Jun</span>
-                <span className={`${styles.tagBase} ${styles.tagTone.orange}`}>Impact 9/10</span>
-            </div>
-
-            {/* filter chips */}
-            <div className={styles.filterRow}>
-                <button type="button" className={styles.filterChip}>
-                    Price Guide History
-                    <Dropdown/>
-                </button>
-                <button type="button" className={styles.filterChip}>
-                    OT Billing Updates
-                    <Dropdown/>
-                </button>
-                <button type="button" className={styles.filterChip}>
-                    Allied Health Performance
-                    <Dropdown/>
-                </button>
-            </div>
-
-            {/* media */}
-            <div className={styles.media}>
-                <img
-                    src="https://images.unsplash.com/photo-1573497491208-6b1acb260507?w=800&q=80"
-                    alt="Community consultation session"
-                    className={styles.mediaImg}
-                />
-            </div>
-
-            {/* headline + description */}
-            <h3 className={styles.headline}>
-                New Accountability Framework for Providers: What the Latest Review Reveals
-            </h3>
-            <p className={styles.description}>
-                The federal government has unveiled a comprehensive suite of reforms aimed at
-                increasing transparency across the scheme. Early analysis suggests a pivot towards
-                outcomes-based funding models, potentially reshaping how over 20,000 providers operate
-                across Australia.
-            </p>
-
-            {/* rate change */}
-            <div className={styles.rateBox}>
-                <div className={styles.rateHeader}>
-                    <span className={styles.rateDot} />
-                    <span className={styles.rateTitle}>Rate Change</span>
-                    <span className={styles.rateEffective}>Effective 1 July 2025</span>
-                </div>
-
-                <div className={styles.rateRow}>
-                    <span className={styles.rateLabel}>OT standard</span>
-                    <span className={styles.rateOld}>$193.99/hr</span>
-                    <span className={styles.rateArrow}>›</span>
-                    <span className={styles.rateNew}>$202.14/hr</span>
-                    <span className={styles.rateDelta}>+4.2%</span>
-                </div>
-
-                <div className={styles.rateRow}>
-                    <span className={styles.rateLabel}>Physio std</span>
-                    <span className={styles.rateOld}>$189.50/hr</span>
-                    <span className={styles.rateArrow}>›</span>
-                    <span className={styles.rateNew}>$197.45/hr</span>
-                    <span className={styles.rateDelta}>+4.2%</span>
-                </div>
-            </div>
-
-            {/* sentiment */}
-            <div className={styles.sentimentWrap}>
-                <div className={styles.sentimentTop}>
-                    <span className={styles.sentimentLabel}>Sentiment</span>
-                    <div className={styles.sentimentBar}>
+      <div className={styles.sentimentWrap}>
+        <div className={styles.sentimentTop}>
+          <span className={styles.sentimentLabel}>Sentiment</span>
+          <div className={styles.sentimentBar}>
             <span
-                className={styles.sentimentSegment}
-                style={{ width: "74%", background: styles.colorTokens.sentimentGreen }}
+              className={styles.sentimentSegment}
+              style={{
+                width: `${analytics.sentiment.positive_pct}%`,
+                background: styles.colorTokens.sentimentGreen,
+              }}
             />
-                        <span
-                            className={styles.sentimentSegment}
-                            style={{ width: "18%", background: styles.colorTokens.sentimentBlue }}
-                        />
-                        <span
-                            className={styles.sentimentSegment}
-                            style={{ width: "8%", background: styles.colorTokens.sentimentRed }}
-                        />
-                    </div>
-                    <span className={styles.sentimentPct} style={{ color: styles.colorTokens.sentimentGreen }}>
-            74%
-          </span>
-                    <span className={styles.sentimentPct} style={{ color: styles.colorTokens.sentimentBlue }}>
-            18%
-          </span>
-                    <span className={styles.sentimentPct} style={{ color: styles.colorTokens.sentimentRed }}>
-            8%
-          </span>
-                </div>
-            </div>
+            <span
+              className={styles.sentimentSegment}
+              style={{
+                width: `${analytics.sentiment.neutral_pct}%`,
+                background: styles.colorTokens.sentimentBlue,
+              }}
+            />
+            <span
+              className={styles.sentimentSegment}
+              style={{
+                width: `${analytics.sentiment.negative_pct}%`,
+                background: styles.colorTokens.sentimentRed,
+              }}
+            />
+          </div>
+          <span className={styles.sentimentValue}>{formatLabel(analytics.sentiment.overall)}</span>
+        </div>
+      </div>
 
-            {/* footer */}
-            <div className={styles.footer}>
-                <div className={styles.footerActions}>
-                    <button type="button" className={styles.footerItem}>
-                        <UnLike/>
-                        128 likes
-                    </button>
-                    <button type="button" className={styles.footerItem}>
-                        <MessageCircle/>
-                        34 Comment
-                    </button>
-                    <button type="button" className={styles.footerItem}>
-                        <Share/>
-                        10 Share
-                    </button>
-                </div>
-                <div className={styles.footerSpacer} />
-                <button type="button" className={styles.fullArticle}>
-                    <ExternalLink/>
-                    Full article
-                </button>
-            </div>
-        </article>
-    );
+      <div className={styles.footer}>
+        <span className={styles.publishedDate}>{formatDate(news.published_at)}</span>
+        <span className={styles.footerSpacer} />
+        <a
+          className={styles.fullArticle}
+          href={news.url}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <ExternalLink />
+          Full article
+        </a>
+      </div>
+    </article>
+  )
 }

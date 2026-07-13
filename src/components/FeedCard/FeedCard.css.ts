@@ -8,8 +8,8 @@ const fadeIn = keyframes({
 
 
 export const card = style({
-    width: 724,
-    height: 796,
+    width: "100%",
+    maxWidth: 724,
     background: colors.surface,
     border: `1px solid ${colors.border}`,
     borderRadius: 16,
@@ -19,6 +19,11 @@ export const card = style({
     gap: space[4],
     fontFamily: typography.body,
     animation: `${fadeIn} 0.35s ease both`,
+    '@media': {
+        '(max-width: 640px)': {
+            borderRadius: 12,
+        },
+    },
 });
 
 // ---- header ----
@@ -33,6 +38,12 @@ export const avatar = style({
     height: 36,
     borderRadius: "50%",
     flexShrink: 0,
+    display: "grid",
+    placeItems: "center",
+    background: vars.color.info.main,
+    color: vars.color.base.white,
+    fontSize: vars.fontSize.sm,
+    fontWeight: 700,
 });
 
 export const headerText = style({
@@ -58,6 +69,7 @@ export const metaRow = style({
     fontSize: vars.fontSize.xs,
     color: vars.color.gray.main,
     lineHeight: 1.3,
+    flexWrap: "wrap",
 });
 
 export const dot = style({
@@ -117,12 +129,6 @@ export const filterChip = style({
     border: `1px solid ${colors.border}`,
     borderRadius: 999,
     padding: `${space[2]} ${space[3]}`,
-    cursor: "pointer",
-    transition: "background 0.15s ease, border-color 0.15s ease",
-    ":hover": {
-        background: colors.background,
-        borderColor: vars.color.gray.light,
-    },
 });
 
 // ---- media ----
@@ -155,6 +161,13 @@ export const description = style({
     color: colors.muted,
     lineHeight: 1.55,
     margin: 0,
+});
+
+export const keyDescription = style({
+    margin: 0,
+    color: colors.muted,
+    fontSize: vars.fontSize.sm,
+    lineHeight: 1.5,
 });
 
 // ---- rate change block ----
@@ -263,6 +276,13 @@ export const sentimentPct = style({
     flexShrink: 0,
 });
 
+export const sentimentValue = style({
+    fontSize: vars.fontSize.xs,
+    fontWeight: 600,
+    color: colors.muted,
+    flexShrink: 0,
+});
+
 // ---- footer ----
 export const footer = style({
     display: "flex",
@@ -293,6 +313,11 @@ export const footerSpacer = style({
     flex: 1,
 });
 
+export const publishedDate = style({
+    color: colors.muted,
+    fontSize: vars.fontSize.xs,
+});
+
 export const fullArticle = style({
     display: "inline-flex",
     alignItems: "center",
@@ -304,6 +329,7 @@ export const fullArticle = style({
     border: "none",
     padding: 0,
     cursor: "pointer",
+    textDecoration: "none",
     ":hover": {
         color: colors.foreground,
     },
