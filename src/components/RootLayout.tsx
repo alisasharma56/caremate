@@ -1,5 +1,6 @@
 import { Outlet } from '@tanstack/react-router'
 import { Sidebar } from '@/components/sidebar'
+import {SideCardPanel} from "@/features/SidecardPanel/SideCardPanel.tsx";
 
 export function RootLayout() {
   return (
@@ -8,6 +9,7 @@ export function RootLayout() {
       <section style={{ flex: 1, minWidth: 0 }}>
         <Outlet />
       </section>
+        <SideCardPanel/>
     </main>
   )
 }
