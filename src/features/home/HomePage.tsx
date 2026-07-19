@@ -2,6 +2,7 @@ import useFeed from '@/features/home/hooks/GetFeed'
 import { FeedCard } from '@/components/FeedCard/FeedCard'
 import { heading, message, newsList, page } from '@/features/home/HomePage.css'
 
+
 export function HomePage() {
   const { data, isPending, isError, error, refetch } = useFeed()
 
@@ -29,6 +30,7 @@ export function HomePage() {
           <FeedCard item={item} key={item.news.id} />
         ))}
       </div>
+
     </main>
   )
 }
