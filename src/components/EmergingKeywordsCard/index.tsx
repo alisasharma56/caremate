@@ -1,14 +1,43 @@
 import { SideCard } from "../SideCard/SideCard.tsx";
 import { KeywordRow } from "../KeywordRow/KeywordRow.tsx";
+import useEmergingKeywords from "@/features/home/hooks/UseEmergingKeyword.ts";
+
+function formatChange(risePct: number) {
+    const arrow = risePct >= 90 ? '↑↑' : '↑';
+    return `${arrow} ${risePct}%`;
+}
 
 export function EmergingKeywordsCard() {
+    const { data, isLoading, isError } = useEmergingKeywords();
+
+    if (isLoading) {
+        return (
+            <SideCard title="Emerging Keywords">
+                <span>Loading…</span>
+            </SideCard>
+        );
+    }
+
+    if (isError || !data?.length) {
+        return (
+            <SideCard title="Emerging Keywords">
+                <span>Couldn't load emerging keywords.</span>
+            </SideCard>
+        );
+    }
+
+    const topKeywords = data.slice(0, 5);
+
     return (
         <SideCard title="Emerging Keywords">
-            <KeywordRow rank={1} keyword="SIL funding" change="↑↑ 94%" />
-            <KeywordRow rank={2} keyword="Price guide" change="↑ 67%" />
-            <KeywordRow rank={3} keyword="Registration" change="↑ 52%" />
-            <KeywordRow rank={4} keyword="AAT appeals" change="↑ 41%" />
-            <KeywordRow rank={5} keyword="Indep. assess." change="↑ 29%" />
+            {topKeywords.map((item, index) => (
+                <KeywordRow
+                    key={item.keyword}
+                    rank={index + 1}
+                    keyword={item.keyword}
+                    change={formatChange(item.rise_pct)}
+                />
+            ))}
         </SideCard>
     );
 }

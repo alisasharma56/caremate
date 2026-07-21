@@ -7,9 +7,7 @@ interface BarRowProps {
     label: string;
     percent: number;
     tone: Tone;
-    /** Shows a trailing arrow-up-right icon (used by the Trending card) */
     showArrow?: boolean;
-    /** Shows a trailing colored delta value instead, e.g. "+68%" (used by Sentiment card) */
     delta?: string;
     deltaTone?: Tone;
 }
