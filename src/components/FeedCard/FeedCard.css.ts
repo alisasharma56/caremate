@@ -40,10 +40,17 @@ export const avatar = style({
     flexShrink: 0,
     display: "grid",
     placeItems: "center",
-    background: vars.color.info.main,
     color: vars.color.base.white,
     fontSize: vars.fontSize.sm,
     fontWeight: 700,
+});
+
+export const avatarTone = styleVariants({
+    blue: { background: vars.color.info.main },
+    green: { background: vars.color.success.main },
+    orange: { background: vars.color.warning.main },
+    red: { background: vars.color.error.main },
+    gold: { background: vars.color.primary.main },
 });
 
 export const headerText = style({
@@ -129,6 +136,24 @@ export const filterChip = style({
     border: `1px solid ${colors.border}`,
     borderRadius: 999,
     padding: `${space[2]} ${space[3]}`,
+});
+
+export const filterChipTone = styleVariants({
+    positive: {
+        color: vars.color.success.dark,
+        borderColor: vars.color.success.light,
+        background: vars.color.success.lightest,
+    },
+    neutral: {
+        color: vars.color.info.dark,
+        borderColor: vars.color.info.light,
+        background: vars.color.info.lightest,
+    },
+    negative: {
+        color: vars.color.error.dark,
+        borderColor: vars.color.error.light,
+        background: vars.color.error.lightest,
+    },
 });
 
 // ---- media ----

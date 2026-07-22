@@ -8,6 +8,29 @@ interface FeedCardProps {
   item: Item
 }
 
+type SentimentTone = 'positive' | 'neutral' | 'negative'
+
+const avatarTones = ['blue', 'green', 'orange', 'red', 'gold'] as const
+
+function avatarTone(value: string) {
+  const hash = Array.from(value).reduce(
+    (total, character) => total + character.codePointAt(0)!,
+    0,
+  )
+
+  return avatarTones[hash % avatarTones.length]
+}
+
+function sentimentTone(value: string): SentimentTone {
+  const normalizedValue = value.toLowerCase()
+
+  if (normalizedValue === 'positive' || normalizedValue === 'negative') {
+    return normalizedValue
+  }
+
+  return 'neutral'
+}
+
 function formatLabel(value: string) {
   return value.replaceAll('_', ' ').replace(/\b\w/g, (letter) => letter.toUpperCase())
 }
@@ -44,11 +67,16 @@ export function FeedCard({ item }: FeedCardProps) {
       analytics.key_element.new_value,
   )
   const sourceInitial = news.source.trim().charAt(0).toUpperCase() || 'N'
+  const sourceAvatarTone = avatarTone(news.source || String(news.id))
+  const backendSentimentTone = sentimentTone(analytics.sentiment.overall)
 
   return (
     <article className={styles.card}>
       <div className={styles.header}>
-        <span className={styles.avatar} aria-hidden="true">
+        <span
+          className={`${styles.avatar} ${styles.avatarTone[sourceAvatarTone]}`}
+          aria-hidden="true"
+        >
           {sourceInitial}
         </span>
         <div className={styles.headerText}>
@@ -99,7 +127,10 @@ export function FeedCard({ item }: FeedCardProps) {
       {analytics.secondary_filter.length ? (
         <div className={styles.filterRow}>
           {analytics.secondary_filter.map((filter, index) => (
-            <span className={styles.filterChip} key={`${filter}-${index}`}>
+            <span
+              className={`${styles.filterChip} ${styles.filterChipTone[backendSentimentTone]}`}
+              key={`${filter}-${index}`}
+            >
               {formatLabel(filter)}
               <Dropdown />
             </span>
