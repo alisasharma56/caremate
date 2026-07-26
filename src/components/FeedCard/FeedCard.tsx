@@ -1,14 +1,12 @@
 import type { Item } from '@/features/home/data/feed'
-import Dropdown from '@/components/icons/Dropdown'
 import ExternalLink from '@/components/icons/ExternalLink'
 import Flame from '@/components/icons/Flame'
 import * as styles from './FeedCard.css'
 
 interface FeedCardProps {
   item: Item
+  onKeywordSelect?: (keyword: string) => void
 }
-
-type SentimentTone = 'positive' | 'neutral' | 'negative'
 
 const avatarTones = ['blue', 'green', 'orange', 'red', 'gold'] as const
 
@@ -19,16 +17,6 @@ function avatarTone(value: string) {
   )
 
   return avatarTones[hash % avatarTones.length]
-}
-
-function sentimentTone(value: string): SentimentTone {
-  const normalizedValue = value.toLowerCase()
-
-  if (normalizedValue === 'positive' || normalizedValue === 'negative') {
-    return normalizedValue
-  }
-
-  return 'neutral'
 }
 
 function formatLabel(value: string) {
@@ -52,7 +40,7 @@ function readingTime(text: string) {
   return Math.max(1, Math.ceil(text.trim().split(/\s+/).filter(Boolean).length / 200))
 }
 
-export function FeedCard({ item }: FeedCardProps) {
+export function FeedCard({ item, onKeywordSelect }: FeedCardProps) {
   const { news, analytics, time_ago: timeAgo } = item
   const description = news.summary || news.snippet
   const states = analytics.affected_states.join(', ') || 'All States'
@@ -68,7 +56,7 @@ export function FeedCard({ item }: FeedCardProps) {
   )
   const sourceInitial = news.source.trim().charAt(0).toUpperCase() || 'N'
   const sourceAvatarTone = avatarTone(news.source || String(news.id))
-  const backendSentimentTone = sentimentTone(analytics.sentiment.overall)
+  const keywordOptions = [...new Set(analytics.keywords.filter(Boolean))]
 
   return (
     <article className={styles.card}>
@@ -124,16 +112,18 @@ export function FeedCard({ item }: FeedCardProps) {
         </span>
       </div>
 
-      {analytics.secondary_filter.length ? (
+      {keywordOptions.length ? (
         <div className={styles.filterRow}>
-          {analytics.secondary_filter.map((filter, index) => (
-            <span
-              className={`${styles.filterChip} ${styles.filterChipTone[backendSentimentTone]}`}
-              key={`${filter}-${index}`}
+          <span className={styles.keywordLabel}>Keywords</span>
+          {keywordOptions.map((keyword) => (
+            <button
+              type="button"
+              className={styles.filterChip}
+              key={keyword}
+              onClick={() => onKeywordSelect?.(keyword)}
             >
-              {formatLabel(filter)}
-              <Dropdown />
-            </span>
+              {formatLabel(keyword)}
+            </button>
           ))}
         </div>
       ) : null}
