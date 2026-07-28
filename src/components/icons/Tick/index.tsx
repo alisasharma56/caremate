@@ -1,0 +1,18 @@
+import React from 'react';
+
+const Tick: React.FunctionComponent = () => {
+    return (
+
+
+
+        <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.5 2.25L3.375 6.375L1.5 4.5" stroke="#050505" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+
+
+
+
+    );
+};
+
+export default Tick;

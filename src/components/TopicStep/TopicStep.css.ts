@@ -1,18 +1,21 @@
 import { style, styleVariants } from "@vanilla-extract/css";
-import { vars, colors, space } from "@/styles/theme/tokens.css.ts";
+import {vars, colors, space, radii} from "@/styles/theme/tokens.css.ts";
 
 export const chipGrid = style({
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "center",
-    gap: space[2],
+    gap: "16px",
     width: "100%",
+    alignItems: "flex-start",
+    maxWidth: "480px",
 });
 
 export const chip = style({
+    minHeight: "44px",
     background: colors.surface,
     border: `1px solid ${colors.border}`,
-    borderRadius: 999,
+    borderRadius: radii.xl,
     padding: `${space[2]} ${space[4]}`,
     fontSize: vars.fontSize.sm,
     fontWeight: 500,

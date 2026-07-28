@@ -5,8 +5,9 @@ export const chipGrid = style({
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "center",
-    gap: space[2],
+    gap: "16px",
     width: "100%",
+    maxWidth: "480px",
 });
 
 export const chip = style({

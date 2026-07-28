@@ -3,9 +3,9 @@ import { vars, colors, space, radii } from "@/styles/theme/tokens.css.ts";
 
 export const grid = style({
     display: "grid",
-    gridTemplateColumns: "1fr 1fr",
-    gap: space[3],
-    width: "100%",
+    gridTemplateColumns: "repeat(2, 242px)",
+    rowGap: space[3],
+    columnGap: "16px",
 });
 
 export const card = style({
@@ -45,3 +45,4 @@ export const cardDescription = style({
     fontWeight: 400,
     lineHeight: 1.4,
 });
+

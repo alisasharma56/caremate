@@ -4,7 +4,7 @@ import {SideCardPanel} from "@/features/SidecardPanel/SideCardPanel.tsx";
 
 export function RootLayout() {
   const isAuthPage = useRouterState({
-    select: (state) => ['/login', '/signup','/onboarding',].includes(state.location.pathname),
+    select: (state) => ['/login', '/signup','/onboarding','/payment',].includes(state.location.pathname),
   })
 
   if (isAuthPage) {

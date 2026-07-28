@@ -122,37 +122,37 @@ export const tagTone = styleVariants({
 export const filterRow = style({
     display: "flex",
     flexWrap: "wrap",
+    alignItems: "center",
     gap: space[2],
+});
+
+export const keywordLabel = style({
+    fontSize: vars.fontSize.xs,
+    fontWeight: 600,
+    color: colors.muted,
 });
 
 export const filterChip = style({
     display: "inline-flex",
     alignItems: "center",
     gap: space[1],
+    fontFamily: typography.body,
     fontSize: vars.fontSize.xs,
     fontWeight: 500,
     color: colors.foreground,
-    background: "transparent",
-    border: `1px solid ${colors.border}`,
+    background: colors.surface,
+    border: "1px solid #EDEEF1",
     borderRadius: 999,
     padding: `${space[2]} ${space[3]}`,
-});
-
-export const filterChipTone = styleVariants({
-    positive: {
-        color: vars.color.success.dark,
-        borderColor: vars.color.success.light,
-        background: vars.color.success.lightest,
+    cursor: "pointer",
+    transition: "filter 150ms ease, transform 150ms ease",
+    ":hover": {
+        filter: "brightness(0.97)",
+        transform: "translateY(-1px)",
     },
-    neutral: {
-        color: vars.color.info.dark,
-        borderColor: vars.color.info.light,
-        background: vars.color.info.lightest,
-    },
-    negative: {
-        color: vars.color.error.dark,
-        borderColor: vars.color.error.light,
-        background: vars.color.error.lightest,
+    ":focus-visible": {
+        outline: `2px solid ${vars.color.info.main}`,
+        outlineOffset: 2,
     },
 });
 
