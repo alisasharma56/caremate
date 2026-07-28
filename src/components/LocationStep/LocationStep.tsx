@@ -1,5 +1,5 @@
 import { useState } from "react";
-import * as shared from "@/styles/Onboarding/Stepshares.css.ts";
+import * as shared from "@/features/OnboardingFinal/Stepshares.css.ts";
 import * as styles from "./LocationStep.css.ts";
 
 const STATE_OPTIONS = [

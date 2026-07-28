@@ -1,6 +1,6 @@
 
 import { style } from "@vanilla-extract/css";
-import { vars, colors, space, radii } from "@/styles/theme/tokens.css";
+import { vars, colors, space, radii } from "@/styles/theme/tokens.css.ts";
 
 export const stepWrap = style({
     display: "flex",

@@ -1,5 +1,5 @@
 import { style, styleVariants } from "@vanilla-extract/css";
-import { vars, colors, space } from "@/styles/theme/tokens.css";
+import { vars, colors, space } from "@/styles/theme/tokens.css.ts";
 
 export const chipGrid = style({
     display: "flex",
