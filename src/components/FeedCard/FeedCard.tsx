@@ -1,7 +1,49 @@
 import type { Item } from '@/features/home/data/feed'
 import ExternalLink from '@/components/icons/ExternalLink'
 import Flame from '@/components/icons/Flame'
-import * as styles from './FeedCard.css'
+import {
+  authorName,
+  avatar,
+  avatarTone as avatarToneStyle,
+  card,
+  colorTokens,
+  description as descriptionStyle,
+  dot,
+  filterChip,
+  filterRow,
+  footer,
+  footerSpacer,
+  fullArticle,
+  header,
+  headerText,
+  headline,
+  hotBadge,
+  keyDescription,
+  keywordLabel,
+  media,
+  mediaImg,
+  metaRow,
+  publishedDate,
+  rateArrow,
+  rateBox,
+  rateDelta,
+  rateDot,
+  rateEffective,
+  rateHeader,
+  rateNew,
+  rateOld,
+  rateRow,
+  rateTitle,
+  sentimentBar,
+  sentimentLabel,
+  sentimentSegment,
+  sentimentTop,
+  sentimentValue,
+  sentimentWrap,
+  tagBase,
+  tagRow,
+  tagTone,
+} from './FeedCard.css'
 
 interface FeedCardProps {
   item: Item
@@ -59,24 +101,24 @@ export function FeedCard({ item, onKeywordSelect }: FeedCardProps) {
   const keywordOptions = [...new Set(analytics.keywords.filter(Boolean))]
 
   return (
-    <article className={styles.card}>
-      <div className={styles.header}>
+    <article className={card}>
+      <div className={header}>
         <span
-          className={`${styles.avatar} ${styles.avatarTone[sourceAvatarTone]}`}
+          className={`${avatar} ${avatarToneStyle[sourceAvatarTone]}`}
           aria-hidden="true"
         >
           {sourceInitial}
         </span>
-        <div className={styles.headerText}>
-          <span className={styles.authorName}>{news.source}</span>
-          <span className={styles.metaRow}>
+        <div className={headerText}>
+          <span className={authorName}>{news.source}</span>
+          <span className={metaRow}>
             <span>{states}</span>
-            <span className={styles.dot} />
+            <span className={dot} />
             <span>{timeAgo}</span>
-            <span className={styles.dot} />
+            <span className={dot} />
             <span>{readingTime(description)} min read</span>
             {analytics.urgency.toLowerCase() === 'high' ? (
-              <span className={styles.hotBadge}>
+              <span className={hotBadge}>
                 <Flame />
                 Hot
               </span>
@@ -85,10 +127,10 @@ export function FeedCard({ item, onKeywordSelect }: FeedCardProps) {
         </div>
       </div>
 
-      <div className={styles.tagRow}>
+      <div className={tagRow}>
         {primaryTags.map((tag, index) => (
           <span
-            className={`${styles.tagBase} ${index === 0 ? styles.tagTone.blue : styles.tagTone.gray}`}
+            className={`${tagBase} ${index === 0 ? tagTone.blue : tagTone.gray}`}
             key={`primary-${tag}-${index}`}
           >
             {formatLabel(tag)}
@@ -96,29 +138,29 @@ export function FeedCard({ item, onKeywordSelect }: FeedCardProps) {
         ))}
         {analytics.target_audience.map((audience, index) => (
           <span
-            className={`${styles.tagBase} ${styles.tagTone.gray}`}
+            className={`${tagBase} ${tagTone.gray}`}
             key={`audience-${audience}-${index}`}
           >
             {formatLabel(audience)}
           </span>
         ))}
         {analytics.action_required ? (
-          <span className={`${styles.tagBase} ${styles.tagTone.red}`}>
+          <span className={`${tagBase} ${tagTone.red}`}>
             {deadline ? `Action by ${deadline}` : 'Action required'}
           </span>
         ) : null}
-        <span className={`${styles.tagBase} ${styles.tagTone.orange}`}>
+        <span className={`${tagBase} ${tagTone.orange}`}>
           Impact {analytics.impactness}/10
         </span>
       </div>
 
       {keywordOptions.length ? (
-        <div className={styles.filterRow}>
-          <span className={styles.keywordLabel}>Keywords</span>
+        <div className={filterRow}>
+          <span className={keywordLabel}>Keywords</span>
           {keywordOptions.map((keyword) => (
             <button
               type="button"
-              className={styles.filterChip}
+              className={filterChip}
               key={keyword}
               onClick={() => onKeywordSelect?.(keyword)}
             >
@@ -129,9 +171,9 @@ export function FeedCard({ item, onKeywordSelect }: FeedCardProps) {
       ) : null}
 
       {item.photo_url ? (
-        <div className={styles.media}>
+        <div className={media}>
           <img
-            className={styles.mediaImg}
+            className={mediaImg}
             src={item.photo_url}
             alt=""
             loading="lazy"
@@ -139,38 +181,38 @@ export function FeedCard({ item, onKeywordSelect }: FeedCardProps) {
         </div>
       ) : null}
 
-      <h2 className={styles.headline}>{news.title}</h2>
-      {description ? <p className={styles.description}>{description}</p> : null}
+      <h2 className={headline}>{news.title}</h2>
+      {description ? <p className={descriptionStyle}>{description}</p> : null}
 
       {hasKeyElement ? (
-        <div className={styles.rateBox}>
-          <div className={styles.rateHeader}>
-            <span className={styles.rateDot} />
-            <span className={styles.rateTitle}>
+        <div className={rateBox}>
+          <div className={rateHeader}>
+            <span className={rateDot} />
+            <span className={rateTitle}>
               {formatLabel(analytics.key_element.type || 'Key update')}
             </span>
             {effectiveDate ? (
-              <span className={styles.rateEffective}>Effective {effectiveDate}</span>
+              <span className={rateEffective}>Effective {effectiveDate}</span>
             ) : null}
           </div>
 
           {analytics.key_element.description ? (
-            <p className={styles.keyDescription}>{analytics.key_element.description}</p>
+            <p className={keyDescription}>{analytics.key_element.description}</p>
           ) : null}
 
           {analytics.key_element.old_value || analytics.key_element.new_value ? (
-            <div className={styles.rateRow}>
+            <div className={rateRow}>
               {analytics.key_element.old_value ? (
-                <span className={styles.rateOld}>{analytics.key_element.old_value}</span>
+                <span className={rateOld}>{analytics.key_element.old_value}</span>
               ) : null}
               {analytics.key_element.old_value && analytics.key_element.new_value ? (
-                <span className={styles.rateArrow}>›</span>
+                <span className={rateArrow}>›</span>
               ) : null}
               {analytics.key_element.new_value ? (
-                <span className={styles.rateNew}>{analytics.key_element.new_value}</span>
+                <span className={rateNew}>{analytics.key_element.new_value}</span>
               ) : null}
               {analytics.key_element.financial_impact ? (
-                <span className={styles.rateDelta}>
+                <span className={rateDelta}>
                   {analytics.key_element.financial_impact}
                 </span>
               ) : null}
@@ -179,41 +221,41 @@ export function FeedCard({ item, onKeywordSelect }: FeedCardProps) {
         </div>
       ) : null}
 
-      <div className={styles.sentimentWrap}>
-        <div className={styles.sentimentTop}>
-          <span className={styles.sentimentLabel}>Sentiment</span>
-          <div className={styles.sentimentBar}>
+      <div className={sentimentWrap}>
+        <div className={sentimentTop}>
+          <span className={sentimentLabel}>Sentiment</span>
+          <div className={sentimentBar}>
             <span
-              className={styles.sentimentSegment}
+              className={sentimentSegment}
               style={{
                 width: `${analytics.sentiment.positive_pct}%`,
-                background: styles.colorTokens.sentimentGreen,
+                background: colorTokens.sentimentGreen,
               }}
             />
             <span
-              className={styles.sentimentSegment}
+              className={sentimentSegment}
               style={{
                 width: `${analytics.sentiment.neutral_pct}%`,
-                background: styles.colorTokens.sentimentBlue,
+                background: colorTokens.sentimentBlue,
               }}
             />
             <span
-              className={styles.sentimentSegment}
+              className={sentimentSegment}
               style={{
                 width: `${analytics.sentiment.negative_pct}%`,
-                background: styles.colorTokens.sentimentRed,
+                background: colorTokens.sentimentRed,
               }}
             />
           </div>
-          <span className={styles.sentimentValue}>{formatLabel(analytics.sentiment.overall)}</span>
+          <span className={sentimentValue}>{formatLabel(analytics.sentiment.overall)}</span>
         </div>
       </div>
 
-      <div className={styles.footer}>
-        <span className={styles.publishedDate}>{formatDate(news.published_at)}</span>
-        <span className={styles.footerSpacer} />
+      <div className={footer}>
+        <span className={publishedDate}>{formatDate(news.published_at)}</span>
+        <span className={footerSpacer} />
         <a
-          className={styles.fullArticle}
+          className={fullArticle}
           href={news.url}
           target="_blank"
           rel="noreferrer"
