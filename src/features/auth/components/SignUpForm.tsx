@@ -1,20 +1,18 @@
 import { useState, type FormEvent } from 'react'
+import { useNavigate } from '@tanstack/react-router'
+import { InputField } from '@/components/InputField'
+import { registerAccount } from '../authStorage'
 import { EyeIcon, EyeOffIcon, GoogleIcon } from './AuthIcons'
 import {
   divider,
   dividerLine,
   dividerText,
   eyeIcon,
-  field,
-  fieldControl,
-  fieldInput,
-  fieldLabel,
   forgotLink,
   form,
   googleButton,
   googleIcon,
   passwordButton,
-  required,
   signInButton,
   signUpPrompt,
   textLink,
@@ -22,62 +20,51 @@ import {
 
 export function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false)
+  const navigate = useNavigate()
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+    const formData = new FormData(event.currentTarget)
+    registerAccount(String(formData.get('email') ?? ''))
+    void navigate({ to: '/login', replace: true })
   }
 
   return (
     <form className={form} onSubmit={handleSubmit}>
-      <div className={field}>
-        <label className={fieldLabel} htmlFor="full-name">
-          Full Name <span className={required}>*</span>
-        </label>
-        <div className={fieldControl}>
-          <input
-            autoComplete="name"
-            className={fieldInput}
-            id="full-name"
-            name="fullName"
-            placeholder="name@email.com"
-            required
-            type="text"
-          />
-        </div>
-      </div>
+      <InputField
+        autoComplete="name"
+        id="full-name"
+        label="Full Name"
+        name="fullName"
+        placeholder="name@email.com"
+        required
+        type="text"
+      />
 
-      <div className={field}>
-        <label className={fieldLabel} htmlFor="signup-email">
-          Email <span className={required}>*</span>
-        </label>
-        <div className={fieldControl}>
-          <input
-            autoComplete="email"
-            className={fieldInput}
-            id="signup-email"
-            name="email"
-            placeholder="name@email.com"
-            required
-            type="email"
-          />
-        </div>
-      </div>
+      <InputField
+        autoComplete="email"
+        id="signup-email"
+        label="Email"
+        name="email"
+        placeholder="name@email.com"
+        required
+        type="email"
+      />
 
-      <div className={field}>
-        <label className={fieldLabel} htmlFor="signup-password">
-          Password <span className={required}>*</span>
-        </label>
-        <div className={fieldControl}>
-          <input
-            autoComplete="new-password"
-            className={fieldInput}
-            id="signup-password"
-            minLength={8}
-            name="password"
-            placeholder="your password"
-            required
-            type={showPassword ? 'text' : 'password'}
-          />
+      <InputField
+        autoComplete="new-password"
+        footer={
+          <a className={forgotLink} href="/forgot-password">
+            Forgot password?
+          </a>
+        }
+        id="signup-password"
+        label="Password"
+        minLength={8}
+        name="password"
+        placeholder="your password"
+        required
+        trailingElement={
           <button
             aria-label={showPassword ? 'Hide password' : 'Show password'}
             className={passwordButton}
@@ -90,11 +77,9 @@ export function SignUpForm() {
               <EyeOffIcon className={eyeIcon} />
             )}
           </button>
-        </div>
-        <a className={forgotLink} href="/forgot-password">
-          Forgot password?
-        </a>
-      </div>
+        }
+        type={showPassword ? 'text' : 'password'}
+      />
 
       <button className={signInButton} type="submit">
         Sign Up
