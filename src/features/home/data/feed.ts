@@ -8,6 +8,7 @@ export interface Item {
     news:      News;
     analytics: Analytics;
     time_ago:  string;
+    photo_url: string;
 }
 
 export interface Analytics {

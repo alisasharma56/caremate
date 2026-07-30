@@ -57,6 +57,7 @@ function keywordItemToFeedItem(item: KeywordFeedItem): Item {
       },
     },
     time_ago: item.time_ago,
+    photo_url: '',
   }
 }
 

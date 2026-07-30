@@ -128,6 +128,17 @@ export function FeedCard({ item, onKeywordSelect }: FeedCardProps) {
         </div>
       ) : null}
 
+      {item.photo_url ? (
+        <div className={styles.media}>
+          <img
+            className={styles.mediaImg}
+            src={item.photo_url}
+            alt=""
+            loading="lazy"
+          />
+        </div>
+      ) : null}
+
       <h2 className={styles.headline}>{news.title}</h2>
       {description ? <p className={styles.description}>{description}</p> : null}
 
