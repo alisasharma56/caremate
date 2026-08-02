@@ -37,7 +37,7 @@ export function WorkspaceSetup() {
       <section className={styles.content} aria-labelledby="workspace-title">
         <h1 className={styles.heading} id="workspace-title">Set up your workspace</h1>
         <p className={styles.intro}>Tell us about your business so we can configure your workspace correctly.</p>
-        <form className={styles.form} onSubmit={handleSubmit}>
+        <form className={styles.form} noValidate onSubmit={handleSubmit}>
           <div className={styles.uploadGroup}>
             <span className={styles.label}>Business logo</span>
             <div className={styles.uploadRow}>

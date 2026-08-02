@@ -77,6 +77,7 @@
 // }
 
 import { useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
 import * as styles from "./paymentwall.css.ts";
 import { PricingCard, type PricingFeature } from "@/components/PricingCard/PricingCard.tsx";
 import {AuthLogo} from "@/features/auth/components/AuthLogo.tsx";
@@ -149,6 +150,7 @@ const PLANS: PricingPlan[] = [
 
 export function Paymentwall() {
     const [selectedId, setSelectedId] = useState<string>("community");
+    const navigate = useNavigate();
 
     return (
         <div className={styles.page}>
@@ -174,6 +176,7 @@ export function Paymentwall() {
                         popular={plan.popular}
                         selected={selectedId === plan.id}
                         onSelect={() => setSelectedId(plan.id)}
+                        onContinue={() => void navigate({ to: "/onboarding/workspace" })}
                     />
                 ))}
             </div>
