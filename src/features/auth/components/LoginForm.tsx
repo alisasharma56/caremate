@@ -1,20 +1,18 @@
 import { useState, type FormEvent } from 'react'
+import { useNavigate } from '@tanstack/react-router'
+import { InputField } from '@/components/InputField'
+import { accountExists, hasCompletedOnboarding, signIn } from '../authStorage'
 import { EyeIcon, EyeOffIcon, GoogleIcon } from './AuthIcons'
 import {
   divider,
   dividerLine,
   dividerText,
   eyeIcon,
-  field,
-  fieldControl,
-  fieldInput,
-  fieldLabel,
   forgotLink,
   form,
   googleButton,
   googleIcon,
   passwordButton,
-  required,
   signInButton,
   signUpPrompt,
   textLink,
@@ -22,44 +20,50 @@ import {
 
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false)
+  const navigate = useNavigate()
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+    const formData = new FormData(event.currentTarget)
+    const email = String(formData.get('email') ?? '')
+
+    if (!accountExists(email)) {
+      void navigate({ to: '/signup' })
+      return
+    }
+
+    signIn(email)
+    void navigate({
+      to: hasCompletedOnboarding(email) ? '/' : '/onboarding',
+      replace: true,
+    })
   }
 
   return (
     <form className={form} onSubmit={handleSubmit}>
-      <div className={field}>
-        <label className={fieldLabel} htmlFor="email">
-          Email <span className={required}>*</span>
-        </label>
-        <div className={fieldControl}>
-          <input
-            autoComplete="email"
-            className={fieldInput}
-            id="email"
-            name="email"
-            placeholder="name@email.com"
-            required
-            type="email"
-          />
-        </div>
-      </div>
+      <InputField
+        autoComplete="email"
+        id="email"
+        label="Email"
+        name="email"
+        placeholder="name@email.com"
+        required
+        type="email"
+      />
 
-      <div className={field}>
-        <label className={fieldLabel} htmlFor="password">
-          Password <span className={required}>*</span>
-        </label>
-        <div className={fieldControl}>
-          <input
-            autoComplete="current-password"
-            className={fieldInput}
-            id="password"
-            name="password"
-            placeholder="your password"
-            required
-            type={showPassword ? 'text' : 'password'}
-          />
+      <InputField
+        autoComplete="current-password"
+        footer={
+          <a className={forgotLink} href="/forgot-password">
+            Forgot password?
+          </a>
+        }
+        id="password"
+        label="Password"
+        name="password"
+        placeholder="your password"
+        required
+        trailingElement={
           <button
             aria-label={showPassword ? 'Hide password' : 'Show password'}
             className={passwordButton}
@@ -68,11 +72,9 @@ export function LoginForm() {
           >
             {showPassword ? <EyeIcon className={eyeIcon} /> : <EyeOffIcon className={eyeIcon} />}
           </button>
-        </div>
-        <a className={forgotLink} href="/forgot-password">
-          Forgot password?
-        </a>
-      </div>
+        }
+        type={showPassword ? 'text' : 'password'}
+      />
 
       <button className={signInButton} type="submit">
         Sign In

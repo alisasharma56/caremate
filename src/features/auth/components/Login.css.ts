@@ -88,43 +88,6 @@ export const subtitle = style({
 
 export const form = style({ width: '100%' })
 
-export const field = style({
-  position: 'relative',
-  marginBottom: '39px',
-})
-
-export const fieldLabel = style({
-  display: 'block',
-  marginBottom: '11px',
-  color: ink,
-  fontSize: '19px',
-  fontWeight: 500,
-})
-
-export const required = style({ color: '#ef4444' })
-
-export const fieldControl = style({ position: 'relative' })
-
-export const fieldInput = style({
-  width: '100%',
-  height: '66px',
-  border: `1.5px solid ${inputBorder}`,
-  borderRadius: '23px',
-  outline: 'none',
-  padding: '0 58px 0 24px',
-  background: vars.color.base.white,
-  color: ink,
-  fontSize: '20px',
-  transition: 'border-color 150ms, box-shadow 150ms',
-  selectors: {
-    '&::placeholder': { color: placeholder },
-    '&:focus': {
-      borderColor: vars.color.primary.main,
-      boxShadow: '0 0 0 3px rgba(243, 170, 35, 0.14)',
-    },
-  },
-})
-
 export const passwordButton = style({
   position: 'absolute',
   top: '50%',

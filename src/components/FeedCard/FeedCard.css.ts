@@ -159,16 +159,17 @@ export const filterChip = style({
 // ---- media ----
 export const media = style({
     width: "100%",
-    aspectRatio: "16 / 9",
     borderRadius: radii.lg,
     overflow: "hidden",
     background: vars.color.gray.lighter,
+    display: "flex",
+    justifyContent: "center",
 });
 
 export const mediaImg = style({
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
+    width: "auto",
+    maxWidth: "100%",
+    height: "auto",
     display: "block",
 });
 
