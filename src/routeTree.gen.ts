@@ -8,19 +8,19 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as SignupRouteImport } from './routes/signup'
-import { Route as PaymentRouteImport } from './routes/payment'
-import { Route as OnboardingRouteImport } from './routes/onboarding'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as OnboardingIndexRouteImport } from './routes/onboarding.index'
-import { Route as OnboardingWorkspaceRouteImport } from './routes/onboarding.workspace'
-import { Route as OnboardingTopicsRouteImport } from './routes/onboarding.topics'
-import { Route as OnboardingSocialRouteImport } from './routes/onboarding.social'
-import { Route as OnboardingRoleRouteImport } from './routes/onboarding.role'
-import { Route as OnboardingLocationRouteImport } from './routes/onboarding.location'
-import { Route as OnboardingInviteTeamRouteImport } from './routes/onboarding.invite-team'
+import { Route as rootRouteImport } from '@/routes/__root'
+import { Route as SignupRouteImport } from '@/routes/signup'
+import { Route as PaymentRouteImport } from '@/routes/payment'
+import { Route as OnboardingRouteImport } from '@/routes/onboarding'
+import { Route as LoginRouteImport } from '@/routes/login'
+import { Route as IndexRouteImport } from '@/routes/index'
+import { Route as OnboardingIndexRouteImport } from '@/routes/onboarding.index'
+import { Route as OnboardingWorkspaceRouteImport } from '@/routes/onboarding.workspace'
+import { Route as OnboardingTopicsRouteImport } from '@/routes/onboarding.topics'
+import { Route as OnboardingSocialRouteImport } from '@/routes/onboarding.social'
+import { Route as OnboardingRoleRouteImport } from '@/routes/onboarding.role'
+import { Route as OnboardingLocationRouteImport } from '@/routes/onboarding.location'
+import { Route as OnboardingInviteTeamRouteImport } from '@/routes/onboarding.invite-team'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
