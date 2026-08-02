@@ -1,4 +1,4 @@
-import { type FormEvent } from 'react'
+import { useState, type FormEvent } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { InputField } from '@/components/InputField'
 import { completeOnboarding, getCurrentUser } from '../authStorage'
@@ -23,7 +23,7 @@ export function WorkspaceSetup() {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    finishOnboarding()
+    void navigate({ to: '/onboarding/invite-team' })
   }
 
   return (
@@ -56,6 +56,52 @@ export function WorkspaceSetup() {
           </div></fieldset>
           <button className={styles.submit} type="submit">Complete setup</button>
         </form>
+      </section>
+    </main>
+  )
+}
+
+export function InviteTeam() {
+  const navigate = useNavigate()
+  const [invitations, setInvitations] = useState<Array<{ email: string; role: string }>>([])
+
+  function finishOnboarding() {
+    const currentUser = getCurrentUser()
+    if (currentUser) completeOnboarding(currentUser)
+    void navigate({ to: '/', replace: true })
+  }
+
+  function addInvitation(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const form = event.currentTarget
+    const data = new FormData(form)
+    const email = String(data.get('inviteEmail') ?? '').trim()
+    const role = String(data.get('inviteRole') ?? 'Admin')
+
+    if (!email || invitations.some((invitation) => invitation.email.toLowerCase() === email.toLowerCase())) return
+    setInvitations((current) => [...current, { email, role }])
+    form.reset()
+  }
+
+  return (
+    <main className={`${styles.workspacePage} ${styles.mobile}`}>
+      <nav className={styles.topBar} aria-label="Setup progress">
+        <a className={styles.logo} href="/">CARE<span className={styles.logoAccent}>MATE</span></a>
+        <div className={styles.progress}><span>Step 2 of 3</span><span className={styles.progressBars} aria-hidden="true"><span className={`${styles.progressBar} ${styles.activeProgressBar}`} /><span className={`${styles.progressBar} ${styles.activeProgressBar}`} /><span className={styles.progressBar} /></span></div>
+        <button className={styles.skip} onClick={finishOnboarding} type="button">Skip</button>
+      </nav>
+      <section className={`${styles.content} ${styles.inviteContent}`} aria-labelledby="invite-title">
+        <h1 className={styles.heading} id="invite-title">Invite Your Team</h1>
+        <p className={styles.intro}>Add team members to your workspace. They'll receive an email invitation.</p>
+        <form className={styles.inviteForm} onSubmit={addInvitation}>
+          <div className={styles.inviteEmailGroup}><label className={styles.label} htmlFor="invite-email">Email Address <span className={styles.required}>*</span></label><input className={styles.inviteInput} id="invite-email" name="inviteEmail" placeholder="name@email.com" required type="email" /></div>
+          <div className={styles.inviteRoleGroup}><label className={styles.label} htmlFor="invite-role">Role <span className={styles.required}>*</span></label><div className={styles.selectWrap}><select className={styles.inviteSelect} defaultValue="Admin" id="invite-role" name="inviteRole"><option>Admin</option><option>Manager</option><option>Member</option></select><Chevron /></div></div>
+          <button className={styles.addButton} type="submit"><span aria-hidden="true">＋</span> Add</button>
+        </form>
+        <div className={styles.invitationList} aria-live="polite">
+          {invitations.length === 0 ? <p className={styles.emptyInvitations}>No invitations yet. Add team members above.</p> : invitations.map((invitation) => <div className={styles.invitation} key={invitation.email}><div><p className={styles.invitationEmail}>{invitation.email}</p><p className={styles.invitationRole}>{invitation.role}</p></div><button aria-label={`Remove ${invitation.email}`} className={styles.removeInvitation} onClick={() => setInvitations((current) => current.filter((item) => item.email !== invitation.email))} type="button">×</button></div>)}
+        </div>
+        <button className={styles.inboxButton} onClick={() => void navigate({ to: '/onboarding/social' })} type="button">Set Up My Inbox</button>
       </section>
     </main>
   )

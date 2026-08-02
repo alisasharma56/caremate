@@ -1,8 +1,5 @@
-import { createFileRoute } from '@tanstack/react-router'
-import {OnboardingStep1Page} from "@/features/OnboardingFinal";
+import { createFileRoute, Outlet } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/onboarding')({
-  component: OnboardingStep1Page,
+  component: Outlet,
 })
-
-
