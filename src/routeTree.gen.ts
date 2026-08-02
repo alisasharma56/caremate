@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from '@/routes/__root'
 import { Route as SignupRouteImport } from '@/routes/signup'
 import { Route as PaymentRouteImport } from '@/routes/payment'
+import { Route as OrganizationRouteImport } from '@/routes/organization'
 import { Route as OnboardingRouteImport } from '@/routes/onboarding'
 import { Route as LoginRouteImport } from '@/routes/login'
 import { Route as IndexRouteImport } from '@/routes/index'
@@ -23,6 +24,11 @@ const SignupRoute = SignupRouteImport.update({
 const PaymentRoute = PaymentRouteImport.update({
   id: '/payment',
   path: '/payment',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrganizationRoute = OrganizationRouteImport.update({
+  id: '/organization',
+  path: '/organization',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OnboardingRoute = OnboardingRouteImport.update({
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
+  '/organization': typeof OrganizationRoute
   '/payment': typeof PaymentRoute
   '/signup': typeof SignupRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
+  '/organization': typeof OrganizationRoute
   '/payment': typeof PaymentRoute
   '/signup': typeof SignupRoute
 }
@@ -60,21 +68,31 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
+  '/organization': typeof OrganizationRoute
   '/payment': typeof PaymentRoute
   '/signup': typeof SignupRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/onboarding' | '/payment' | '/signup'
+  fullPaths:
+    '/' | '/login' | '/onboarding' | '/organization' | '/payment' | '/signup'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/onboarding' | '/payment' | '/signup'
-  id: '__root__' | '/' | '/login' | '/onboarding' | '/payment' | '/signup'
+  to: '/' | '/login' | '/onboarding' | '/organization' | '/payment' | '/signup'
+  id:
+    | '__root__'
+    | '/'
+    | '/login'
+    | '/onboarding'
+    | '/organization'
+    | '/payment'
+    | '/signup'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
   OnboardingRoute: typeof OnboardingRoute
+  OrganizationRoute: typeof OrganizationRoute
   PaymentRoute: typeof PaymentRoute
   SignupRoute: typeof SignupRoute
 }
@@ -93,6 +111,13 @@ declare module '@tanstack/react-router' {
       path: '/payment'
       fullPath: '/payment'
       preLoaderRoute: typeof PaymentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/organization': {
+      id: '/organization'
+      path: '/organization'
+      fullPath: '/organization'
+      preLoaderRoute: typeof OrganizationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/onboarding': {
@@ -123,6 +148,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
   OnboardingRoute: OnboardingRoute,
+  OrganizationRoute: OrganizationRoute,
   PaymentRoute: PaymentRoute,
   SignupRoute: SignupRoute,
 }
