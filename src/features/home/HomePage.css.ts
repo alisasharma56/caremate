@@ -2,7 +2,7 @@ import { globalStyle, style } from '@vanilla-extract/css'
 import { vars } from '@/styles/theme/tokens.css'
 
 export const page = style({
-  minHeight: '100vh',
+  minHeight: 'calc(100vh - 48px)',
   padding: '40px',
   background: vars.color.base.white,
   color: vars.color.gray.darkest,

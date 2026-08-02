@@ -11,10 +11,13 @@
 import { Route as rootRouteImport } from '@/routes/__root'
 import { Route as SignupRouteImport } from '@/routes/signup'
 import { Route as PaymentRouteImport } from '@/routes/payment'
-import { Route as OrganizationRouteImport } from '@/routes/organization'
 import { Route as OnboardingRouteImport } from '@/routes/onboarding'
 import { Route as LoginRouteImport } from '@/routes/login'
 import { Route as IndexRouteImport } from '@/routes/index'
+import { Route as OnboardingIndexRouteImport } from '@/routes/onboarding.index'
+import { Route as OnboardingWorkspaceRouteImport } from '@/routes/onboarding.workspace'
+import { Route as OnboardingSocialRouteImport } from '@/routes/onboarding.social'
+import { Route as OnboardingInviteTeamRouteImport } from '@/routes/onboarding.invite-team'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -24,11 +27,6 @@ const SignupRoute = SignupRouteImport.update({
 const PaymentRoute = PaymentRouteImport.update({
   id: '/payment',
   path: '/payment',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OrganizationRoute = OrganizationRouteImport.update({
-  id: '/organization',
-  path: '/organization',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OnboardingRoute = OnboardingRouteImport.update({
@@ -46,53 +44,99 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OnboardingIndexRoute = OnboardingIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => OnboardingRoute,
+} as any)
+const OnboardingWorkspaceRoute = OnboardingWorkspaceRouteImport.update({
+  id: '/workspace',
+  path: '/workspace',
+  getParentRoute: () => OnboardingRoute,
+} as any)
+const OnboardingSocialRoute = OnboardingSocialRouteImport.update({
+  id: '/social',
+  path: '/social',
+  getParentRoute: () => OnboardingRoute,
+} as any)
+const OnboardingInviteTeamRoute = OnboardingInviteTeamRouteImport.update({
+  id: '/invite-team',
+  path: '/invite-team',
+  getParentRoute: () => OnboardingRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
-  '/onboarding': typeof OnboardingRoute
-  '/organization': typeof OrganizationRoute
+  '/onboarding': typeof OnboardingRouteWithChildren
   '/payment': typeof PaymentRoute
   '/signup': typeof SignupRoute
+  '/onboarding/invite-team': typeof OnboardingInviteTeamRoute
+  '/onboarding/social': typeof OnboardingSocialRoute
+  '/onboarding/workspace': typeof OnboardingWorkspaceRoute
+  '/onboarding/': typeof OnboardingIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
-  '/onboarding': typeof OnboardingRoute
-  '/organization': typeof OrganizationRoute
   '/payment': typeof PaymentRoute
   '/signup': typeof SignupRoute
+  '/onboarding/invite-team': typeof OnboardingInviteTeamRoute
+  '/onboarding/social': typeof OnboardingSocialRoute
+  '/onboarding/workspace': typeof OnboardingWorkspaceRoute
+  '/onboarding': typeof OnboardingIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
-  '/onboarding': typeof OnboardingRoute
-  '/organization': typeof OrganizationRoute
+  '/onboarding': typeof OnboardingRouteWithChildren
   '/payment': typeof PaymentRoute
   '/signup': typeof SignupRoute
+  '/onboarding/invite-team': typeof OnboardingInviteTeamRoute
+  '/onboarding/social': typeof OnboardingSocialRoute
+  '/onboarding/workspace': typeof OnboardingWorkspaceRoute
+  '/onboarding/': typeof OnboardingIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/login' | '/onboarding' | '/organization' | '/payment' | '/signup'
+    | '/'
+    | '/login'
+    | '/onboarding'
+    | '/payment'
+    | '/signup'
+    | '/onboarding/invite-team'
+    | '/onboarding/social'
+    | '/onboarding/workspace'
+    | '/onboarding/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/onboarding' | '/organization' | '/payment' | '/signup'
+  to:
+    | '/'
+    | '/login'
+    | '/payment'
+    | '/signup'
+    | '/onboarding/invite-team'
+    | '/onboarding/social'
+    | '/onboarding/workspace'
+    | '/onboarding'
   id:
     | '__root__'
     | '/'
     | '/login'
     | '/onboarding'
-    | '/organization'
     | '/payment'
     | '/signup'
+    | '/onboarding/invite-team'
+    | '/onboarding/social'
+    | '/onboarding/workspace'
+    | '/onboarding/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
-  OnboardingRoute: typeof OnboardingRoute
-  OrganizationRoute: typeof OrganizationRoute
+  OnboardingRoute: typeof OnboardingRouteWithChildren
   PaymentRoute: typeof PaymentRoute
   SignupRoute: typeof SignupRoute
 }
@@ -111,13 +155,6 @@ declare module '@tanstack/react-router' {
       path: '/payment'
       fullPath: '/payment'
       preLoaderRoute: typeof PaymentRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/organization': {
-      id: '/organization'
-      path: '/organization'
-      fullPath: '/organization'
-      preLoaderRoute: typeof OrganizationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/onboarding': {
@@ -141,14 +178,59 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/onboarding/': {
+      id: '/onboarding/'
+      path: '/'
+      fullPath: '/onboarding/'
+      preLoaderRoute: typeof OnboardingIndexRouteImport
+      parentRoute: typeof OnboardingRoute
+    }
+    '/onboarding/workspace': {
+      id: '/onboarding/workspace'
+      path: '/workspace'
+      fullPath: '/onboarding/workspace'
+      preLoaderRoute: typeof OnboardingWorkspaceRouteImport
+      parentRoute: typeof OnboardingRoute
+    }
+    '/onboarding/social': {
+      id: '/onboarding/social'
+      path: '/social'
+      fullPath: '/onboarding/social'
+      preLoaderRoute: typeof OnboardingSocialRouteImport
+      parentRoute: typeof OnboardingRoute
+    }
+    '/onboarding/invite-team': {
+      id: '/onboarding/invite-team'
+      path: '/invite-team'
+      fullPath: '/onboarding/invite-team'
+      preLoaderRoute: typeof OnboardingInviteTeamRouteImport
+      parentRoute: typeof OnboardingRoute
+    }
   }
 }
+
+interface OnboardingRouteChildren {
+  OnboardingInviteTeamRoute: typeof OnboardingInviteTeamRoute
+  OnboardingSocialRoute: typeof OnboardingSocialRoute
+  OnboardingWorkspaceRoute: typeof OnboardingWorkspaceRoute
+  OnboardingIndexRoute: typeof OnboardingIndexRoute
+}
+
+const OnboardingRouteChildren: OnboardingRouteChildren = {
+  OnboardingInviteTeamRoute: OnboardingInviteTeamRoute,
+  OnboardingSocialRoute: OnboardingSocialRoute,
+  OnboardingWorkspaceRoute: OnboardingWorkspaceRoute,
+  OnboardingIndexRoute: OnboardingIndexRoute,
+}
+
+const OnboardingRouteWithChildren = OnboardingRoute._addFileChildren(
+  OnboardingRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
-  OnboardingRoute: OnboardingRoute,
-  OrganizationRoute: OrganizationRoute,
+  OnboardingRoute: OnboardingRouteWithChildren,
   PaymentRoute: PaymentRoute,
   SignupRoute: SignupRoute,
 }

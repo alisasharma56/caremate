@@ -101,6 +101,30 @@ export const submit = style({
 
 export const fullWidth = style({ gridColumn: '1 / -1' })
 
+export const inviteContent = style({ marginTop: '153px' })
+export const inviteForm = style({
+  display: 'grid', gridTemplateColumns: '242px 110px 116px', alignItems: 'end', gap: '16px', marginTop: '36px',
+  '@media': { '(max-width: 620px)': { gridTemplateColumns: '1fr' } },
+})
+export const inviteEmailGroup = style({ display: 'grid', gap: '8px' })
+export const inviteRoleGroup = style({ display: 'grid', gap: '8px' })
+export const inviteInput = style({
+  width: '100%', height: '44px', border: `1px solid ${border}`, borderRadius: '15px', outline: 0, padding: '0 15px', color: '#101114', fontSize: '14px',
+  selectors: { '&::placeholder': { color: '#b7bdc9' }, '&:focus': { borderColor: vars.color.primary.main, boxShadow: '0 0 0 3px rgba(243,170,35,.14)' } },
+})
+export const inviteSelect = style([select, { height: '44px', color: '#b7bdc9' }])
+export const addButton = style({
+  height: '44px', border: 0, borderRadius: '15px', background: '#f8aa1c', color: '#fff', cursor: 'pointer', fontSize: '14px',
+  selectors: { '&:hover': { background: '#e99b0f' } },
+})
+export const invitationList = style({ display: 'grid', gap: '10px', marginTop: '32px' })
+export const emptyInvitations = style({ display: 'grid', placeItems: 'center', height: '64px', margin: 0, border: `1px dashed ${border}`, borderRadius: '14px', color: muted, fontSize: '14px' })
+export const invitation = style({ display: 'flex', alignItems: 'center', justifyContent: 'space-between', minHeight: '62px', padding: '10px 16px', border: `1px solid ${border}`, borderRadius: '15px' })
+export const invitationEmail = style({ margin: 0, fontSize: '14px' })
+export const invitationRole = style({ margin: '6px 0 0', color: muted, fontSize: '12px' })
+export const removeInvitation = style({ display: 'grid', placeItems: 'center', width: '32px', height: '32px', border: 0, borderRadius: '50%', background: '#f7f8f8', color: muted, cursor: 'pointer', fontSize: '24px', fontWeight: 300, lineHeight: 1 })
+export const inboxButton = style([submit, { width: '100%', marginTop: '32px' }])
+
 export const mobile = style({
   '@media': {
     '(max-width: 620px)': {
