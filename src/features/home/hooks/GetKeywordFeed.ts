@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import ApiClient from '@/services/api/ApiClient'
 
 export interface KeywordFeedItem {
-  id: number
+  news_id: number
   headline: string
   snippet: string
   published_date: string
@@ -15,6 +15,7 @@ export interface KeywordFeedItem {
   urgency: string
   impactness: number
   url: string
+  photo_url: string | null
 }
 
 export interface KeywordFeedResponse {

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { Item } from '@/features/home/data/feed'
 import ExternalLink from '@/components/icons/ExternalLink'
 import Flame from '@/components/icons/Flame'
@@ -48,6 +49,8 @@ import {
 interface FeedCardProps {
   item: Item
   onKeywordSelect?: (keyword: string) => void
+  onArticleSelect?: (newsId: number) => void
+  hideImage?: boolean
 }
 
 const avatarTones = ['blue', 'green', 'orange', 'red', 'gold'] as const
@@ -82,8 +85,14 @@ function readingTime(text: string) {
   return Math.max(1, Math.ceil(text.trim().split(/\s+/).filter(Boolean).length / 200))
 }
 
-export function FeedCard({ item, onKeywordSelect }: FeedCardProps) {
+export function FeedCard({
+  item,
+  onKeywordSelect,
+  onArticleSelect,
+  hideImage = false,
+}: FeedCardProps) {
   const { news, analytics, time_ago: timeAgo } = item
+  const [imageFailed, setImageFailed] = useState(false)
   const description = news.summary || news.snippet
   const states = analytics.affected_states.join(', ') || 'All States'
   const primaryTags = analytics.primary_filter.length
@@ -101,8 +110,25 @@ export function FeedCard({ item, onKeywordSelect }: FeedCardProps) {
   const keywordOptions = [...new Set(analytics.keywords.filter(Boolean))]
 
   return (
-    <article className={card}>
-      <div className={header}>
+    <article
+      aria-label={onArticleSelect ? `Go to ${news.title}` : undefined}
+      className={`${styles.card} ${onArticleSelect ? styles.clickableCard : ''}`}
+      id={`news-card-${news.id}`}
+      onClick={(event) => {
+        if (!(event.target as HTMLElement).closest('a, button')) {
+          onArticleSelect?.(news.id)
+        }
+      }}
+      onKeyDown={(event) => {
+        if (event.target === event.currentTarget && (event.key === 'Enter' || event.key === ' ')) {
+          event.preventDefault()
+          onArticleSelect?.(news.id)
+        }
+      }}
+      role={onArticleSelect ? 'button' : undefined}
+      tabIndex={onArticleSelect ? 0 : undefined}
+    >
+      <div className={styles.header}>
         <span
           className={`${avatar} ${avatarToneStyle[sourceAvatarTone]}`}
           aria-hidden="true"
@@ -167,6 +193,19 @@ export function FeedCard({ item, onKeywordSelect }: FeedCardProps) {
               {formatLabel(keyword)}
             </button>
           ))}
+        </div>
+      ) : null}
+
+      {!hideImage && item.photo_url && !imageFailed ? (
+        <div className={styles.media}>
+          <img
+            alt=""
+            className={styles.mediaImg}
+            decoding="async"
+            loading="lazy"
+            onError={() => setImageFailed(true)}
+            src={item.photo_url}
+          />
         </div>
       ) : null}
 

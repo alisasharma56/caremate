@@ -14,7 +14,6 @@ export const card = style({
     textAlign: "left",
     background: colors.surface,
     border: `1px solid ${colors.border}`,
-    borderRadius: radii.xl,
     padding: space[4],
     display: "flex",
     flexDirection: "column",

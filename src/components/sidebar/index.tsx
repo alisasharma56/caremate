@@ -12,7 +12,6 @@ import settingIcon from '@/assets/icon1/setting/index.svg'
 import socialListeningIcon from '@/assets/icon1/social-listening/index.svg'
 import workersIcon from '@/assets/icon1/workers/index.svg'
 import { styles } from '@/components/sidebar/Sidebar.style'
-import { useNavigate } from '@tanstack/react-router'
 
 type SidebarItem = {
   label: string
@@ -20,7 +19,6 @@ type SidebarItem = {
   active?: boolean
   badge?: number
 }
-
 type SidebarSection = {
   label: string
   items: SidebarItem[]
@@ -101,24 +99,22 @@ export function Sidebar({ collapsed = false }: SidebarProps) {
         </button>
       </section> : null}
 
-        <div style={{ ...styles.profile, ...(collapsed ? styles.collapsedProfile : undefined) }}>
-          <button
-              type="button"
-              style={{ padding: 0, border: 'none', background: 'none', cursor: 'pointer' }}
-              onClick={() => navigate({ to: '/onboarding' })}
-              aria-label="Go to onboarding"
-          >
+        <button
+          aria-label="Open onboarding"
+          onClick={() => navigate({ to: '/onboarding' })}
+          style={{
+            ...styles.profile,
+            ...styles.profileButton,
+            ...(collapsed ? styles.collapsedProfile : undefined),
+          }}
+          type="button"
+        >
             <div style={styles.avatar}>SK</div>
-          </button>
-          {!collapsed ? <button
-              type="button"
-              style={{ padding: 0, border: 'none', background: 'none', cursor: 'pointer', textAlign: 'left', font: 'inherit' }}
-              onClick={() => navigate({ to: '/onboarding/role' })}
-          >
+          {!collapsed ? <div>
             <p style={styles.profileName}>Prabin Gurung</p>
             <p style={styles.profilePlan}>Community plan</p>
-          </button> : null}
-        </div>
+          </div> : null}
+        </button>
       </aside>
   )
 }

@@ -4,3 +4,4 @@ import { LocationOnboardingPage } from '@/features/OnboardingFinal/RoutedSteps'
 export const Route = createFileRoute('/onboarding/location')({
   component: LocationOnboardingPage,
 })
+
