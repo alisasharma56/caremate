@@ -1,6 +1,10 @@
 import { style } from "@vanilla-extract/css";
 import { space } from "@/styles/theme/tokens.css";
 
+export const scrollWrap = style({
+    flexShrink: 0,
+});
+
 export const stack = style({
     position: "sticky",
     top: space[4],

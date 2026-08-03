@@ -1,5 +1,5 @@
 import { style, styleVariants } from "@vanilla-extract/css";
-import { vars, colors, space, radii } from "@/styles/theme/tokens.css";
+import { vars, colors, space } from "@/styles/theme/tokens.css";
 
 export const grid = style({
     display: "grid",

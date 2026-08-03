@@ -1,3 +1,4 @@
+import { useNavigate } from '@tanstack/react-router'
 import analyticsIcon from '@/assets/icon1/analytics/index.svg'
 import alertsIcon from '@/assets/icon1/alerts/index.svg'
 import breakingIcon from '@/assets/icon1/breaking/index.svg'

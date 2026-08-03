@@ -7,6 +7,7 @@ import {
   avatar,
   avatarTone as avatarToneStyle,
   card,
+  clickableCard,
   colorTokens,
   description as descriptionStyle,
   dot,
@@ -112,7 +113,7 @@ export function FeedCard({
   return (
     <article
       aria-label={onArticleSelect ? `Go to ${news.title}` : undefined}
-      className={`${styles.card} ${onArticleSelect ? styles.clickableCard : ''}`}
+      className={`${card} ${onArticleSelect ? clickableCard : ''}`}
       id={`news-card-${news.id}`}
       onClick={(event) => {
         if (!(event.target as HTMLElement).closest('a, button')) {
@@ -128,7 +129,7 @@ export function FeedCard({
       role={onArticleSelect ? 'button' : undefined}
       tabIndex={onArticleSelect ? 0 : undefined}
     >
-      <div className={styles.header}>
+      <div className={header}>
         <span
           className={`${avatar} ${avatarToneStyle[sourceAvatarTone]}`}
           aria-hidden="true"
@@ -197,25 +198,14 @@ export function FeedCard({
       ) : null}
 
       {!hideImage && item.photo_url && !imageFailed ? (
-        <div className={styles.media}>
+        <div className={media}>
           <img
             alt=""
-            className={styles.mediaImg}
+            className={mediaImg}
             decoding="async"
             loading="lazy"
             onError={() => setImageFailed(true)}
             src={item.photo_url}
-          />
-        </div>
-      ) : null}
-
-      {item.photo_url ? (
-        <div className={media}>
-          <img
-            className={mediaImg}
-            src={item.photo_url}
-            alt=""
-            loading="lazy"
           />
         </div>
       ) : null}
