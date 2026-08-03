@@ -2,12 +2,14 @@ export interface Welcome {
     items:       Item[];
     next_cursor: number;
     has_more:    boolean;
+    anchor_id?:  number;
 }
 
 export interface Item {
     news:      News;
     analytics: Analytics;
     time_ago:  string;
+    photo_url?: string | null;
 }
 
 export interface Analytics {
@@ -57,4 +59,6 @@ export interface News {
     categories:     string[] | null;
     url:            string;
     item_type:      string;
+    image_filename?: string;
+    image_topic?:    string;
 }

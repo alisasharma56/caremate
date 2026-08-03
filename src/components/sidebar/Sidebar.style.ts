@@ -14,6 +14,10 @@ export const styles = {
     overflow: 'hidden',
     position: 'sticky',
     top: 0,
+    transition: 'width 180ms ease',
+  },
+  collapsedAside: {
+    width: '72px',
   },
   brand: {
     display: 'flex',
@@ -32,6 +36,12 @@ export const styles = {
   brandAccent: {
     color: vars.color.primary.main,
   },
+  collapsedBrand: {
+    justifyContent: 'center',
+    padding: 0,
+    fontSize: vars.fontSize['2xl'],
+    letterSpacing: 0,
+  },
   navigation: {
     display: 'flex',
     flex: 1,
@@ -39,6 +49,11 @@ export const styles = {
     gap: '14px',
     minHeight: 0,
     padding: '18px 18px 12px',
+  },
+  collapsedNavigation: {
+    alignItems: 'stretch',
+    gap: '14px',
+    padding: '18px 12px 12px',
   },
   section: {
     display: 'flex',
@@ -69,6 +84,11 @@ export const styles = {
   activeItem: {
     backgroundColor: vars.color.base.secondary,
     color: vars.color.gray.darkest,
+  },
+  collapsedItem: {
+    justifyContent: 'center',
+    minHeight: '42px',
+    padding: 0,
   },
   icon: {
     width: '18px',
@@ -129,6 +149,19 @@ export const styles = {
     flex: '0 0 auto',
     padding: '22px 24px',
     borderTop: `1px solid ${vars.color.gray.lighter}`,
+  },
+  profileButton: {
+    width: '100%',
+    borderRight: 0,
+    borderBottom: 0,
+    borderLeft: 0,
+    background: 'transparent',
+    cursor: 'pointer',
+    textAlign: 'left',
+  },
+  collapsedProfile: {
+    justifyContent: 'center',
+    padding: '18px 0',
   },
   avatar: {
     display: 'grid',

@@ -12,6 +12,7 @@ import settingIcon from '@/assets/icon1/setting/index.svg'
 import socialListeningIcon from '@/assets/icon1/social-listening/index.svg'
 import workersIcon from '@/assets/icon1/workers/index.svg'
 import { styles } from '@/components/sidebar/Sidebar.style'
+import { useNavigate } from '@tanstack/react-router'
 
 type SidebarItem = {
   label: string
@@ -19,7 +20,6 @@ type SidebarItem = {
   active?: boolean
   badge?: number
 }
-
 type SidebarSection = {
   label: string
   items: SidebarItem[]
@@ -54,51 +54,68 @@ const sections: SidebarSection[] = [
   },
 ]
 
-export function Sidebar() {
-  return (
-    <aside style={styles.aside} aria-label="Primary navigation">
-      <div style={styles.brand}>
-        CARE<span style={styles.brandAccent}>MATE</span>
-      </div>
+type SidebarProps = {
+  collapsed?: boolean
+}
 
-      <nav style={styles.navigation}>
-        {sections.map((section) => (
-          <div key={section.label} style={styles.section}>
-            <div style={styles.sectionLabel}>{section.label}</div>
+export function Sidebar({ collapsed = false }: SidebarProps) {
+  const navigate = useNavigate()
+  return (
+      <aside style={{ ...styles.aside, ...(collapsed ? styles.collapsedAside : undefined) }} aria-label="Primary navigation">
+        <div style={{ ...styles.brand, ...(collapsed ? styles.collapsedBrand : undefined) }}>
+          {collapsed ? <span aria-label="CareMate">C</span> : <>CARE<span style={styles.brandAccent}>MATE</span></>}
+        </div>
+
+        <nav style={{ ...styles.navigation, ...(collapsed ? styles.collapsedNavigation : undefined) }}>
+          {sections.map((section) => (
+              <div key={section.label} style={styles.section}>
+                {!collapsed ? <div style={styles.sectionLabel}>{section.label}</div> : null}
             {section.items.map((item) => (
               <a
-                key={item.label}
+                aria-label={collapsed ? item.label : undefined}
+                        key={item.label}
+                        title={collapsed ? item.label : undefined}
                 href="/"
                 style={{
                   ...styles.item,
+                  ...(collapsed ? styles.collapsedItem : undefined),
                   ...(item.active ? styles.activeItem : undefined),
-                }}
-                aria-current={item.active ? 'page' : undefined}
-              >
-                <img src={item.icon} alt="" aria-hidden="true" style={styles.icon} />
-                <span>{item.label}</span>
-                {item.badge ? <span style={styles.badge}>{item.badge}</span> : null}
+                        }}
+                        aria-current={item.active ? 'page' : undefined}
+                    >
+                      <img src={item.icon} alt="" aria-hidden="true" style={styles.icon} />
+                      {!collapsed ? <span>{item.label}</span> : null}
+                      {!collapsed && item.badge ? <span style={styles.badge}>{item.badge}</span> : null}
               </a>
             ))}
           </div>
         ))}
       </nav>
 
-      <section style={styles.proCard} aria-label="Upgrade plan">
+        {!collapsed ? <section style={styles.proCard} aria-label="Upgrade plan">
         <h2 style={styles.proTitle}>Upgrade to Pro</h2>
         <p style={styles.proText}>CRM, roster, AI chat &amp; more.</p>
-        <button type="button" style={styles.proButton}>
+        <button type="button" style={styles.proButton} onClick={() => navigate({ to: '/payment' })}>
           Upgrade Now
         </button>
-      </section>
+      </section> : null}
 
-      <footer style={styles.profile}>
-        <div style={styles.avatar}>SK</div>
-        <div>
-          <p style={styles.profileName}>Prabin Gurung</p>
-          <p style={styles.profilePlan}>Community plan</p>
-        </div>
-      </footer>
-    </aside>
+        <button
+          aria-label="Open onboarding"
+          onClick={() => navigate({ to: '/onboarding' })}
+          style={{
+            ...styles.profile,
+            ...styles.profileButton,
+            ...(collapsed ? styles.collapsedProfile : undefined),
+          }}
+          type="button"
+        >
+            <div style={styles.avatar}>SK</div>
+          {!collapsed ? <div>
+            <p style={styles.profileName}>Prabin Gurung</p>
+            <p style={styles.profilePlan}>Community plan</p>
+          </div> : null}
+        </button>
+      </aside>
   )
 }

@@ -13,9 +13,14 @@ export const stack = style({
     display: "flex",
     flexDirection: "column",
     gap: space[4],
-    paddingRight: space[2],
+    paddingRight: 40,
     paddingBottom: space[4],
     backgroundColor: "White",
+    '@media': {
+        '(max-width: 1100px)': {
+            paddingRight: space[4],
+        },
+    },
     selectors: {
         "&::-webkit-scrollbar": {
             width: 6,

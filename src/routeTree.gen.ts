@@ -8,14 +8,33 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from '@/routes/__root'
-import { Route as SignupRouteImport } from '@/routes/signup'
-import { Route as LoginRouteImport } from '@/routes/login'
-import { Route as IndexRouteImport } from '@/routes/index'
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as SignupRouteImport } from './routes/signup'
+import { Route as PaymentRouteImport } from './routes/payment'
+import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as OnboardingIndexRouteImport } from './routes/onboarding.index'
+import { Route as OnboardingWorkspaceRouteImport } from './routes/onboarding.workspace'
+import { Route as OnboardingTopicsRouteImport } from './routes/onboarding.topics'
+import { Route as OnboardingSocialRouteImport } from './routes/onboarding.social'
+import { Route as OnboardingRoleRouteImport } from './routes/onboarding.role'
+import { Route as OnboardingLocationRouteImport } from './routes/onboarding.location'
+import { Route as OnboardingInviteTeamRouteImport } from './routes/onboarding.invite-team'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
   path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaymentRoute = PaymentRouteImport.update({
+  id: '/payment',
+  path: '/payment',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingRoute = OnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -28,34 +47,133 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OnboardingIndexRoute = OnboardingIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => OnboardingRoute,
+} as any)
+const OnboardingWorkspaceRoute = OnboardingWorkspaceRouteImport.update({
+  id: '/workspace',
+  path: '/workspace',
+  getParentRoute: () => OnboardingRoute,
+} as any)
+const OnboardingTopicsRoute = OnboardingTopicsRouteImport.update({
+  id: '/topics',
+  path: '/topics',
+  getParentRoute: () => OnboardingRoute,
+} as any)
+const OnboardingSocialRoute = OnboardingSocialRouteImport.update({
+  id: '/social',
+  path: '/social',
+  getParentRoute: () => OnboardingRoute,
+} as any)
+const OnboardingRoleRoute = OnboardingRoleRouteImport.update({
+  id: '/role',
+  path: '/role',
+  getParentRoute: () => OnboardingRoute,
+} as any)
+const OnboardingLocationRoute = OnboardingLocationRouteImport.update({
+  id: '/location',
+  path: '/location',
+  getParentRoute: () => OnboardingRoute,
+} as any)
+const OnboardingInviteTeamRoute = OnboardingInviteTeamRouteImport.update({
+  id: '/invite-team',
+  path: '/invite-team',
+  getParentRoute: () => OnboardingRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/onboarding': typeof OnboardingRouteWithChildren
+  '/payment': typeof PaymentRoute
   '/signup': typeof SignupRoute
+  '/onboarding/invite-team': typeof OnboardingInviteTeamRoute
+  '/onboarding/location': typeof OnboardingLocationRoute
+  '/onboarding/role': typeof OnboardingRoleRoute
+  '/onboarding/social': typeof OnboardingSocialRoute
+  '/onboarding/topics': typeof OnboardingTopicsRoute
+  '/onboarding/workspace': typeof OnboardingWorkspaceRoute
+  '/onboarding/': typeof OnboardingIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/payment': typeof PaymentRoute
   '/signup': typeof SignupRoute
+  '/onboarding/invite-team': typeof OnboardingInviteTeamRoute
+  '/onboarding/location': typeof OnboardingLocationRoute
+  '/onboarding/role': typeof OnboardingRoleRoute
+  '/onboarding/social': typeof OnboardingSocialRoute
+  '/onboarding/topics': typeof OnboardingTopicsRoute
+  '/onboarding/workspace': typeof OnboardingWorkspaceRoute
+  '/onboarding': typeof OnboardingIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/onboarding': typeof OnboardingRouteWithChildren
+  '/payment': typeof PaymentRoute
   '/signup': typeof SignupRoute
+  '/onboarding/invite-team': typeof OnboardingInviteTeamRoute
+  '/onboarding/location': typeof OnboardingLocationRoute
+  '/onboarding/role': typeof OnboardingRoleRoute
+  '/onboarding/social': typeof OnboardingSocialRoute
+  '/onboarding/topics': typeof OnboardingTopicsRoute
+  '/onboarding/workspace': typeof OnboardingWorkspaceRoute
+  '/onboarding/': typeof OnboardingIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/signup'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/onboarding'
+    | '/payment'
+    | '/signup'
+    | '/onboarding/invite-team'
+    | '/onboarding/location'
+    | '/onboarding/role'
+    | '/onboarding/social'
+    | '/onboarding/topics'
+    | '/onboarding/workspace'
+    | '/onboarding/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/signup'
-  id: '__root__' | '/' | '/login' | '/signup'
+  to:
+    | '/'
+    | '/login'
+    | '/payment'
+    | '/signup'
+    | '/onboarding/invite-team'
+    | '/onboarding/location'
+    | '/onboarding/role'
+    | '/onboarding/social'
+    | '/onboarding/topics'
+    | '/onboarding/workspace'
+    | '/onboarding'
+  id:
+    | '__root__'
+    | '/'
+    | '/login'
+    | '/onboarding'
+    | '/payment'
+    | '/signup'
+    | '/onboarding/invite-team'
+    | '/onboarding/location'
+    | '/onboarding/role'
+    | '/onboarding/social'
+    | '/onboarding/topics'
+    | '/onboarding/workspace'
+    | '/onboarding/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
+  OnboardingRoute: typeof OnboardingRouteWithChildren
+  PaymentRoute: typeof PaymentRoute
   SignupRoute: typeof SignupRoute
 }
 
@@ -66,6 +184,20 @@ declare module '@tanstack/react-router' {
       path: '/signup'
       fullPath: '/signup'
       preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/payment': {
+      id: '/payment'
+      path: '/payment'
+      fullPath: '/payment'
+      preLoaderRoute: typeof PaymentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding': {
+      id: '/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof OnboardingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -82,12 +214,87 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/onboarding/': {
+      id: '/onboarding/'
+      path: '/'
+      fullPath: '/onboarding/'
+      preLoaderRoute: typeof OnboardingIndexRouteImport
+      parentRoute: typeof OnboardingRoute
+    }
+    '/onboarding/workspace': {
+      id: '/onboarding/workspace'
+      path: '/workspace'
+      fullPath: '/onboarding/workspace'
+      preLoaderRoute: typeof OnboardingWorkspaceRouteImport
+      parentRoute: typeof OnboardingRoute
+    }
+    '/onboarding/topics': {
+      id: '/onboarding/topics'
+      path: '/topics'
+      fullPath: '/onboarding/topics'
+      preLoaderRoute: typeof OnboardingTopicsRouteImport
+      parentRoute: typeof OnboardingRoute
+    }
+    '/onboarding/social': {
+      id: '/onboarding/social'
+      path: '/social'
+      fullPath: '/onboarding/social'
+      preLoaderRoute: typeof OnboardingSocialRouteImport
+      parentRoute: typeof OnboardingRoute
+    }
+    '/onboarding/role': {
+      id: '/onboarding/role'
+      path: '/role'
+      fullPath: '/onboarding/role'
+      preLoaderRoute: typeof OnboardingRoleRouteImport
+      parentRoute: typeof OnboardingRoute
+    }
+    '/onboarding/location': {
+      id: '/onboarding/location'
+      path: '/location'
+      fullPath: '/onboarding/location'
+      preLoaderRoute: typeof OnboardingLocationRouteImport
+      parentRoute: typeof OnboardingRoute
+    }
+    '/onboarding/invite-team': {
+      id: '/onboarding/invite-team'
+      path: '/invite-team'
+      fullPath: '/onboarding/invite-team'
+      preLoaderRoute: typeof OnboardingInviteTeamRouteImport
+      parentRoute: typeof OnboardingRoute
+    }
   }
 }
+
+interface OnboardingRouteChildren {
+  OnboardingInviteTeamRoute: typeof OnboardingInviteTeamRoute
+  OnboardingLocationRoute: typeof OnboardingLocationRoute
+  OnboardingRoleRoute: typeof OnboardingRoleRoute
+  OnboardingSocialRoute: typeof OnboardingSocialRoute
+  OnboardingTopicsRoute: typeof OnboardingTopicsRoute
+  OnboardingWorkspaceRoute: typeof OnboardingWorkspaceRoute
+  OnboardingIndexRoute: typeof OnboardingIndexRoute
+}
+
+const OnboardingRouteChildren: OnboardingRouteChildren = {
+  OnboardingInviteTeamRoute: OnboardingInviteTeamRoute,
+  OnboardingLocationRoute: OnboardingLocationRoute,
+  OnboardingRoleRoute: OnboardingRoleRoute,
+  OnboardingSocialRoute: OnboardingSocialRoute,
+  OnboardingTopicsRoute: OnboardingTopicsRoute,
+  OnboardingWorkspaceRoute: OnboardingWorkspaceRoute,
+  OnboardingIndexRoute: OnboardingIndexRoute,
+}
+
+const OnboardingRouteWithChildren = OnboardingRoute._addFileChildren(
+  OnboardingRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
+  OnboardingRoute: OnboardingRouteWithChildren,
+  PaymentRoute: PaymentRoute,
   SignupRoute: SignupRoute,
 }
 export const routeTree = rootRouteImport
