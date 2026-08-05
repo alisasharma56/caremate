@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { InputField } from '@/components/InputField'
-import { registerAccount } from '../authStorage'
+import { registerAccount, signIn } from '../authStorage'
 import { EyeIcon, EyeOffIcon, GoogleIcon } from './AuthIcons'
 import {
   divider,
@@ -25,8 +25,11 @@ export function SignUpForm() {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
-    registerAccount(String(formData.get('email') ?? ''))
-    void navigate({ to: '/login', replace: true })
+    const email = String(formData.get('email') ?? '')
+
+    registerAccount(email)
+    signIn(email)
+    void navigate({ to: '/onboarding', replace: true })
   }
 
   return (

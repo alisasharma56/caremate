@@ -96,7 +96,7 @@ export function Sidebar({ collapsed = false }: SidebarProps) {
         {!collapsed ? <section style={styles.proCard} aria-label="Upgrade plan">
         <h2 style={styles.proTitle}>Upgrade to Pro</h2>
         <p style={styles.proText}>CRM, roster, AI chat &amp; more.</p>
-        <button type="button" style={styles.proButton}onClick={() => navigate({ to: '/payment' })}>
+        <button type="button" style={styles.proButton} onClick={() => navigate({ to: '/payment' })}>
           Upgrade Now
         </button>
       </section> : null}
@@ -113,7 +113,7 @@ export function Sidebar({ collapsed = false }: SidebarProps) {
           {!collapsed ? <button
               type="button"
               style={{ padding: 0, border: 'none', background: 'none', cursor: 'pointer', textAlign: 'left', font: 'inherit' }}
-              onClick={() => navigate({ to: '/login' })}
+              onClick={() => navigate({ to: '/onboarding' })}
           >
             <p style={styles.profileName}>Prabin Gurung</p>
             <p style={styles.profilePlan}>Community plan</p>
