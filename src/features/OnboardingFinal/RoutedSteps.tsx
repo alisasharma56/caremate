@@ -1,9 +1,9 @@
 import { useNavigate } from '@tanstack/react-router'
-import { LocationStep } from './LocationStep/LocationStep'
+import { LocationStep } from '@/components/LocationStep/LocationStep'
 import { OnboardingLayout } from './OnboardingLayout/OnboardingLayout'
-import { OnboardingStep } from './OnboardingLayout/OnboardingStep'
-import { RoleStep } from './RoleStep/RoleStep'
-import { TopicsStep } from './TopicStep/TopicStep'
+import { OnboardingStep } from '@/components/OnboardingLayout/OnboardingStep'
+import { RoleStep } from '@/components/RoleStep/RoleStep'
+import { TopicsStep } from '@/components/TopicStep/TopicStep'
 
 export function RoleOnboardingPage() {
   const navigate = useNavigate()

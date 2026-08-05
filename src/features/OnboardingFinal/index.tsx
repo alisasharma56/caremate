@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { OnboardingLayout } from "@/components/OnboardingLayout/OnboardingLayout.tsx";
 import { OnboardingStep } from "@/components/OnboardingLayout/OnboardingStep.ts";
-import { RoleStep } from "@/features/OnboardingFinal/RoleStep/RoleStep.tsx";
-import { TopicsStep } from "@/features/OnboardingFinal/TopicStep/TopicStep.tsx";
-import { LocationStep } from "@/features/OnboardingFinal/LocationStep/LocationStep.tsx";
+import { RoleStep } from "@/components/RoleStep/RoleStep.tsx";
+import { TopicsStep } from "@/components/TopicStep/TopicStep.tsx";
+import { LocationStep } from "@/components/LocationStep/LocationStep.tsx";
 
 interface OnboardingStep1PageProps {
     onComplete?: () => void;

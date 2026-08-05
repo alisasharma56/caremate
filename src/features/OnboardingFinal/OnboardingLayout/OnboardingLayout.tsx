@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import * as styles from "./OnboardingLayout.css.ts";
-import { OnboardingStep, ONBOARDING_STEP_COUNT } from "./OnboardingStep.ts";
+import { OnboardingStep, ONBOARDING_STEP_COUNT } from "@/components/OnboardingLayout/OnboardingStep.ts";
 import {AuthLogo} from "@/features/auth/components/AuthLogo.tsx";
 
 interface OnboardingLayoutProps {
