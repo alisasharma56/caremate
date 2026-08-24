@@ -30,3 +30,5 @@ export function BarRow({ label, percent, tone, showArrow, delta, deltaTone }: Ba
         </div>
     );
 }
+
+
