@@ -319,6 +319,8 @@ import {
 interface FeedCardProps {
   item: Item
   onKeywordSelect?: (keyword: string) => void
+    onArticleSelect?: (newsId: number) => void
+    hideImage?: boolean
 }
 
 const avatarTones = ['blue', 'green', 'orange', 'red', 'gold'] as const
@@ -354,7 +356,7 @@ function readingTime(text: string) {
   return Math.max(1, Math.ceil(text.trim().split(/\s+/).filter(Boolean).length / 200))
 }
 
-export function FeedCard({ item, onKeywordSelect }: FeedCardProps) {
+export function FeedCard({ item, onKeywordSelect,onArticleSelect, hideImage }: FeedCardProps) {
   const { news, analytics, time_ago: timeAgo } = item
   const description = news.summary || news.snippet
   const states = (analytics.affected_states ?? []).join(', ') || 'All States'
@@ -442,7 +444,7 @@ export function FeedCard({ item, onKeywordSelect }: FeedCardProps) {
             </div>
         ) : null}
 
-        {item.photo_url ? (
+        {!hideImage && item.photo_url? (
             <div className={media}>
               <img
                   className={mediaImg}
@@ -453,7 +455,11 @@ export function FeedCard({ item, onKeywordSelect }: FeedCardProps) {
             </div>
         ) : null}
 
-        <h2 className={headline}>{news.title}</h2>
+          <h2
+              className={headline}
+              onClick={onArticleSelect ? () => onArticleSelect(news.id) : undefined}
+              style={onArticleSelect ? { cursor: 'pointer' } : undefined}
+          >{news.title}</h2>
         {description ? <p className={descriptionStyle}>{description}</p> : null}
 
         {hasKeyElement ? (
