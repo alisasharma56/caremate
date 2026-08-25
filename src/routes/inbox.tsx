@@ -1,8 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router'
-import {InboxPage} from "@/features/Inbox/InboxPage/InboxPage.tsx";
+import {InboxSidebar} from "@/features/Inbox/Inboxsidebar/Inboxsidebar.tsx";
+
 
 
 export const Route = createFileRoute('/inbox')({
-  component: InboxPage,
+  component: InboxSidebar,
 })
 
