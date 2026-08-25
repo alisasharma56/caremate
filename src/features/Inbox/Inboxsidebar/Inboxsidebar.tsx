@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 
 import * as styles from "./Inboxsidebar.css.ts";
@@ -7,31 +6,11 @@ import InstagramIcon from "@/components/icons/Instagram";
 import LinkedinIcon from "@/components/icons/LinkedIn";
 import Mail from "@/components/icons/Mail";
 import Search from "@/components/icons/Search";
+import { CONVERSATIONS, type Platform } from "../conversation.ts";
+import { useInboxSelection } from "../Inboxselectioncontext.tsx";
 
-type Platform = "facebook" | "instagram" | "linkedin" | "email";
 type StatusFilter = "all" | "needsYou" | "aiActive";
 type PlatformFilter = "all" | "facebook" | "instagram";
-
-interface Conversation {
-    id: string;
-    name: string;
-    initials: string;
-    avatarColor: string;
-    platform: Platform;
-    status: "needsYou" | "aiActive";
-    preview: string;
-    time: string;
-}
-
-const CONVERSATIONS: Conversation[] = [
-    { id: "1", name: "Prabin Gurung", initials: "PG", avatarColor: "#1B998B", platform: "facebook", status: "needsYou", preview: "Plan review not confirmed - urgent...", time: "2m" },
-    { id: "2", name: "Sanjay Pahari", initials: "SP", avatarColor: "#3FA34D", platform: "instagram", status: "needsYou", preview: "Plan review not confirmed - urgent...", time: "2m" },
-    { id: "3", name: "Subash Poudel", initials: "SP", avatarColor: "#E8A33D", platform: "linkedin", status: "needsYou", preview: "Plan review not confirmed - urgent...", time: "2m" },
-    { id: "4", name: "Nisha Godar", initials: "NG", avatarColor: "#8B5CF6", platform: "email", status: "needsYou", preview: "Plan review not confirmed - urgent...", time: "2m" },
-    { id: "5", name: "Abhinash Basnet", initials: "AB", avatarColor: "#9AA0A8", platform: "facebook", status: "needsYou", preview: "Plan review not confirmed - urgent...", time: "2m" },
-    { id: "6", name: "Jayan Adhikari", initials: "JA", avatarColor: "#E5484D", platform: "instagram", status: "needsYou", preview: "Plan review not confirmed - urgent...", time: "2m" },
-    { id: "7", name: "Aassupa Baral", initials: "AB", avatarColor: "#D6409F", platform: "instagram", status: "needsYou", preview: "Plan review not confirmed - urgent...", time: "2m" },
-];
 
 const PLATFORM_ICON: Record<Platform, React.ReactNode> = {
     facebook: <FacebookIcon />,
@@ -44,7 +23,7 @@ export function InboxSidebar() {
     const [autopilotOn, setAutopilotOn] = useState(true);
     const [platformFilter, setPlatformFilter] = useState<PlatformFilter>("all");
     const [statusTab, setStatusTab] = useState<StatusFilter>("all");
-    const [selectedId, setSelectedId] = useState<string>("1");
+    const { selectedId, setSelectedId } = useInboxSelection();
 
     const facebookCount = CONVERSATIONS.filter((c) => c.platform === "facebook").length;
     const instagramCount = CONVERSATIONS.filter((c) => c.platform === "instagram").length;
