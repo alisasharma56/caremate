@@ -45,7 +45,7 @@ export const actions = style({
 export const buttonBase = style({
     flex: 1,
     padding: `${space[3]} ${space[4]}`,
-    borderRadius: radii.xl,
+    borderRadius: radii.lg,
     fontSize: vars.fontSize.sm,
     fontWeight: 600,
     cursor: "pointer",

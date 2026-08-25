@@ -9,7 +9,7 @@ const fadeIn = keyframes({
 
 export const card = style({
     width: "100%",
-    maxWidth: 724,
+    maxWidth: 796,
     background: colors.surface,
     border: `1px solid ${colors.border}`,
     borderRadius: 16,
@@ -23,6 +23,14 @@ export const card = style({
         '(max-width: 640px)': {
             borderRadius: 12,
         },
+    },
+});
+
+export const clickableCard = style({
+    cursor: "pointer",
+    ":focus-visible": {
+        outline: `2px solid ${vars.color.info.main}`,
+        outlineOffset: 3,
     },
 });
 
@@ -159,6 +167,7 @@ export const filterChip = style({
 // ---- media ----
 export const media = style({
     width: "100%",
+    aspectRatio: "3 / 2",
     borderRadius: radii.lg,
     overflow: "hidden",
     background: vars.color.gray.lighter,
@@ -167,9 +176,10 @@ export const media = style({
 });
 
 export const mediaImg = style({
-    width: "auto",
-    maxWidth: "100%",
-    height: "auto",
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    imageRendering: "auto",
     display: "block",
 });
 

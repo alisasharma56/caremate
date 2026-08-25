@@ -17,6 +17,7 @@ interface PricingCardProps {
     popular?: boolean;
     selected: boolean;
     onSelect: () => void;
+    onContinue: () => void;
 }
 
 export function PricingCard({
@@ -29,6 +30,7 @@ export function PricingCard({
                                 popular = false,
                                 selected,
                                 onSelect,
+                                onContinue,
                             }: PricingCardProps) {
     return (
         <div className={styles.cardWrap}>
@@ -75,6 +77,11 @@ export function PricingCard({
                 <button
                     type="button"
                     className={`${styles.ctaButton} ${selected ? styles.ctaButtonSelected : ""}`}
+                    onClick={(event) => {
+                        event.stopPropagation();
+                        onSelect();
+                        onContinue();
+                    }}
                 >
                     {ctaLabel}
                 </button>

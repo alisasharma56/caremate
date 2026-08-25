@@ -18,7 +18,10 @@ import { Route as InboxRouteImport } from '@/routes/inbox'
 import { Route as IndexRouteImport } from '@/routes/index'
 import { Route as OnboardingIndexRouteImport } from '@/routes/onboarding.index'
 import { Route as OnboardingWorkspaceRouteImport } from '@/routes/onboarding.workspace'
+import { Route as OnboardingTopicsRouteImport } from '@/routes/onboarding.topics'
 import { Route as OnboardingSocialRouteImport } from '@/routes/onboarding.social'
+import { Route as OnboardingRoleRouteImport } from '@/routes/onboarding.role'
+import { Route as OnboardingLocationRouteImport } from '@/routes/onboarding.location'
 import { Route as OnboardingInviteTeamRouteImport } from '@/routes/onboarding.invite-team'
 
 const SignupRoute = SignupRouteImport.update({
@@ -66,9 +69,24 @@ const OnboardingWorkspaceRoute = OnboardingWorkspaceRouteImport.update({
   path: '/workspace',
   getParentRoute: () => OnboardingRoute,
 } as any)
+const OnboardingTopicsRoute = OnboardingTopicsRouteImport.update({
+  id: '/topics',
+  path: '/topics',
+  getParentRoute: () => OnboardingRoute,
+} as any)
 const OnboardingSocialRoute = OnboardingSocialRouteImport.update({
   id: '/social',
   path: '/social',
+  getParentRoute: () => OnboardingRoute,
+} as any)
+const OnboardingRoleRoute = OnboardingRoleRouteImport.update({
+  id: '/role',
+  path: '/role',
+  getParentRoute: () => OnboardingRoute,
+} as any)
+const OnboardingLocationRoute = OnboardingLocationRouteImport.update({
+  id: '/location',
+  path: '/location',
   getParentRoute: () => OnboardingRoute,
 } as any)
 const OnboardingInviteTeamRoute = OnboardingInviteTeamRouteImport.update({
@@ -86,7 +104,10 @@ export interface FileRoutesByFullPath {
   '/payment': typeof PaymentRoute
   '/signup': typeof SignupRoute
   '/onboarding/invite-team': typeof OnboardingInviteTeamRoute
+  '/onboarding/location': typeof OnboardingLocationRoute
+  '/onboarding/role': typeof OnboardingRoleRoute
   '/onboarding/social': typeof OnboardingSocialRoute
+  '/onboarding/topics': typeof OnboardingTopicsRoute
   '/onboarding/workspace': typeof OnboardingWorkspaceRoute
   '/onboarding/': typeof OnboardingIndexRoute
 }
@@ -98,7 +119,10 @@ export interface FileRoutesByTo {
   '/payment': typeof PaymentRoute
   '/signup': typeof SignupRoute
   '/onboarding/invite-team': typeof OnboardingInviteTeamRoute
+  '/onboarding/location': typeof OnboardingLocationRoute
+  '/onboarding/role': typeof OnboardingRoleRoute
   '/onboarding/social': typeof OnboardingSocialRoute
+  '/onboarding/topics': typeof OnboardingTopicsRoute
   '/onboarding/workspace': typeof OnboardingWorkspaceRoute
   '/onboarding': typeof OnboardingIndexRoute
 }
@@ -112,7 +136,10 @@ export interface FileRoutesById {
   '/payment': typeof PaymentRoute
   '/signup': typeof SignupRoute
   '/onboarding/invite-team': typeof OnboardingInviteTeamRoute
+  '/onboarding/location': typeof OnboardingLocationRoute
+  '/onboarding/role': typeof OnboardingRoleRoute
   '/onboarding/social': typeof OnboardingSocialRoute
+  '/onboarding/topics': typeof OnboardingTopicsRoute
   '/onboarding/workspace': typeof OnboardingWorkspaceRoute
   '/onboarding/': typeof OnboardingIndexRoute
 }
@@ -127,7 +154,10 @@ export interface FileRouteTypes {
     | '/payment'
     | '/signup'
     | '/onboarding/invite-team'
+    | '/onboarding/location'
+    | '/onboarding/role'
     | '/onboarding/social'
+    | '/onboarding/topics'
     | '/onboarding/workspace'
     | '/onboarding/'
   fileRoutesByTo: FileRoutesByTo
@@ -139,7 +169,10 @@ export interface FileRouteTypes {
     | '/payment'
     | '/signup'
     | '/onboarding/invite-team'
+    | '/onboarding/location'
+    | '/onboarding/role'
     | '/onboarding/social'
+    | '/onboarding/topics'
     | '/onboarding/workspace'
     | '/onboarding'
   id:
@@ -152,7 +185,10 @@ export interface FileRouteTypes {
     | '/payment'
     | '/signup'
     | '/onboarding/invite-team'
+    | '/onboarding/location'
+    | '/onboarding/role'
     | '/onboarding/social'
+    | '/onboarding/topics'
     | '/onboarding/workspace'
     | '/onboarding/'
   fileRoutesById: FileRoutesById
@@ -232,11 +268,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OnboardingWorkspaceRouteImport
       parentRoute: typeof OnboardingRoute
     }
+    '/onboarding/topics': {
+      id: '/onboarding/topics'
+      path: '/topics'
+      fullPath: '/onboarding/topics'
+      preLoaderRoute: typeof OnboardingTopicsRouteImport
+      parentRoute: typeof OnboardingRoute
+    }
     '/onboarding/social': {
       id: '/onboarding/social'
       path: '/social'
       fullPath: '/onboarding/social'
       preLoaderRoute: typeof OnboardingSocialRouteImport
+      parentRoute: typeof OnboardingRoute
+    }
+    '/onboarding/role': {
+      id: '/onboarding/role'
+      path: '/role'
+      fullPath: '/onboarding/role'
+      preLoaderRoute: typeof OnboardingRoleRouteImport
+      parentRoute: typeof OnboardingRoute
+    }
+    '/onboarding/location': {
+      id: '/onboarding/location'
+      path: '/location'
+      fullPath: '/onboarding/location'
+      preLoaderRoute: typeof OnboardingLocationRouteImport
       parentRoute: typeof OnboardingRoute
     }
     '/onboarding/invite-team': {
@@ -251,14 +308,20 @@ declare module '@tanstack/react-router' {
 
 interface OnboardingRouteChildren {
   OnboardingInviteTeamRoute: typeof OnboardingInviteTeamRoute
+  OnboardingLocationRoute: typeof OnboardingLocationRoute
+  OnboardingRoleRoute: typeof OnboardingRoleRoute
   OnboardingSocialRoute: typeof OnboardingSocialRoute
+  OnboardingTopicsRoute: typeof OnboardingTopicsRoute
   OnboardingWorkspaceRoute: typeof OnboardingWorkspaceRoute
   OnboardingIndexRoute: typeof OnboardingIndexRoute
 }
 
 const OnboardingRouteChildren: OnboardingRouteChildren = {
   OnboardingInviteTeamRoute: OnboardingInviteTeamRoute,
+  OnboardingLocationRoute: OnboardingLocationRoute,
+  OnboardingRoleRoute: OnboardingRoleRoute,
   OnboardingSocialRoute: OnboardingSocialRoute,
+  OnboardingTopicsRoute: OnboardingTopicsRoute,
   OnboardingWorkspaceRoute: OnboardingWorkspaceRoute,
   OnboardingIndexRoute: OnboardingIndexRoute,
 }

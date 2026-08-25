@@ -4,3 +4,4 @@ import { SocialSetup } from '@/features/auth/components/SocialSetup'
 export const Route = createFileRoute('/onboarding/social')({
   component: SocialSetup,
 })
+

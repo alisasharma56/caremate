@@ -20,7 +20,7 @@ export const heading = style({
 })
 
 export const newsList = style({
-  maxWidth: 760,
+  maxWidth: 836,
   display: 'flex',
   flexDirection: 'column',
   gap: 24,
@@ -28,6 +28,12 @@ export const newsList = style({
 
 export const message = style({
   color: vars.color.gray.main,
+})
+
+export const anchorError = style({
+  margin: '0 0 16px',
+  color: vars.color.error.main,
+  fontSize: vars.fontSize.sm,
 })
 
 export const dialog = style({

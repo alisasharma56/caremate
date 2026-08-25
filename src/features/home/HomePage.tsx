@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
 import useFeed from '@/features/home/hooks/GetFeed'
+import useAnchorFeed from '@/features/home/hooks/GetAnchorFeed'
 import useKeywordFeed, {
   type KeywordFeedItem,
 } from '@/features/home/hooks/GetKeywordFeed'
-import type { Item } from '@/features/home/data/feed'
+import type { Item, Welcome } from '@/features/home/data/feed'
 import { FeedCard } from '@/components/FeedCard/FeedCard'
 import * as styles from '@/features/home/HomePage.css'
 
@@ -14,7 +16,7 @@ function formatKeyword(value: string) {
 function keywordItemToFeedItem(item: KeywordFeedItem): Item {
   return {
     news: {
-      id: item.id,
+      id: item.news_id,
       title: item.headline,
       source: 'News',
       snippet: item.snippet,
@@ -27,8 +29,8 @@ function keywordItemToFeedItem(item: KeywordFeedItem): Item {
       item_type: 'news',
     },
     analytics: {
-      id: item.id,
-      news_id: item.id,
+      id: item.news_id,
+      news_id: item.news_id,
       headline: item.headline,
       keywords: item.keywords,
       impactness: item.impactness,
@@ -57,15 +59,64 @@ function keywordItemToFeedItem(item: KeywordFeedItem): Item {
       },
     },
     time_ago: item.time_ago,
-    photo_url: '',
+    photo_url: item.photo_url,
   }
 }
 
 export function HomePage() {
   const [selectedKeyword, setSelectedKeyword] = useState('')
+  const [anchorError, setAnchorError] = useState('')
+  const queryClient = useQueryClient()
   const feedQuery = useFeed()
+  const anchorFeed = useAnchorFeed()
   const keywordFeedQuery = useKeywordFeed(selectedKeyword)
   const keywordItems = keywordFeedQuery.data?.items.map(keywordItemToFeedItem)
+
+  const scrollToArticle = (newsId: number) => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.getElementById(`news-card-${newsId}`)?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        })
+      })
+    })
+  }
+
+  const goToArticle = async (newsId: number) => {
+    setAnchorError('')
+
+    if (feedQuery.data?.items.some((item) => item.news.id === newsId)) {
+      setSelectedKeyword('')
+      scrollToArticle(newsId)
+      return
+    }
+
+    try {
+      const anchoredFeed = await anchorFeed.mutateAsync(newsId)
+      if (!anchoredFeed.items.some((item) => item.news.id === newsId)) {
+        setAnchorError('The requested article was not included in the anchor feed.')
+        return
+      }
+
+      queryClient.setQueryData<Welcome>(['feed'], (current) => {
+        if (!current) return anchoredFeed
+
+        const existingIds = new Set(current.items.map((item) => item.news.id))
+        return {
+          ...anchoredFeed,
+          items: [
+            ...current.items,
+            ...anchoredFeed.items.filter((item) => !existingIds.has(item.news.id)),
+          ],
+        }
+      })
+      setSelectedKeyword('')
+      scrollToArticle(newsId)
+    } catch (error) {
+      setAnchorError(error instanceof Error ? error.message : 'Could not load the article.')
+    }
+  }
 
   useEffect(() => {
     if (!selectedKeyword) return
@@ -149,6 +200,12 @@ export function HomePage() {
                 </div>
               ) : null}
 
+              {anchorError ? (
+                <p className={styles.anchorError} role="alert">
+                  Could not open this article. {anchorError}
+                </p>
+              ) : null}
+
               {!keywordFeedQuery.isPending &&
               !keywordFeedQuery.isError &&
               keywordItems?.length === 0 ? (
@@ -160,8 +217,10 @@ export function HomePage() {
               <div className={styles.dialogNewsList}>
                 {keywordItems?.map((item) => (
                   <FeedCard
+                    hideImage
                     item={item}
                     key={item.news.id}
+                    onArticleSelect={goToArticle}
                     onKeywordSelect={setSelectedKeyword}
                   />
                 ))}

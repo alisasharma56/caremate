@@ -150,6 +150,15 @@ export const styles = {
     padding: '22px 24px',
     borderTop: `1px solid ${vars.color.gray.lighter}`,
   },
+  profileButton: {
+    width: '100%',
+    borderRight: 0,
+    borderBottom: 0,
+    borderLeft: 0,
+    background: 'transparent',
+    cursor: 'pointer',
+    textAlign: 'left',
+  },
   collapsedProfile: {
     justifyContent: 'center',
     padding: '18px 0',

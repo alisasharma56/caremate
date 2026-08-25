@@ -1,5 +1,5 @@
 import { style, styleVariants } from "@vanilla-extract/css";
-import { vars, colors, space, typography } from "@/styles/theme/tokens.css.ts";
+import { vars, colors, space, typography } from "@/styles/theme/tokens.css";
 
 export const page = style({
     minHeight: "100vh",

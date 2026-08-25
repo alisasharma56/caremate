@@ -4,13 +4,18 @@ import { Sidebar } from '@/components/sidebar'
 import {SideCardPanel} from "@/features/SidecardPanel/SideCardPanel.tsx";
 import { AppHeader } from '@/components/AppHeader/AppHeader'
 
+const standalonePaths = new Set(['/login', '/signup', '/payment'])
+
 export function RootLayout() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
-  const isAuthPage = useRouterState({
-    select: (state) => ['/login', '/signup','/onboarding','/payment','/organization',].includes(state.location.pathname),
+  const usesStandaloneLayout = useRouterState({
+    select: (state) => {
+      const pathname = state.location.pathname
+      return standalonePaths.has(pathname) || pathname === '/onboarding' || pathname.startsWith('/onboarding/')
+    },
   })
 
-  if (isAuthPage) {
+  if (usesStandaloneLayout) {
     return <Outlet />
   }
 
