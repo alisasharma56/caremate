@@ -268,6 +268,7 @@
 //   )
 // }
 
+
 import type { Item } from '@/features/home/data/feed'
 import ExternalLink from '@/components/icons/ExternalLink'
 import Flame from '@/components/icons/Flame'
@@ -527,6 +528,20 @@ export function FeedCard({ item, onKeywordSelect,onArticleSelect, hideImage }: F
             <span className={sentimentValue}>{formatLabel(analytics.sentiment.overall)}</span>
           </div>
         </div>
+
+      {/*  <div className={footer}>*/}
+      {/*    <span className={publishedDate}>{formatDate(news.published_at)}</span>*/}
+      {/*    <span className={footerSpacer} />*/}
+      {/*      <a>*/}
+      {/*    className={fullArticle}*/}
+      {/*    href={news.url}*/}
+      {/*    target="_blank"*/}
+      {/*    rel="noreferrer"*/}
+
+      {/*    <ExternalLink />*/}
+      {/*    Full article*/}
+      {/*  </a>*/}
+      {/*</div>*/}
 
           <div className={footer}>
                      <span className={publishedDate}>{formatDate(news.published_at)}</span>
