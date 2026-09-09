@@ -12,8 +12,11 @@ const useAddComment = (newsId: number) => {
 
     return useMutation<Comment, Error, AddCommentPayload>({
         mutationFn: (payload) => apiClient.post(payload),
-        onSuccess: () => {
+        onSuccess: (_data, variables) => {
             queryClient.invalidateQueries({ queryKey: ['comments', newsId] })
+            if (variables.parent_comment_id) {
+                queryClient.invalidateQueries({ queryKey: ['comment-replies', variables.parent_comment_id] })
+            }
         },
     })
 }

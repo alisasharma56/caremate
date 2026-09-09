@@ -292,6 +292,7 @@ import ExternalLink from '@/components/icons/ExternalLink'
 import Flame from '@/components/icons/Flame'
 import Likes from "@/components/icons/Likes";
 import MessageCircle from "@/components/icons/MessageCircle";
+import CommentOpen from "@/components/icons/CommentOpen";
 import Share from '@/components/icons/Share'
 import useComments from '@/features/home/hooks/Comments/useComments.ts'
 import {
@@ -407,7 +408,8 @@ export function FeedCard({
     const keywordOptions = [...new Set((analytics.keywords ?? []).filter(Boolean))]
     const [showComments, setShowComments] = useState(false)
     const { data } = useComments(news.id)
-    const commentCount = data?.items.length ?? 0
+    const topLevelComments = (data?.items ?? []).filter((comment) => !comment.is_deleted)
+    const commentCount = topLevelComments.reduce((sum, comment) => sum + 1 + comment.reply_count, 0)
 
     return (
         <article className={card}>
@@ -571,7 +573,7 @@ export function FeedCard({
                     128 likes
                 </button>
                 <button type="button" className={footerItem} onClick={() => setShowComments((prev) => !prev)}>
-                    <MessageCircle/>
+                    {showComments ? <CommentOpen /> : <MessageCircle />}
                     {commentCount} Comment
                 </button>
                 <button type="button" className={footerItem}>
@@ -591,4 +593,3 @@ export function FeedCard({
 
     )
 }
-

@@ -15,6 +15,7 @@ const useEditComment = (newsId: number) => {
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['comments', newsId] })
+            queryClient.invalidateQueries({ queryKey: ['comment-replies'] })
         },
     })
 }
