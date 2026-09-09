@@ -102,7 +102,7 @@ function CommentRow({
     const isHighlighted = replyingToId === comment.id
     const [repliesOpen, setRepliesOpen] = useState(false)
     const { data: repliesData, isLoading: repliesLoading } = useReplies(comment.id, repliesOpen)
-    const replies = repliesData?.items ?? []
+    const replies = (repliesData ?? []).filter((reply) => !reply.is_deleted)
 
     return (
         <div>
@@ -155,7 +155,7 @@ function CommentRow({
                 </div>
             </div>
 
-            {!isReply && comment.reply_count > 0 ? (
+            {!isReply && (comment.reply_count > 0 || repliesOpen) ? (
                 <>
                     {!repliesOpen ? (
                         <button type="button" className={viewMoreReplies} onClick={() => setRepliesOpen(true)}>
@@ -195,7 +195,8 @@ function CommentRow({
 export function CommentsSection({ newsId }: CommentsSectionProps) {
     const [limit, setLimit] = useState(20)
     const { data, isLoading, isError } = useComments(newsId, limit)
-    const list = data?.items ?? []
+    const list = (data?.items ?? []).filter((comment) => !comment.is_deleted)
+    const totalCommentCount = list.reduce((sum, comment) => sum + 1 + comment.reply_count, 0)
 
     const addComment = useAddComment(newsId)
     const editComment = useEditComment(newsId)
@@ -250,7 +251,7 @@ export function CommentsSection({ newsId }: CommentsSectionProps) {
     return (
         <div className={section}>
             <div className={statsRow}>
-                <span>{list.length} Comments</span>
+                <span>{totalCommentCount} Comments</span>
             </div>
 
             {isLoading ? <p className={commentText}>Loading comments...</p> : null}

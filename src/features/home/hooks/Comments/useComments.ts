@@ -12,6 +12,8 @@ const useComments = (newsId: number, limit = 20) => {
         queryKey: ['comments', newsId, limit],
         queryFn: () => apiClient.get({ params: { limit } }),
         enabled: Boolean(newsId),
+        staleTime: 0,
+        refetchOnMount: 'always',
     })
 }
 
