@@ -323,6 +323,7 @@ export const sentimentValue = style({
 export const footer = style({
     display: "flex",
     alignItems: "center",
+    gap: space[6],
     paddingTop: space[2],
     borderTop: `1px solid ${colors.border}`,
 });

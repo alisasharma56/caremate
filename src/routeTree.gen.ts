@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from '@/routes/__root'
 import { Route as SignupRouteImport } from '@/routes/signup'
 import { Route as PaymentRouteImport } from '@/routes/payment'
+import { Route as ParticipantsRouteImport } from '@/routes/participants'
 import { Route as OrganizationRouteImport } from '@/routes/organization'
 import { Route as OnboardingRouteImport } from '@/routes/onboarding'
 import { Route as LoginRouteImport } from '@/routes/login'
@@ -32,6 +33,11 @@ const SignupRoute = SignupRouteImport.update({
 const PaymentRoute = PaymentRouteImport.update({
   id: '/payment',
   path: '/payment',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParticipantsRoute = ParticipantsRouteImport.update({
+  id: '/participants',
+  path: '/participants',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OrganizationRoute = OrganizationRouteImport.update({
@@ -101,6 +107,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRouteWithChildren
   '/organization': typeof OrganizationRoute
+  '/participants': typeof ParticipantsRoute
   '/payment': typeof PaymentRoute
   '/signup': typeof SignupRoute
   '/onboarding/invite-team': typeof OnboardingInviteTeamRoute
@@ -116,6 +123,7 @@ export interface FileRoutesByTo {
   '/inbox': typeof InboxRoute
   '/login': typeof LoginRoute
   '/organization': typeof OrganizationRoute
+  '/participants': typeof ParticipantsRoute
   '/payment': typeof PaymentRoute
   '/signup': typeof SignupRoute
   '/onboarding/invite-team': typeof OnboardingInviteTeamRoute
@@ -133,6 +141,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRouteWithChildren
   '/organization': typeof OrganizationRoute
+  '/participants': typeof ParticipantsRoute
   '/payment': typeof PaymentRoute
   '/signup': typeof SignupRoute
   '/onboarding/invite-team': typeof OnboardingInviteTeamRoute
@@ -151,6 +160,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/onboarding'
     | '/organization'
+    | '/participants'
     | '/payment'
     | '/signup'
     | '/onboarding/invite-team'
@@ -166,6 +176,7 @@ export interface FileRouteTypes {
     | '/inbox'
     | '/login'
     | '/organization'
+    | '/participants'
     | '/payment'
     | '/signup'
     | '/onboarding/invite-team'
@@ -182,6 +193,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/onboarding'
     | '/organization'
+    | '/participants'
     | '/payment'
     | '/signup'
     | '/onboarding/invite-team'
@@ -199,6 +211,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   OnboardingRoute: typeof OnboardingRouteWithChildren
   OrganizationRoute: typeof OrganizationRoute
+  ParticipantsRoute: typeof ParticipantsRoute
   PaymentRoute: typeof PaymentRoute
   SignupRoute: typeof SignupRoute
 }
@@ -217,6 +230,13 @@ declare module '@tanstack/react-router' {
       path: '/payment'
       fullPath: '/payment'
       preLoaderRoute: typeof PaymentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/participants': {
+      id: '/participants'
+      path: '/participants'
+      fullPath: '/participants'
+      preLoaderRoute: typeof ParticipantsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/organization': {
@@ -336,6 +356,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   OnboardingRoute: OnboardingRouteWithChildren,
   OrganizationRoute: OrganizationRoute,
+  ParticipantsRoute: ParticipantsRoute,
   PaymentRoute: PaymentRoute,
   SignupRoute: SignupRoute,
 }
