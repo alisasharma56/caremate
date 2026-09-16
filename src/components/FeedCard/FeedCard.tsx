@@ -290,7 +290,6 @@ import { useState } from 'react'
 import type { Item } from '@/features/home/data/feed'
 import ExternalLink from '@/components/icons/ExternalLink'
 import Flame from '@/components/icons/Flame'
-import Likes from "@/components/icons/Likes";
 import MessageCircle from "@/components/icons/MessageCircle";
 import CommentOpen from "@/components/icons/CommentOpen";
 import Share from '@/components/icons/Share'
@@ -339,7 +338,11 @@ import {
     tagTone,
 } from './FeedCard.css'
 import {CommentsSection} from "@/components/Comment/comment.tsx";
-
+import Likes from "@/components/icons/Likes";
+import UnLike from "@/components/icons/UnLike";
+import useLikeStatus from '@/features/home/hooks/Likes/UseLikeStatus.ts'
+import useToggleLike from '@/features/home/hooks/Likes/useToggleLike'
+import useAddShare from '@/features/home/hooks/useAddShare.ts'
 
 interface FeedCardProps {
     item: Item
@@ -410,7 +413,9 @@ export function FeedCard({
     const { data } = useComments(news.id)
     const topLevelComments = (data?.items ?? []).filter((comment) => !comment.is_deleted)
     const commentCount = topLevelComments.reduce((sum, comment) => sum + 1 + comment.reply_count, 0)
-
+    const { data: likeStatus } = useLikeStatus(news.id)
+    const toggleLike = useToggleLike(news.id)
+    const addShare = useAddShare(news.id)
     return (
         <article className={card}>
             <div className={header}>
@@ -568,17 +573,27 @@ export function FeedCard({
 
 
             <div className={footer}>
-                <button type="button" className={footerItem}>
-                    <Likes />
-                    128 likes
+                <button
+                    type="button"
+                    className={footerItem}
+                    onClick={() => toggleLike.mutate()}
+                    disabled={toggleLike.isPending}
+                >
+                    {likeStatus?.liked ? <Likes /> : <UnLike />}
+                    {likeStatus?.like_count ?? 0} likes
                 </button>
                 <button type="button" className={footerItem} onClick={() => setShowComments((prev) => !prev)}>
                     {showComments ? <CommentOpen /> : <MessageCircle />}
                     {commentCount} Comment
                 </button>
-                <button type="button" className={footerItem}>
+                <button
+                    type="button"
+                    className={footerItem}
+                    onClick={() => addShare.mutate()}
+                    disabled={addShare.isPending}
+                >
                     <Share />
-                    10 Share
+                    {addShare.data?.share_count ?? 0} Share
                 </button>
 
                 <span className={footerSpacer} />

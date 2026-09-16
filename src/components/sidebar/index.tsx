@@ -166,7 +166,7 @@ const sections: SidebarSection[] = [
     items: [
       { label: 'Inbox', icon: inboxIcon, to: '/inbox' },
       { label: 'Leads', icon: leadsIcon },
-      { label: 'Clients', icon: clientsIcon },
+      { label: 'Participants', icon: clientsIcon, to: '/participants' },
       { label: 'Roster', icon: rosterIcon },
       { label: 'Workers', icon: workersIcon },
       { label: 'Place Job', icon: placeJobIcon },
