@@ -15,6 +15,7 @@ import { Route as ParticipantsRouteImport } from '@/routes/participants'
 import { Route as OrganizationRouteImport } from '@/routes/organization'
 import { Route as OnboardingRouteImport } from '@/routes/onboarding'
 import { Route as LoginRouteImport } from '@/routes/login'
+import { Route as LeadsRouteImport } from '@/routes/leads'
 import { Route as InboxRouteImport } from '@/routes/inbox'
 import { Route as IndexRouteImport } from '@/routes/index'
 import { Route as OnboardingIndexRouteImport } from '@/routes/onboarding.index'
@@ -53,6 +54,11 @@ const OnboardingRoute = OnboardingRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeadsRoute = LeadsRouteImport.update({
+  id: '/leads',
+  path: '/leads',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InboxRoute = InboxRouteImport.update({
@@ -104,6 +110,7 @@ const OnboardingInviteTeamRoute = OnboardingInviteTeamRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/inbox': typeof InboxRoute
+  '/leads': typeof LeadsRoute
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRouteWithChildren
   '/organization': typeof OrganizationRoute
@@ -121,6 +128,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/inbox': typeof InboxRoute
+  '/leads': typeof LeadsRoute
   '/login': typeof LoginRoute
   '/organization': typeof OrganizationRoute
   '/participants': typeof ParticipantsRoute
@@ -138,6 +146,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/inbox': typeof InboxRoute
+  '/leads': typeof LeadsRoute
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRouteWithChildren
   '/organization': typeof OrganizationRoute
@@ -157,6 +166,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/inbox'
+    | '/leads'
     | '/login'
     | '/onboarding'
     | '/organization'
@@ -174,6 +184,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/inbox'
+    | '/leads'
     | '/login'
     | '/organization'
     | '/participants'
@@ -190,6 +201,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/inbox'
+    | '/leads'
     | '/login'
     | '/onboarding'
     | '/organization'
@@ -208,6 +220,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   InboxRoute: typeof InboxRoute
+  LeadsRoute: typeof LeadsRoute
   LoginRoute: typeof LoginRoute
   OnboardingRoute: typeof OnboardingRouteWithChildren
   OrganizationRoute: typeof OrganizationRoute
@@ -258,6 +271,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/leads': {
+      id: '/leads'
+      path: '/leads'
+      fullPath: '/leads'
+      preLoaderRoute: typeof LeadsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/inbox': {
@@ -353,6 +373,7 @@ const OnboardingRouteWithChildren = OnboardingRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   InboxRoute: InboxRoute,
+  LeadsRoute: LeadsRoute,
   LoginRoute: LoginRoute,
   OnboardingRoute: OnboardingRouteWithChildren,
   OrganizationRoute: OrganizationRoute,
