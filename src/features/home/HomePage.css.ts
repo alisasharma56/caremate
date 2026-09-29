@@ -3,7 +3,7 @@ import { vars } from '@/styles/theme/tokens.css'
 
 export const page = style({
   minHeight: 'calc(100vh - 48px)',
-  padding: '40px',
+  padding: '40px 24px 40px 40px',
   background: vars.color.base.white,
   color: vars.color.gray.darkest,
   '@media': {
@@ -20,10 +20,13 @@ export const heading = style({
 })
 
 export const newsList = style({
-  maxWidth: 836,
   display: 'flex',
   flexDirection: 'column',
   gap: 24,
+})
+
+globalStyle(`${newsList} > *`, {
+  maxWidth: 'none',
 })
 
 export const message = style({

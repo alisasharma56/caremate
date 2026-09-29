@@ -9,14 +9,23 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from '@/routes/__root'
+import { Route as WorkersRouteImport } from '@/routes/workers'
+import { Route as SocialListeningRouteImport } from '@/routes/social-listening'
 import { Route as SignupRouteImport } from '@/routes/signup'
+import { Route as SettingsRouteImport } from '@/routes/settings'
+import { Route as RosterRouteImport } from '@/routes/roster'
+import { Route as PlaceJobRouteImport } from '@/routes/place-job'
 import { Route as PaymentRouteImport } from '@/routes/payment'
 import { Route as ParticipantsRouteImport } from '@/routes/participants'
 import { Route as OrganizationRouteImport } from '@/routes/organization'
 import { Route as OnboardingRouteImport } from '@/routes/onboarding'
+import { Route as NewsletterRouteImport } from '@/routes/newsletter'
 import { Route as LoginRouteImport } from '@/routes/login'
 import { Route as LeadsRouteImport } from '@/routes/leads'
 import { Route as InboxRouteImport } from '@/routes/inbox'
+import { Route as BreakingRouteImport } from '@/routes/breaking'
+import { Route as AnalyticsRouteImport } from '@/routes/analytics'
+import { Route as AlertsRouteImport } from '@/routes/alerts'
 import { Route as IndexRouteImport } from '@/routes/index'
 import { Route as OnboardingIndexRouteImport } from '@/routes/onboarding.index'
 import { Route as OnboardingWorkspaceRouteImport } from '@/routes/onboarding.workspace'
@@ -26,9 +35,34 @@ import { Route as OnboardingRoleRouteImport } from '@/routes/onboarding.role'
 import { Route as OnboardingLocationRouteImport } from '@/routes/onboarding.location'
 import { Route as OnboardingInviteTeamRouteImport } from '@/routes/onboarding.invite-team'
 
+const WorkersRoute = WorkersRouteImport.update({
+  id: '/workers',
+  path: '/workers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SocialListeningRoute = SocialListeningRouteImport.update({
+  id: '/social-listening',
+  path: '/social-listening',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
   path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RosterRoute = RosterRouteImport.update({
+  id: '/roster',
+  path: '/roster',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlaceJobRoute = PlaceJobRouteImport.update({
+  id: '/place-job',
+  path: '/place-job',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PaymentRoute = PaymentRouteImport.update({
@@ -51,6 +85,11 @@ const OnboardingRoute = OnboardingRouteImport.update({
   path: '/onboarding',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NewsletterRoute = NewsletterRouteImport.update({
+  id: '/newsletter',
+  path: '/newsletter',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -64,6 +103,21 @@ const LeadsRoute = LeadsRouteImport.update({
 const InboxRoute = InboxRouteImport.update({
   id: '/inbox',
   path: '/inbox',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BreakingRoute = BreakingRouteImport.update({
+  id: '/breaking',
+  path: '/breaking',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnalyticsRoute = AnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AlertsRoute = AlertsRouteImport.update({
+  id: '/alerts',
+  path: '/alerts',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -109,14 +163,23 @@ const OnboardingInviteTeamRoute = OnboardingInviteTeamRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/analytics': typeof AnalyticsRoute
+  '/breaking': typeof BreakingRoute
   '/inbox': typeof InboxRoute
   '/leads': typeof LeadsRoute
   '/login': typeof LoginRoute
+  '/newsletter': typeof NewsletterRoute
   '/onboarding': typeof OnboardingRouteWithChildren
   '/organization': typeof OrganizationRoute
   '/participants': typeof ParticipantsRoute
   '/payment': typeof PaymentRoute
+  '/place-job': typeof PlaceJobRoute
+  '/roster': typeof RosterRoute
+  '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
+  '/social-listening': typeof SocialListeningRoute
+  '/workers': typeof WorkersRoute
   '/onboarding/invite-team': typeof OnboardingInviteTeamRoute
   '/onboarding/location': typeof OnboardingLocationRoute
   '/onboarding/role': typeof OnboardingRoleRoute
@@ -127,13 +190,22 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/analytics': typeof AnalyticsRoute
+  '/breaking': typeof BreakingRoute
   '/inbox': typeof InboxRoute
   '/leads': typeof LeadsRoute
   '/login': typeof LoginRoute
+  '/newsletter': typeof NewsletterRoute
   '/organization': typeof OrganizationRoute
   '/participants': typeof ParticipantsRoute
   '/payment': typeof PaymentRoute
+  '/place-job': typeof PlaceJobRoute
+  '/roster': typeof RosterRoute
+  '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
+  '/social-listening': typeof SocialListeningRoute
+  '/workers': typeof WorkersRoute
   '/onboarding/invite-team': typeof OnboardingInviteTeamRoute
   '/onboarding/location': typeof OnboardingLocationRoute
   '/onboarding/role': typeof OnboardingRoleRoute
@@ -145,14 +217,23 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/analytics': typeof AnalyticsRoute
+  '/breaking': typeof BreakingRoute
   '/inbox': typeof InboxRoute
   '/leads': typeof LeadsRoute
   '/login': typeof LoginRoute
+  '/newsletter': typeof NewsletterRoute
   '/onboarding': typeof OnboardingRouteWithChildren
   '/organization': typeof OrganizationRoute
   '/participants': typeof ParticipantsRoute
   '/payment': typeof PaymentRoute
+  '/place-job': typeof PlaceJobRoute
+  '/roster': typeof RosterRoute
+  '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
+  '/social-listening': typeof SocialListeningRoute
+  '/workers': typeof WorkersRoute
   '/onboarding/invite-team': typeof OnboardingInviteTeamRoute
   '/onboarding/location': typeof OnboardingLocationRoute
   '/onboarding/role': typeof OnboardingRoleRoute
@@ -165,14 +246,23 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/alerts'
+    | '/analytics'
+    | '/breaking'
     | '/inbox'
     | '/leads'
     | '/login'
+    | '/newsletter'
     | '/onboarding'
     | '/organization'
     | '/participants'
     | '/payment'
+    | '/place-job'
+    | '/roster'
+    | '/settings'
     | '/signup'
+    | '/social-listening'
+    | '/workers'
     | '/onboarding/invite-team'
     | '/onboarding/location'
     | '/onboarding/role'
@@ -183,13 +273,22 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/alerts'
+    | '/analytics'
+    | '/breaking'
     | '/inbox'
     | '/leads'
     | '/login'
+    | '/newsletter'
     | '/organization'
     | '/participants'
     | '/payment'
+    | '/place-job'
+    | '/roster'
+    | '/settings'
     | '/signup'
+    | '/social-listening'
+    | '/workers'
     | '/onboarding/invite-team'
     | '/onboarding/location'
     | '/onboarding/role'
@@ -200,14 +299,23 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/alerts'
+    | '/analytics'
+    | '/breaking'
     | '/inbox'
     | '/leads'
     | '/login'
+    | '/newsletter'
     | '/onboarding'
     | '/organization'
     | '/participants'
     | '/payment'
+    | '/place-job'
+    | '/roster'
+    | '/settings'
     | '/signup'
+    | '/social-listening'
+    | '/workers'
     | '/onboarding/invite-team'
     | '/onboarding/location'
     | '/onboarding/role'
@@ -219,23 +327,67 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AlertsRoute: typeof AlertsRoute
+  AnalyticsRoute: typeof AnalyticsRoute
+  BreakingRoute: typeof BreakingRoute
   InboxRoute: typeof InboxRoute
   LeadsRoute: typeof LeadsRoute
   LoginRoute: typeof LoginRoute
+  NewsletterRoute: typeof NewsletterRoute
   OnboardingRoute: typeof OnboardingRouteWithChildren
   OrganizationRoute: typeof OrganizationRoute
   ParticipantsRoute: typeof ParticipantsRoute
   PaymentRoute: typeof PaymentRoute
+  PlaceJobRoute: typeof PlaceJobRoute
+  RosterRoute: typeof RosterRoute
+  SettingsRoute: typeof SettingsRoute
   SignupRoute: typeof SignupRoute
+  SocialListeningRoute: typeof SocialListeningRoute
+  WorkersRoute: typeof WorkersRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/workers': {
+      id: '/workers'
+      path: '/workers'
+      fullPath: '/workers'
+      preLoaderRoute: typeof WorkersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/social-listening': {
+      id: '/social-listening'
+      path: '/social-listening'
+      fullPath: '/social-listening'
+      preLoaderRoute: typeof SocialListeningRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/signup': {
       id: '/signup'
       path: '/signup'
       fullPath: '/signup'
       preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/roster': {
+      id: '/roster'
+      path: '/roster'
+      fullPath: '/roster'
+      preLoaderRoute: typeof RosterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/place-job': {
+      id: '/place-job'
+      path: '/place-job'
+      fullPath: '/place-job'
+      preLoaderRoute: typeof PlaceJobRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/payment': {
@@ -266,6 +418,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OnboardingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/newsletter': {
+      id: '/newsletter'
+      path: '/newsletter'
+      fullPath: '/newsletter'
+      preLoaderRoute: typeof NewsletterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -285,6 +444,27 @@ declare module '@tanstack/react-router' {
       path: '/inbox'
       fullPath: '/inbox'
       preLoaderRoute: typeof InboxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/breaking': {
+      id: '/breaking'
+      path: '/breaking'
+      fullPath: '/breaking'
+      preLoaderRoute: typeof BreakingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/analytics': {
+      id: '/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof AnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/alerts': {
+      id: '/alerts'
+      path: '/alerts'
+      fullPath: '/alerts'
+      preLoaderRoute: typeof AlertsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -372,14 +552,23 @@ const OnboardingRouteWithChildren = OnboardingRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AlertsRoute: AlertsRoute,
+  AnalyticsRoute: AnalyticsRoute,
+  BreakingRoute: BreakingRoute,
   InboxRoute: InboxRoute,
   LeadsRoute: LeadsRoute,
   LoginRoute: LoginRoute,
+  NewsletterRoute: NewsletterRoute,
   OnboardingRoute: OnboardingRouteWithChildren,
   OrganizationRoute: OrganizationRoute,
   ParticipantsRoute: ParticipantsRoute,
   PaymentRoute: PaymentRoute,
+  PlaceJobRoute: PlaceJobRoute,
+  RosterRoute: RosterRoute,
+  SettingsRoute: SettingsRoute,
   SignupRoute: SignupRoute,
+  SocialListeningRoute: SocialListeningRoute,
+  WorkersRoute: WorkersRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
