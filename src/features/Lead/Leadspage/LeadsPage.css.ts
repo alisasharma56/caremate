@@ -6,6 +6,8 @@ export const page = style({
     flexDirection: 'column',
     gap: space[6],
     padding: space[6],
+    background: colors.surface,
+    minHeight: '100%',
 })
 
 export const header = style({
@@ -13,6 +15,8 @@ export const header = style({
     alignItems: 'flex-start',
     justifyContent: 'space-between',
     gap: space[4],
+    paddingBottom: space[4],
+    borderBottom: `1px solid ${colors.border}`,
 })
 
 export const headerText = style({
@@ -22,38 +26,54 @@ export const headerText = style({
 })
 
 export const title = style({
+    fontFamily: vars.fontFamily.brand,
+    fontWeight: 500,
     fontSize: vars.fontSize.xl,
-    fontWeight: 600,
+    lineHeight: 1.35,
+    letterSpacing: 0,
     color: colors.foreground,
 })
 
 export const subtitle = style({
-    fontSize: vars.fontSize.sm,
-    color: colors.muted,
+    fontFamily: vars.fontFamily.brand,
+    fontWeight: 400,
+    fontSize: vars.fontSize.md,
+    lineHeight: 1.5,
+    letterSpacing: 0,
+    color: vars.color.gray.main,
 })
 
 export const modeToggle = style({
     display: 'flex',
     alignItems: 'center',
-    gap: space[1],
-    padding: space[1],
+    gap: 4,
+    padding: 4,
     borderRadius: radii.md,
-    background: colors.background,
+    border: `1px solid ${colors.border}`,
+    background: colors.surface,
     flexShrink: 0,
 })
 
 export const modeButton = style({
-    padding: `${space[2]} ${space[3]}`,
-    borderRadius: radii.sm,
-    fontSize: vars.fontSize.sm,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 26,
+    padding: '4px 12px',
+    borderRadius: radii.md,
+    border: 'none',
+    fontFamily: vars.fontFamily.body,
     fontWeight: 500,
-    color: colors.muted,
+    fontSize: '12px',
+    lineHeight: '18px',
+    letterSpacing: 0,
+    textAlign: 'center',
+    color: vars.color.gray.main,
     background: 'transparent',
     cursor: 'pointer',
 })
 
 export const modeButtonActive = style({
-    background: colors.surface,
-    color: colors.foreground,
-    boxShadow: '0 1px 2px rgba(16, 24, 40, 0.08)',
+    background: vars.color.primary.main,
+    color: colors.primaryText,
 })

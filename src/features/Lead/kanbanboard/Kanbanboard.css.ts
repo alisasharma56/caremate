@@ -1,5 +1,7 @@
-import { style, styleVariants } from '@vanilla-extract/css'
+import { keyframes, style } from '@vanilla-extract/css'
 import { colors, radii, space, vars } from '@/styles/theme/tokens.css'
+
+const EASE = 'cubic-bezier(0.2, 0, 0, 1)'
 
 export const board = style({
     display: 'grid',
@@ -11,32 +13,19 @@ export const board = style({
 export const column = style({
     display: 'flex',
     flexDirection: 'column',
-    gap: space[2],
-    padding: space[2],
-    borderRadius: radii.lg,
-    background: colors.background,
-    minHeight: 200,
+    gap: space[3],
 })
 
 export const columnHeader = style({
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'flex-start',
     gap: space[2],
-    padding: `${space[1]} ${space[2]}`,
-})
-
-export const columnDot = style({
-    width: 8,
-    height: 8,
-    borderRadius: '9999px',
-    flexShrink: 0,
-})
-
-export const columnDotTone = styleVariants({
-    new: { background: vars.color.info.main },
-    conversation: { background: vars.color.warning.main },
-    onboarded: { background: vars.color.success.main },
-    closed: { background: vars.color.gray.main },
+    height: 48,
+    padding: space[3],
+    borderRadius: radii.md,
+    border: `1px solid ${colors.border}`,
+    background: colors.surface,
 })
 
 export const columnTitle = style({
@@ -46,14 +35,33 @@ export const columnTitle = style({
 })
 
 export const columnCount = style({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minWidth: 24,
+    height: 24,
+    padding: '0 6px',
+    borderRadius: '9999px',
+    background: vars.color.gray.lighter,
+    color: colors.foreground,
     fontSize: vars.fontSize.xs,
-    color: colors.muted,
+    fontWeight: 600,
 })
 
 export const columnList = style({
     display: 'flex',
     flexDirection: 'column',
-    gap: space[2],
+    gap: space[3],
+    minHeight: 80,
+    padding: space[1],
+    borderRadius: radii.md,
+    border: '1px solid transparent',
+    transition: `background-color 0.15s ${EASE}, border-color 0.15s ${EASE}`,
+})
+
+export const columnListDragOver = style({
+    background: vars.color.primary.lightest,
+    border: `1px solid ${vars.color.primary.light}`,
 })
 
 export const emptyState = style({
@@ -61,4 +69,30 @@ export const emptyState = style({
     fontSize: vars.fontSize.xs,
     color: colors.muted,
     textAlign: 'center',
+})
+
+// Quick pop-in so the clone doesn't just appear at full size the instant
+// the drag threshold is crossed.
+const floatIn = keyframes({
+    from: { opacity: 0, transform: 'scale(0.96)' },
+    to: { opacity: 1, transform: 'scale(1.02)' },
+})
+
+// Mirrors LeadCard's own `card` styling so the floating clone that follows
+// the cursor while dragging looks identical to the real card, just lifted.
+export const dragFloatingCard = style({
+    position: 'fixed',
+    zIndex: 1000,
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: space[3],
+    padding: space[4],
+    borderRadius: radii.lg,
+    background: colors.surface,
+    boxShadow: '0px 8px 20px 0px rgba(0, 0, 0, 0.16)',
+    transform: 'scale(1.02)',
+    cursor: 'grabbing',
+    animation: `${floatIn} 0.12s ${EASE}`,
+    willChange: 'transform',
 })
