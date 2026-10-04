@@ -6,5 +6,5 @@ export const Route = createFileRoute('/breaking')({
 })
 
 function RouteComponent() {
-  return <div>Hello "/breaking"!</div>
+  return <div>Hello Events</div>
 }

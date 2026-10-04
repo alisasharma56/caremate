@@ -31,7 +31,7 @@ const sections: SidebarSection[] = [
     label: 'Discover',
     items: [
       { label: 'Feed', icon: feedIcon, to: '/', badge: 12 },
-      { label: 'Breaking', icon: breakingIcon, to: '/breaking' },
+      { label: 'Events', icon: breakingIcon, to: '/breaking' },
       { label: 'Analytics', icon: analyticsIcon, to: '/analytics' },
     ],
   },
