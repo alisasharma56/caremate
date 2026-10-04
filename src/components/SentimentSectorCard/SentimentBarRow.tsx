@@ -1,5 +1,14 @@
 // SentimentBarRow.tsxh
-import * as styles from "./SentimentBarRow.css.ts";
+import {
+  row,
+  top,
+  label as labelStyle,
+  delta as deltaStyle,
+  deltaTone as deltaToneStyle,
+  track,
+  segment,
+  colorTokens,
+} from "./SentimentBarRow.css.ts";
 
 interface SentimentBarRowProps {
     label: string;
@@ -12,15 +21,15 @@ interface SentimentBarRowProps {
 
 export function SentimentBarRow({ label, positivePct, neutralPct, negativePct, delta, deltaTone }: SentimentBarRowProps) {
     return (
-        <div className={styles.row}>
-            <div className={styles.top}>
-                <span className={styles.label}>{label}</span>
-                <span className={`${styles.delta} ${styles.deltaTone[deltaTone]}`}>{delta}</span>
+        <div className={row}>
+            <div className={top}>
+                <span className={labelStyle}>{label}</span>
+                <span className={`${deltaStyle} ${deltaToneStyle[deltaTone]}`}>{delta}</span>
             </div>
-            <div className={styles.track}>
-                <span className={styles.segment} style={{ width: `${positivePct}%`, background: styles.colorTokens.sentimentGreen }} />
-                <span className={styles.segment} style={{ width: `${neutralPct}%`, background: styles.colorTokens.sentimentBlue }} />
-                <span className={styles.segment} style={{ width: `${negativePct}%`, background: styles.colorTokens.sentimentRed }} />
+            <div className={track}>
+                <span className={segment} style={{ width: `${positivePct}%`, background: colorTokens.sentimentGreen }} />
+                <span className={segment} style={{ width: `${neutralPct}%`, background: colorTokens.sentimentBlue }} />
+                <span className={segment} style={{ width: `${negativePct}%`, background: colorTokens.sentimentRed }} />
             </div>
         </div>
     );

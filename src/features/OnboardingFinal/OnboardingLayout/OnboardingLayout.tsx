@@ -1,5 +1,16 @@
 import type { ReactNode } from "react";
-import * as styles from "./OnboardingLayout.css.ts";
+import {
+  page,
+  header,
+  logo,
+  progress,
+  progressLabel,
+  progressTrack,
+  progressDot,
+  progressDotTone,
+  skip,
+  content,
+} from "./OnboardingLayout.css.ts";
 import { OnboardingStep, ONBOARDING_STEP_COUNT } from "@/components/OnboardingLayout/OnboardingStep.ts";
 import {AuthLogo} from "@/features/auth/components/AuthLogo.tsx";
 
@@ -11,34 +22,34 @@ interface OnboardingLayoutProps {
 
 export function OnboardingLayout({ step, onSkip, children }: OnboardingLayoutProps) {
     return (
-        <div className={styles.page}>
-            <header className={styles.header}>
-        <span className={styles.logo}>
+        <div className={page}>
+            <header className={header}>
+        <span className={logo}>
           <AuthLogo/>
         </span>
 
-                <div className={styles.progress}>
-          <span className={styles.progressLabel}>
+                <div className={progress}>
+          <span className={progressLabel}>
             Step {step} of {ONBOARDING_STEP_COUNT}
           </span>
-                    <div className={styles.progressTrack}>
+                    <div className={progressTrack}>
                         {Array.from({ length: ONBOARDING_STEP_COUNT }, (_, index) => (
                             <span
                                 key={index}
-                                className={`${styles.progressDot} ${
-                                    index < step ? styles.progressDotTone.filled : styles.progressDotTone.empty
+                                className={`${progressDot} ${
+                                    index < step ? progressDotTone.filled : progressDotTone.empty
                                 }`}
                             />
                         ))}
                     </div>
                 </div>
 
-                <button type="button" className={styles.skip} onClick={onSkip}>
+                <button type="button" className={skip} onClick={onSkip}>
                     Skip
                 </button>
             </header>
 
-            <div className={styles.content}>{children}</div>
+            <div className={content}>{children}</div>
         </div>
     );
 }

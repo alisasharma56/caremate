@@ -1,6 +1,8 @@
 import { SideCard } from "../SideCard/SideCard.tsx";
 import { StatBox } from "../Statbox/Statbox.tsx";
-import * as styles from "../Statbox/Statbox.css.ts";
+import {
+  grid,
+} from "../Statbox/Statbox.css.ts";
 import useWeeklyStats from "@/features/home/hooks/UseweeklyStats.ts";
 
 function formatLabel(value: string) {
@@ -34,7 +36,7 @@ export function ThisWeekCard() {
 
     return (
         <SideCard title="This Week">
-            <div className={styles.grid}>
+            <div className={grid}>
                 <StatBox
                     value={String(articles.count)}
                     label="Articles"

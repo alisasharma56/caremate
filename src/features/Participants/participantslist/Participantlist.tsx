@@ -1,5 +1,25 @@
 import { Search, Plus } from "lucide-react";
-import * as styles from "./Participantslist.css.ts";
+import {
+  panel,
+  header,
+  title,
+  addButton,
+  searchWrap,
+  searchIcon,
+  searchInput,
+  list,
+  item,
+  itemSelected,
+  avatar,
+  itemBody,
+  itemTopRow,
+  itemName,
+  itemCategory,
+  itemBottomRow,
+  statusBadge,
+  statusBadgeTone,
+  itemSince,
+} from "./Participantslist.css.ts";
 import { PARTICIPANTS } from "../Participants.ts";
 import { useParticipantSelection } from "../Participantselectioncontext.tsx";
 
@@ -11,48 +31,48 @@ export function ParticipantsList({ onAdd }: ParticipantsListProps) {
     const { selectedId, setSelectedId } = useParticipantSelection();
 
     return (
-        <div className={styles.panel}>
-            <div className={styles.header}>
-                <span className={styles.title}>Participants ({PARTICIPANTS.length})</span>
-                <button type="button" className={styles.addButton} onClick={onAdd}>
+        <div className={panel}>
+            <div className={header}>
+                <span className={title}>Participants ({PARTICIPANTS.length})</span>
+                <button type="button" className={addButton} onClick={onAdd}>
                     <Plus size={13} /> Add
                 </button>
             </div>
 
-            <div className={styles.searchWrap}>
-                <span className={styles.searchIcon}>
+            <div className={searchWrap}>
+                <span className={searchIcon}>
                     <Search size={14} />
                 </span>
-                <input type="text" className={styles.searchInput} placeholder="Search participants..." />
+                <input type="text" className={searchInput} placeholder="Search participants..." />
             </div>
 
-            <div className={styles.list}>
+            <div className={list}>
                 {PARTICIPANTS.map((participant) => (
                     <button
                         key={participant.id}
                         type="button"
-                        className={`${styles.item} ${selectedId === participant.id ? styles.itemSelected : ""}`}
+                        className={`${item} ${selectedId === participant.id ? itemSelected : ""}`}
                         onClick={() => setSelectedId(participant.id)}
                     >
-                        <span className={styles.avatar} style={{ background: participant.avatarColor }}>
+                        <span className={avatar} style={{ background: participant.avatarColor }}>
                             {participant.initials}
                         </span>
-                        <span className={styles.itemBody}>
-                            <span className={styles.itemTopRow}>
-                                <span className={styles.itemName}>{participant.name}</span>
+                        <span className={itemBody}>
+                            <span className={itemTopRow}>
+                                <span className={itemName}>{participant.name}</span>
                             </span>
-                            <span className={styles.itemCategory}>{participant.category}</span>
-                            <span className={styles.itemBottomRow}>
+                            <span className={itemCategory}>{participant.category}</span>
+                            <span className={itemBottomRow}>
                                 <span
-                                    className={`${styles.statusBadge} ${
+                                    className={`${statusBadge} ${
                                         participant.status === "active"
-                                            ? styles.statusBadgeTone.active
-                                            : styles.statusBadgeTone.reviewDue
+                                            ? statusBadgeTone.active
+                                            : statusBadgeTone.reviewDue
                                     }`}
                                 >
                                     {participant.status === "active" ? "Active" : "Review due"}
                                 </span>
-                                <span className={styles.itemSince}>{participant.since}</span>
+                                <span className={itemSince}>{participant.since}</span>
                             </span>
                         </span>
                     </button>

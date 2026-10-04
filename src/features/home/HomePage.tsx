@@ -6,8 +6,32 @@ import useKeywordFeed, {
   type KeywordFeedItem,
 } from '@/features/home/hooks/GetKeywordFeed'
 import type { Item, Welcome } from '@/features/home/data/feed'
+import { SideCardPanel } from '@/features/SidecardPanel/SideCardPanel'
 import { FeedCard } from '@/components/FeedCard/FeedCard'
-import * as styles from '@/features/home/HomePage.css'
+import { PRIMARY_FILTERS, SECONDARY_FILTERS, filterFeedItems } from './feedFilters'
+import {
+  page,
+  message,
+  newsList,
+  dialog,
+  dialogPanel,
+  dialogHeader,
+  dialogEyebrow,
+  dialogTitle,
+  closeButton,
+  dialogBody,
+  anchorError as anchorErrorStyle,
+  dialogNewsList,
+  filters,
+  primaryFilters,
+  secondaryFilters,
+  primaryButton,
+  secondaryButton,
+  selectedFilter,
+  feedLayout,
+  feedColumn,
+  sidebar,
+} from '@/features/home/HomePage.css'
 
 function formatKeyword(value: string) {
   return value.replaceAll('_', ' ').replace(/\b\w/g, (letter) => letter.toUpperCase())
@@ -64,6 +88,8 @@ function keywordItemToFeedItem(item: KeywordFeedItem): Item {
 }
 
 export function HomePage() {
+  const [primaryFilter, setPrimaryFilter] = useState('')
+  const [secondaryFilter, setSecondaryFilter] = useState('')
   const [selectedKeyword, setSelectedKeyword] = useState('')
   const [anchorError, setAnchorError] = useState('')
   const queryClient = useQueryClient()
@@ -71,6 +97,13 @@ export function HomePage() {
   const anchorFeed = useAnchorFeed()
   const keywordFeedQuery = useKeywordFeed(selectedKeyword)
   const keywordItems = keywordFeedQuery.data?.items.map(keywordItemToFeedItem)
+  const feedItems = feedQuery.data?.items ?? []
+  const visibleItems = filterFeedItems(feedItems, primaryFilter, secondaryFilter)
+
+  const resetFilters = () => {
+    setPrimaryFilter('')
+    setSecondaryFilter('')
+  }
 
   const scrollToArticle = (newsId: number) => {
     requestAnimationFrame(() => {
@@ -88,6 +121,7 @@ export function HomePage() {
 
     if (feedQuery.data?.items.some((item) => item.news.id === newsId)) {
       setSelectedKeyword('')
+      resetFilters()
       scrollToArticle(newsId)
       return
     }
@@ -112,6 +146,7 @@ export function HomePage() {
         }
       })
       setSelectedKeyword('')
+      resetFilters()
       scrollToArticle(newsId)
     } catch (error) {
       setAnchorError(error instanceof Error ? error.message : 'Could not load the article.')
@@ -130,13 +165,30 @@ export function HomePage() {
   }, [selectedKeyword])
 
   return (
-    <main className={styles.page}>
-      <h1 className={styles.heading}>News</h1>
+    <main className={page} aria-label="News feed">
+      <section className={filters} aria-label="News filters">
+        <div className={primaryFilters} role="group" aria-label="Primary filters">
+          <button className={`${primaryButton} ${!primaryFilter && !secondaryFilter ? selectedFilter : ''}`}
+            type="button" aria-pressed={!primaryFilter && !secondaryFilter} onClick={resetFilters}>All</button>
+          {PRIMARY_FILTERS.map(option => <button key={option.value} type="button"
+            className={`${primaryButton} ${primaryFilter === option.value ? selectedFilter : ''}`}
+            aria-pressed={primaryFilter === option.value}
+            onClick={() => setPrimaryFilter(current => current === option.value ? '' : option.value)}>{option.label}</button>)}
+        </div>
+        <div className={secondaryFilters} role="group" aria-label="Secondary filters">
+          {SECONDARY_FILTERS.map(option => <button key={option.value} type="button"
+            className={`${secondaryButton} ${secondaryFilter === option.value ? selectedFilter : ''}`}
+            aria-pressed={secondaryFilter === option.value}
+            onClick={() => setSecondaryFilter(current => current === option.value ? '' : option.value)}>{option.label}</button>)}
+        </div>
+      </section>
 
-      {feedQuery.isPending ? <p className={styles.message}>Loading news…</p> : null}
+      <div className={feedLayout}>
+      <section className={feedColumn} aria-label="News articles">
+      {feedQuery.isPending ? <p className={message}>Loading news…</p> : null}
 
       {feedQuery.isError ? (
-        <div className={styles.message} role="alert">
+        <div className={message} role="alert">
           <p>Could not load the news. {feedQuery.error.message}</p>
           <button type="button" onClick={() => void feedQuery.refetch()}>
             Try again
@@ -145,11 +197,15 @@ export function HomePage() {
       ) : null}
 
       {!feedQuery.isPending && !feedQuery.isError && feedQuery.data?.items.length === 0 ? (
-        <p className={styles.message}>No news is available.</p>
+        <p className={message}>No news is available.</p>
       ) : null}
 
-      <div className={styles.newsList}>
-        {feedQuery.data?.items.map((item) => (
+      {!feedQuery.isPending && !feedQuery.isError && feedItems.length > 0 && visibleItems.length === 0 ? (
+        <p className={message}>No news matches the selected filters. Try another selection or clear the filters.</p>
+      ) : null}
+
+      <div className={newsList}>
+        {visibleItems.map((item) => (
           <FeedCard
             item={item}
             key={item.news.id}
@@ -158,27 +214,31 @@ export function HomePage() {
         ))}
       </div>
 
+      </section>
+      <aside className={sidebar} aria-label="News insights"><SideCardPanel /></aside>
+      </div>
+
       {selectedKeyword ? (
         <dialog
           aria-labelledby="keyword-dialog-title"
-          className={styles.dialog}
+          className={dialog}
           onCancel={() => setSelectedKeyword('')}
           onClick={(event) => {
             if (event.target === event.currentTarget) setSelectedKeyword('')
           }}
           open
         >
-          <section className={styles.dialogPanel}>
-            <header className={styles.dialogHeader}>
+          <section className={dialogPanel}>
+            <header className={dialogHeader}>
               <div>
-                <span className={styles.dialogEyebrow}>Keyword news</span>
-                <h2 className={styles.dialogTitle} id="keyword-dialog-title">
+                <span className={dialogEyebrow}>Keyword news</span>
+                <h2 className={dialogTitle} id="keyword-dialog-title">
                   {formatKeyword(selectedKeyword)}
                 </h2>
               </div>
               <button
                 aria-label="Close keyword news"
-                className={styles.closeButton}
+                className={closeButton}
                 onClick={() => setSelectedKeyword('')}
                 type="button"
               >
@@ -186,13 +246,13 @@ export function HomePage() {
               </button>
             </header>
 
-            <div className={styles.dialogBody}>
+            <div className={dialogBody}>
               {keywordFeedQuery.isPending ? (
-                <p className={styles.message}>Loading news…</p>
+                <p className={message}>Loading news…</p>
               ) : null}
 
               {keywordFeedQuery.isError ? (
-                <div className={styles.message} role="alert">
+                <div className={message} role="alert">
                   <p>Could not load keyword news. {keywordFeedQuery.error.message}</p>
                   <button type="button" onClick={() => void keywordFeedQuery.refetch()}>
                     Try again
@@ -201,7 +261,7 @@ export function HomePage() {
               ) : null}
 
               {anchorError ? (
-                <p className={styles.anchorError} role="alert">
+                <p className={anchorErrorStyle} role="alert">
                   Could not open this article. {anchorError}
                 </p>
               ) : null}
@@ -209,12 +269,12 @@ export function HomePage() {
               {!keywordFeedQuery.isPending &&
               !keywordFeedQuery.isError &&
               keywordItems?.length === 0 ? (
-                <p className={styles.message}>
+                <p className={message}>
                   No news is available for this keyword.
                 </p>
               ) : null}
 
-              <div className={styles.dialogNewsList}>
+              <div className={dialogNewsList}>
                 {keywordItems?.map((item) => (
                   <FeedCard
                     hideImage

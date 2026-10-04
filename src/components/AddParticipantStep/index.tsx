@@ -1,5 +1,16 @@
 import { useState } from "react";
-import * as styles from "@/components/Orgdetailsstep/Setupform.css.ts";
+import {
+  heading,
+  title,
+  subtitle,
+  field,
+  fieldLabel,
+  required,
+  input,
+  fieldRow,
+  select,
+  primaryButton,
+} from "@/components/Orgdetailsstep/Setupform.css.ts";
 
 interface AddParticipantStepProps {
     onContinue: () => void;
@@ -14,58 +25,58 @@ export function AddParticipantStep({ onContinue }: AddParticipantStepProps) {
 
     return (
         <div>
-            <div className={styles.heading}>
-                <h1 className={styles.title}>Add your first participant</h1>
-                <p className={styles.subtitle}>Enter participant details to start building their schedule.</p>
+            <div className={heading}>
+                <h1 className={title}>Add your first participant</h1>
+                <p className={subtitle}>Enter participant details to start building their schedule.</p>
             </div>
 
-            <div className={styles.field} style={{ marginBottom: 16 }}>
-                <label className={styles.fieldLabel}>
-                    Full Name <span className={styles.required}>*</span>
+            <div className={field} style={{ marginBottom: 16 }}>
+                <label className={fieldLabel}>
+                    Full Name <span className={required}>*</span>
                 </label>
                 <input
                     type="text"
-                    className={styles.input}
+                    className={input}
                     placeholder="Full name"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                 />
             </div>
 
-            <div className={styles.field} style={{ marginBottom: 16 }}>
-                <label className={styles.fieldLabel}>
-                    NDIS Number <span className={styles.required}>*</span>
+            <div className={field} style={{ marginBottom: 16 }}>
+                <label className={fieldLabel}>
+                    NDIS Number <span className={required}>*</span>
                 </label>
                 <input
                     type="text"
-                    className={styles.input}
+                    className={input}
                     placeholder="3245 34562352"
                     value={ndisNumber}
                     onChange={(e) => setNdisNumber(e.target.value)}
                 />
             </div>
 
-            <div className={styles.fieldRow}>
-                <div className={styles.field}>
-                    <label className={styles.fieldLabel}>
-                        Plan Start Date <span className={styles.required}>*</span>
+            <div className={fieldRow}>
+                <div className={field}>
+                    <label className={fieldLabel}>
+                        Plan Start Date <span className={required}>*</span>
                     </label>
                     <input
                         type="text"
-                        className={styles.input}
+                        className={input}
                         placeholder="MM/DD/YYYY"
                         value={planStart}
                         onChange={(e) => setPlanStart(e.target.value)}
                     />
                 </div>
 
-                <div className={styles.field}>
-                    <label className={styles.fieldLabel}>
-                        Plan End Date <span className={styles.required}>*</span>
+                <div className={field}>
+                    <label className={fieldLabel}>
+                        Plan End Date <span className={required}>*</span>
                     </label>
                     <input
                         type="text"
-                        className={styles.input}
+                        className={input}
                         placeholder="MM/DD/YYYY"
                         value={planEnd}
                         onChange={(e) => setPlanEnd(e.target.value)}
@@ -73,12 +84,12 @@ export function AddParticipantStep({ onContinue }: AddParticipantStepProps) {
                 </div>
             </div>
 
-            <div className={styles.field} style={{ marginBottom: 16 }}>
-                <label className={styles.fieldLabel}>
-                    Primary Support Category <span className={styles.required}>*</span>
+            <div className={field} style={{ marginBottom: 16 }}>
+                <label className={fieldLabel}>
+                    Primary Support Category <span className={required}>*</span>
                 </label>
                 <select
-                    className={styles.select}
+                    className={select}
                     value={supportCategory}
                     onChange={(e) => setSupportCategory(e.target.value)}
                 >
@@ -88,7 +99,7 @@ export function AddParticipantStep({ onContinue }: AddParticipantStepProps) {
                 </select>
             </div>
 
-            <button type="button" className={styles.primaryButton} onClick={onContinue}>
+            <button type="button" className={primaryButton} onClick={onContinue}>
                 Save Participant
             </button>
         </div>

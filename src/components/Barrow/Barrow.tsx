@@ -1,4 +1,13 @@
-import * as styles from "./Barrow.css.ts";
+import {
+  row,
+  top,
+  label as labelStyle,
+  delta as deltaStyle,
+  deltaTone as deltaToneStyle,
+  track,
+  fill,
+  fillTone,
+} from "./Barrow.css.ts";
 import ArrowUpRight from "@/components/icons/ArrowUpRight";
 
 type Tone = "green" | "red" | "blue";
@@ -14,18 +23,18 @@ interface BarRowProps {
 
 export function BarRow({ label, percent, tone, showArrow, delta, deltaTone }: BarRowProps) {
     return (
-        <div className={styles.row}>
-            <div className={styles.top}>
-                <span className={styles.label}>{label}</span>
+        <div className={row}>
+            <div className={top}>
+                <span className={labelStyle}>{label}</span>
                 {showArrow && <ArrowUpRight/>}
                 {delta && (
-                    <span className={`${styles.delta} ${styles.deltaTone[deltaTone ?? tone]}`}>
+                    <span className={`${deltaStyle} ${deltaToneStyle[deltaTone ?? tone]}`}>
             {delta}
           </span>
                 )}
             </div>
-            <div className={styles.track}>
-                <div className={`${styles.fill} ${styles.fillTone[tone]}`} style={{ width: `${percent}%` }} />
+            <div className={track}>
+                <div className={`${fill} ${fillTone[tone]}`} style={{ width: `${percent}%` }} />
             </div>
         </div>
     );

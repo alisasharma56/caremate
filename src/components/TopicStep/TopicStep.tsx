@@ -1,6 +1,18 @@
 import { useState } from "react";
-import * as shared from "@/features/OnboardingFinal/Stepshares.css.ts";
-import * as styles from "./TopicStep.css.ts";
+import {
+  stepWrap,
+  heading,
+  title,
+  subtitle,
+  actions,
+  secondaryButton,
+  primaryButton,
+} from "@/features/OnboardingFinal/Stepshares.css.ts";
+import {
+  chipGrid,
+  chip,
+  chipTone,
+} from "./TopicStep.css.ts";
 
 const TOPIC_OPTIONS = [
     "Police and Law",
@@ -34,21 +46,21 @@ export function TopicsStep({ onBack, onContinue }: TopicsStepProps) {
     }
 
     return (
-        <div className={shared.stepWrap}>
-            <div className={shared.heading}>
-                <h1 className={shared.title}>What Topics Interest You?</h1>
-                <p className={shared.subtitle}>
+        <div className={stepWrap}>
+            <div className={heading}>
+                <h1 className={title}>What Topics Interest You?</h1>
+                <p className={subtitle}>
                     Choose at least {MIN_TOPICS} to personalise your news feed.
                 </p>
             </div>
 
-            <div className={styles.chipGrid}>
+            <div className={chipGrid}>
                 {TOPIC_OPTIONS.map((topic) => (
                     <button
                         key={topic}
                         type="button"
-                        className={`${styles.chip} ${
-                            selected.includes(topic) ? styles.chipTone.selected : styles.chipTone.default
+                        className={`${chip} ${
+                            selected.includes(topic) ? chipTone.selected : chipTone.default
                         }`}
                         onClick={() => toggleTopic(topic)}
                     >
@@ -57,13 +69,13 @@ export function TopicsStep({ onBack, onContinue }: TopicsStepProps) {
                 ))}
             </div>
 
-            <div className={shared.actions}>
-                <button type="button" className={shared.secondaryButton} onClick={onBack}>
+            <div className={actions}>
+                <button type="button" className={secondaryButton} onClick={onBack}>
                     Back
                 </button>
                 <button
                     type="button"
-                    className={shared.primaryButton}
+                    className={primaryButton}
                     disabled={selected.length < MIN_TOPICS}
                     onClick={() => onContinue(selected)}
                 >

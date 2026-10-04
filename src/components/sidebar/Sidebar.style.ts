@@ -4,7 +4,8 @@ import { vars } from '@/styles/theme/tokens.css'
 export const styles = {
   aside: {
     display: 'flex',
-    width: '280px',
+    width: '308px',
+    flexShrink: 0,
     height: '100vh',
     flexDirection: 'column',
     borderRight: `1px solid ${vars.color.gray.lighter}`,

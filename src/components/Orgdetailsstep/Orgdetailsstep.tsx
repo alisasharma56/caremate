@@ -1,5 +1,18 @@
 import { useState } from "react";
-import * as styles from "./Setupform.css.ts";
+import {
+  heading,
+  title,
+  subtitle,
+  fieldRow,
+  field,
+  fieldLabel,
+  required,
+  selectWrap,
+  select,
+  selectIcon,
+  input,
+  primaryButton,
+} from "./Setupform.css.ts";
 import Dropdown from "@/components/icons/Dropdown";
 
 interface OrgDetailsStepProps {
@@ -14,78 +27,78 @@ export function OrgDetailsStep({ onContinue }: OrgDetailsStepProps) {
 
     return (
         <div>
-            <div className={styles.heading}>
-                <h1 className={styles.title}>Organization details</h1>
-                <p className={styles.subtitle}>Tell us how your roster should be configured.</p>
+            <div className={heading}>
+                <h1 className={title}>Organization details</h1>
+                <p className={subtitle}>Tell us how your roster should be configured.</p>
             </div>
 
-            <div className={styles.fieldRow}>
-                <div className={styles.field}>
-                    <label className={styles.fieldLabel}>
-                        Registration Type <span className={styles.required}>*</span>
+            <div className={fieldRow}>
+                <div className={field}>
+                    <label className={fieldLabel}>
+                        Registration Type <span className={required}>*</span>
                     </label>
-                    <div className={styles.selectWrap}>
+                    <div className={selectWrap}>
                         <select
-                            className={styles.select}
+                            className={select}
                             value={registrationType}
                             onChange={(e) => setRegistrationType(e.target.value)}
                         >
                             <option>Registered Provider</option>
                             <option>Unregistered Provider</option>
                         </select>
-                        <span className={styles.selectIcon}>
+                        <span className={selectIcon}>
                             <Dropdown />
                         </span>
                     </div>
                 </div>
 
-                <div className={styles.field}>
-                    <label className={styles.fieldLabel}>
-                        Award / Pay rate <span className={styles.required}>*</span>
+                <div className={field}>
+                    <label className={fieldLabel}>
+                        Award / Pay rate <span className={required}>*</span>
                     </label>
-                    <div className={styles.selectWrap}>
+                    <div className={selectWrap}>
                         <select
-                            className={styles.select}
+                            className={select}
                             value={payRate}
                             onChange={(e) => setPayRate(e.target.value)}
                         >
                             <option>Custom Rates</option>
                             <option>SCHADS Award</option>
                         </select>
-                        <span className={styles.selectIcon}>
+                        <span className={selectIcon}>
                             <Dropdown />
                         </span>
                     </div>
                 </div>
             </div>
 
-            <div className={styles.fieldRow}>
-                <div className={styles.field}>
-                    <label className={styles.fieldLabel}>
-                        Shift Start <span className={styles.required}>*</span>
+            <div className={fieldRow}>
+                <div className={field}>
+                    <label className={fieldLabel}>
+                        Shift Start <span className={required}>*</span>
                     </label>
                     <input
                         type="text"
-                        className={styles.input}
+                        className={input}
                         value={shiftStart}
                         onChange={(e) => setShiftStart(e.target.value)}
                     />
                 </div>
 
-                <div className={styles.field}>
-                    <label className={styles.fieldLabel}>
-                        Shift End <span className={styles.required}>*</span>
+                <div className={field}>
+                    <label className={fieldLabel}>
+                        Shift End <span className={required}>*</span>
                     </label>
                     <input
                         type="text"
-                        className={styles.input}
+                        className={input}
                         value={shiftEnd}
                         onChange={(e) => setShiftEnd(e.target.value)}
                     />
                 </div>
             </div>
 
-            <button type="button" className={styles.primaryButton} onClick={onContinue}>
+            <button type="button" className={primaryButton} onClick={onContinue}>
                 Save and Continue
             </button>
         </div>

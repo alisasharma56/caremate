@@ -1,0 +1,153 @@
+import { useState } from 'react'
+import { Link } from '@tanstack/react-router'
+import { useRosterStore } from './store'
+import { ChevronLeft, ChevronRight, Plus, Sparkles } from 'lucide-react'
+import { suggestions, dayNames, dateFormat } from './data'
+import type { RosterView, TeamFilter } from './data'
+import { RosterSchedule } from './RosterSchedule'
+import { RosterSummary } from './RosterSummary'
+import {
+  page,
+  main,
+  toolbar,
+  iconButton,
+  date as dateStyle,
+  toggle,
+  toggleButton,
+  active,
+  actions,
+  button,
+  primaryButton,
+  filter,
+  teamFilterInput,
+  notice as noticeStyle,
+} from './Roster.css'
+
+export function RosterPage() {
+  const { week, setWeek, shifts, setShifts, hiddenSuggestions, setHiddenSuggestions, notice, setNotice, published, setPublished } = useRosterStore()
+  const [view, setView] = useState<RosterView>('weekly')
+  const [filterOpen, setFilterOpen] = useState(false)
+  const [teamFilter, setTeamFilter] = useState<TeamFilter>('all')
+  const start = new Date(2026, 4, 4 + week * 7)
+  const dates = dayNames.map((_, day) =>
+    new Date(start.getFullYear(), start.getMonth(), start.getDate() + day),
+  )
+  const todayIndex = Math.max(0, dates.findIndex(date => date.toDateString() === new Date().toDateString()))
+  const visibleDays = view === 'weekly' ? [0, 1, 2, 3, 4, 5, 6] : [todayIndex]
+  const weekShifts = shifts.filter(shift => (shift.week ?? 0) === week)
+  const visibleSuggestions = suggestions.filter(item => !hiddenSuggestions.includes(item.id))
+
+  function showToday() {
+    const now = new Date()
+    const base = new Date(2026, 4, 4)
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    setWeek(Math.floor((today.getTime() - base.getTime()) / 604800000))
+    setView('today')
+  }
+
+  function publishShifts() {
+    setPublished(true)
+    setNotice('This roster has been marked as published in this preview.')
+  }
+
+  function acceptSuggestion(id: string) {
+    if (week !== 0) {
+      setNotice('Navigate to 4–10 May to apply these suggestions.')
+      return
+    }
+    setShifts(current => current.map(shift => {
+      if (id === 'hours' && shift.status === 'conflict') {
+        return { ...shift, workerId: 'prabin', status: undefined }
+      }
+      if (id === 'vacant' && shift.id === 'vacant-5') {
+        return { ...shift, workerId: 'prabin', status: 'suggested' }
+      }
+      if (id === 'travel' && shift.workerId === 'prabin' && shift.day === 4) {
+        return { ...shift, time: '12:45–3:30' }
+      }
+      return shift
+    }))
+    setHiddenSuggestions(current => [...current, id])
+    setPublished(false)
+    setNotice('Suggestion applied to the roster.')
+  }
+
+  return (
+    <div className={page}>
+      <section className={main} aria-label="Roster schedule">
+        <div className={toolbar}>
+          <button className={iconButton} aria-label="Previous week" onClick={() => setWeek(week - 1)}>
+            <ChevronLeft size={16} />
+          </button>
+          <span className={dateStyle}>{start.getDate()}–{dateFormat.format(dates[6])} {dates[6].getFullYear()}</span>
+          <button className={iconButton} aria-label="Next week" onClick={() => setWeek(week + 1)}>
+            <ChevronRight size={16} />
+          </button>
+          <div className={toggle}>
+            <button
+              className={`${toggleButton} ${view === 'weekly' ? active : ''}`}
+              aria-pressed={view === 'weekly'}
+              onClick={() => setView('weekly')}
+            >
+              Weekly
+            </button>
+            <button
+              className={`${toggleButton} ${view === 'today' ? active : ''}`}
+              aria-pressed={view === 'today'}
+              onClick={showToday}
+            >
+              Today
+            </button>
+          </div>
+          <div className={actions}>
+            <button className={button} aria-expanded={filterOpen} onClick={() => setFilterOpen(!filterOpen)}>
+              Filter
+            </button>
+            <button
+              className={button}
+              onClick={() => setNotice('AI suggestions are shown in the panel. Review and accept them to update your roster.')}
+            >
+              <Sparkles size={14} /> AI Suggest
+            </button>
+            <button className={button} onClick={publishShifts}>
+              {published ? 'Published' : 'Publish shifts'}
+            </button>
+            <Link className={primaryButton} to="/roster/add-shift">
+              <Plus size={15} /> Add shift
+            </Link>
+          </div>
+        </div>
+        {filterOpen && (
+          <div className={filter}>
+            <label htmlFor="team-filter">Team</label>
+            <select
+              id="team-filter"
+              className={teamFilterInput}
+              value={teamFilter}
+              onChange={event => setTeamFilter(event.target.value as TeamFilter)}
+            >
+              <option value="all">All teams</option>
+              <option value="alpha">Team Alpha</option>
+              <option value="beta">Team Beta</option>
+            </select>
+          </div>
+        )}
+        {notice && <div className={noticeStyle} role="status">{notice}</div>}
+        <RosterSchedule
+          dates={dates}
+          view={view}
+          shifts={weekShifts}
+          week={week}
+          teamFilter={teamFilter}
+          visibleDays={visibleDays}
+        />
+      </section>
+      <RosterSummary
+        shifts={weekShifts}
+        visibleSuggestions={visibleSuggestions}
+        onAccept={acceptSuggestion}
+        onDismiss={id => setHiddenSuggestions(current => [...current, id])}
+      />
+    </div>
+  )
+}

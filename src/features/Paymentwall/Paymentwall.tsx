@@ -78,7 +78,14 @@
 
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import * as styles from "./paymentwall.css.ts";
+import {
+  page,
+  logo,
+  heading,
+  title,
+  subtitle,
+  grid,
+} from "./paymentwall.css.ts";
 import { PricingCard, type PricingFeature } from "@/components/PricingCard/PricingCard.tsx";
 import {AuthLogo} from "@/features/auth/components/AuthLogo.tsx";
 
@@ -153,17 +160,17 @@ export function Paymentwall() {
     const navigate = useNavigate();
 
     return (
-        <div className={styles.page}>
-      <span className={styles.logo}>
+        <div className={page}>
+      <span className={logo}>
         <AuthLogo/>
       </span>
 
-            <div className={styles.heading}>
-                <h1 className={styles.title}>Choose Your Plan</h1>
-                <p className={styles.subtitle}>Cancel anytime. No lock-in contracts.</p>
+            <div className={heading}>
+                <h1 className={title}>Choose Your Plan</h1>
+                <p className={subtitle}>Cancel anytime. No lock-in contracts.</p>
             </div>
 
-            <div className={styles.grid}>
+            <div className={grid}>
                 {PLANS.map((plan) => (
                     <PricingCard
                         key={plan.id}

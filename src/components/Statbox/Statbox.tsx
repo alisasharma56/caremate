@@ -1,23 +1,30 @@
 import ArrowUpRight from "@/components/icons/ArrowUpRight";
 import ArrowDownRight from "@/components/icons/ArrowRightDown";
-import * as styles from "./Statbox.css.ts";
+import {
+  box,
+  value as valueStyle,
+  label as labelStyle,
+  delta as deltaStyle,
+  deltaTone,
+} from "./Statbox.css.ts";
 
 interface StatBoxProps {
     value: string;
+    valueClassName?: string;
     label: string;
     delta?: string;
     tone?: "green" | "red";
     trend?: "up" | "down";
 }
 
-export function StatBox({ value, label, delta, tone, trend = "up" }: StatBoxProps) {
+export function StatBox({ value, label, delta, tone, trend = "up", valueClassName }: StatBoxProps) {
     const Icon = trend === "up" ? ArrowUpRight : ArrowDownRight;
     return (
-        <div className={styles.box}>
-            <span className={styles.value}>{value}</span>
-            <span className={styles.label}>{label}</span>
+        <div className={box}>
+            <span className={[valueStyle, valueClassName].filter(Boolean).join(" ")}>{value}</span>
+            <span className={labelStyle}>{label}</span>
             {delta && tone && (
-                <span className={`${styles.delta} ${styles.deltaTone[tone]}`}>
+                <span className={`${deltaStyle} ${deltaTone[tone]}`}>
                     <Icon />
                     {delta}
                 </span>
