@@ -5,8 +5,32 @@ import facebookIcon from '@/assets/SocialMediaIcons/Icon.svg'
 import instagramIcon from '@/assets/SocialMediaIcons/Icon (1).svg'
 import linkedinIcon from '@/assets/SocialMediaIcons/Icon (2).svg'
 import emailIcon from '@/assets/SocialMediaIcons/Icon (3).svg'
-import * as styles from './SocialSetup.css'
-import * as workspaceStyles from './WorkspaceSetup.css'
+import {
+  content,
+  intro,
+  business,
+  currentBusiness,
+  channels as channelsStyle,
+  channel as channelStyle,
+  icon,
+  channelCopy,
+  connectedButton,
+  connectButton,
+  continueButton,
+} from './SocialSetup.css'
+import {
+  workspacePage,
+  mobile,
+  topBar,
+  logo,
+  logoAccent,
+  progress,
+  progressBars,
+  progressBar,
+  activeProgressBar,
+  skip,
+  heading,
+} from './WorkspaceSetup.css'
 
 type ChannelId = 'facebook' | 'instagram' | 'linkedin' | 'email'
 
@@ -43,28 +67,28 @@ export function SocialSetup() {
     })
   }
 
-  return <main className={`${workspaceStyles.workspacePage} ${workspaceStyles.mobile}`}>
-    <nav className={workspaceStyles.topBar} aria-label="Setup progress">
-      <a className={workspaceStyles.logo} href="/">CARE<span className={workspaceStyles.logoAccent}>MATE</span></a>
-      <div className={workspaceStyles.progress}><span>Step 3 of 3</span><span className={workspaceStyles.progressBars} aria-hidden="true"><span className={`${workspaceStyles.progressBar} ${workspaceStyles.activeProgressBar}`} /><span className={`${workspaceStyles.progressBar} ${workspaceStyles.activeProgressBar}`} /><span className={`${workspaceStyles.progressBar} ${workspaceStyles.activeProgressBar}`} /></span></div>
-      <button className={workspaceStyles.skip} onClick={finishOnboarding} type="button">Skip</button>
+  return <main className={`${workspacePage} ${mobile}`}>
+    <nav className={topBar} aria-label="Setup progress">
+      <a className={logo} href="/">CARE<span className={logoAccent}>MATE</span></a>
+      <div className={progress}><span>Step 3 of 3</span><span className={progressBars} aria-hidden="true"><span className={`${progressBar} ${activeProgressBar}`} /><span className={`${progressBar} ${activeProgressBar}`} /><span className={`${progressBar} ${activeProgressBar}`} /></span></div>
+      <button className={skip} onClick={finishOnboarding} type="button">Skip</button>
     </nav>
 
-    <section className={styles.content} aria-labelledby="social-title">
-      <h1 className={workspaceStyles.heading} id="social-title">Set up your unified inbox</h1>
-      <p className={styles.intro}>Connect your communication channels. All messages land in one place.</p>
-      <div className={styles.business}><span>Sunrise Company</span><span className={styles.currentBusiness}>Current Business</span></div>
-      <div className={styles.channels}>
+    <section className={content} aria-labelledby="social-title">
+      <h1 className={heading} id="social-title">Set up your unified inbox</h1>
+      <p className={intro}>Connect your communication channels. All messages land in one place.</p>
+      <div className={business}><span>Sunrise Company</span><span className={currentBusiness}>Current Business</span></div>
+      <div className={channelsStyle}>
         {channels.map((channel) => {
           const isConnected = connected.has(channel.id)
-          return <article className={styles.channel} key={channel.id}>
-            <span className={styles.icon}><img alt="" aria-hidden="true" src={channelIcons[channel.id]} /></span>
-            <div className={styles.channelCopy}><h2>{channel.name}</h2><p>{channel.description}</p></div>
-            <button aria-pressed={isConnected} className={isConnected ? styles.connectedButton : styles.connectButton} onClick={() => toggleChannel(channel.id)} type="button">{isConnected && <span aria-hidden="true">✓</span>} Connect</button>
+          return <article className={channelStyle} key={channel.id}>
+            <span className={icon}><img alt="" aria-hidden="true" src={channelIcons[channel.id]} /></span>
+            <div className={channelCopy}><h2>{channel.name}</h2><p>{channel.description}</p></div>
+            <button aria-pressed={isConnected} className={isConnected ? connectedButton : connectButton} onClick={() => toggleChannel(channel.id)} type="button">{isConnected && <span aria-hidden="true">✓</span>} Connect</button>
           </article>
         })}
       </div>
-      <button className={styles.continueButton} onClick={finishOnboarding} type="button">Continue to Roster Setup</button>
+      <button className={continueButton} onClick={finishOnboarding} type="button">Continue to Roster Setup</button>
     </section>
   </main>
 }

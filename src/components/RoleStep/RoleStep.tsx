@@ -1,6 +1,19 @@
 import { useState } from "react";
-import * as shared from "@/features/OnboardingFinal/Stepshares.css.ts";
-import * as styles from "./RoleStep.css.ts";
+import {
+  stepWrap,
+  heading,
+  title,
+  subtitle,
+  actions,
+  primaryButton,
+} from "@/features/OnboardingFinal/Stepshares.css.ts";
+import {
+  grid,
+  card,
+  cardTone,
+  cardTitle,
+  cardDescription,
+} from "./RoleStep.css.ts";
 
 interface RoleOption {
     id: string;
@@ -27,34 +40,34 @@ export function RoleStep({ onContinue }: RoleStepProps) {
     const [selected, setSelected] = useState<string | null>(null);
 
     return (
-        <div className={shared.stepWrap}>
-            <div className={shared.heading}>
-                <h1 className={shared.title}>What Best Describes You?</h1>
-                <p className={shared.subtitle}>
+        <div className={stepWrap}>
+            <div className={heading}>
+                <h1 className={title}>What Best Describes You?</h1>
+                <p className={subtitle}>
                     We'll personalise your experience based on your role in the NDIS sector.
                 </p>
             </div>
 
-            <div className={styles.grid}>
+            <div className={grid}>
                 {ROLE_OPTIONS.map((role) => (
                     <button
                         key={role.id}
                         type="button"
-                        className={`${styles.card} ${
-                            selected === role.id ? styles.cardTone.selected : styles.cardTone.default
+                        className={`${card} ${
+                            selected === role.id ? cardTone.selected : cardTone.default
                         }`}
                         onClick={() => setSelected(role.id)}
                     >
-                        <span className={styles.cardTitle}>{role.title}</span>
-                        <span className={styles.cardDescription}>{role.description}</span>
+                        <span className={cardTitle}>{role.title}</span>
+                        <span className={cardDescription}>{role.description}</span>
                     </button>
                 ))}
             </div>
 
-            <div className={shared.actions}>
+            <div className={actions}>
                 <button
                     type="button"
-                    className={shared.primaryButton}
+                    className={primaryButton}
                     disabled={!selected}
                     onClick={() => selected && onContinue(selected)}
                 >

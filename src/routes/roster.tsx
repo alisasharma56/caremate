@@ -1,9 +1,6 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Outlet } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/roster')({
-  component: RouteComponent,
+  staticData: { breadcrumbs: [{ label: 'Workspace' }, { label: 'Roster' }] },
+  component: Outlet,
 })
-
-function RouteComponent() {
-  return <div>Hello "/roster"!</div>
-}

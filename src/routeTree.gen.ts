@@ -8,32 +8,34 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from '@/routes/__root'
-import { Route as WorkersRouteImport } from '@/routes/workers'
-import { Route as SocialListeningRouteImport } from '@/routes/social-listening'
-import { Route as SignupRouteImport } from '@/routes/signup'
-import { Route as SettingsRouteImport } from '@/routes/settings'
-import { Route as RosterRouteImport } from '@/routes/roster'
-import { Route as PlaceJobRouteImport } from '@/routes/place-job'
-import { Route as PaymentRouteImport } from '@/routes/payment'
-import { Route as ParticipantsRouteImport } from '@/routes/participants'
-import { Route as OrganizationRouteImport } from '@/routes/organization'
-import { Route as OnboardingRouteImport } from '@/routes/onboarding'
-import { Route as NewsletterRouteImport } from '@/routes/newsletter'
-import { Route as LoginRouteImport } from '@/routes/login'
-import { Route as LeadsRouteImport } from '@/routes/leads'
-import { Route as InboxRouteImport } from '@/routes/inbox'
-import { Route as BreakingRouteImport } from '@/routes/breaking'
-import { Route as AnalyticsRouteImport } from '@/routes/analytics'
-import { Route as AlertsRouteImport } from '@/routes/alerts'
-import { Route as IndexRouteImport } from '@/routes/index'
-import { Route as OnboardingIndexRouteImport } from '@/routes/onboarding.index'
-import { Route as OnboardingWorkspaceRouteImport } from '@/routes/onboarding.workspace'
-import { Route as OnboardingTopicsRouteImport } from '@/routes/onboarding.topics'
-import { Route as OnboardingSocialRouteImport } from '@/routes/onboarding.social'
-import { Route as OnboardingRoleRouteImport } from '@/routes/onboarding.role'
-import { Route as OnboardingLocationRouteImport } from '@/routes/onboarding.location'
-import { Route as OnboardingInviteTeamRouteImport } from '@/routes/onboarding.invite-team'
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as WorkersRouteImport } from './routes/workers'
+import { Route as SocialListeningRouteImport } from './routes/social-listening'
+import { Route as SignupRouteImport } from './routes/signup'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as RosterRouteImport } from './routes/roster'
+import { Route as PlaceJobRouteImport } from './routes/place-job'
+import { Route as PaymentRouteImport } from './routes/payment'
+import { Route as ParticipantsRouteImport } from './routes/participants'
+import { Route as OrganizationRouteImport } from './routes/organization'
+import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as NewsletterRouteImport } from './routes/newsletter'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as LeadsRouteImport } from './routes/leads'
+import { Route as InboxRouteImport } from './routes/inbox'
+import { Route as BreakingRouteImport } from './routes/breaking'
+import { Route as AnalyticsRouteImport } from './routes/analytics'
+import { Route as AlertsRouteImport } from './routes/alerts'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as RosterIndexRouteImport } from './routes/roster.index'
+import { Route as OnboardingIndexRouteImport } from './routes/onboarding.index'
+import { Route as RosterAddShiftRouteImport } from './routes/roster.add-shift'
+import { Route as OnboardingWorkspaceRouteImport } from './routes/onboarding.workspace'
+import { Route as OnboardingTopicsRouteImport } from './routes/onboarding.topics'
+import { Route as OnboardingSocialRouteImport } from './routes/onboarding.social'
+import { Route as OnboardingRoleRouteImport } from './routes/onboarding.role'
+import { Route as OnboardingLocationRouteImport } from './routes/onboarding.location'
+import { Route as OnboardingInviteTeamRouteImport } from './routes/onboarding.invite-team'
 
 const WorkersRoute = WorkersRouteImport.update({
   id: '/workers',
@@ -125,10 +127,20 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RosterIndexRoute = RosterIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => RosterRoute,
+} as any)
 const OnboardingIndexRoute = OnboardingIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => OnboardingRoute,
+} as any)
+const RosterAddShiftRoute = RosterAddShiftRouteImport.update({
+  id: '/add-shift',
+  path: '/add-shift',
+  getParentRoute: () => RosterRoute,
 } as any)
 const OnboardingWorkspaceRoute = OnboardingWorkspaceRouteImport.update({
   id: '/workspace',
@@ -175,7 +187,7 @@ export interface FileRoutesByFullPath {
   '/participants': typeof ParticipantsRoute
   '/payment': typeof PaymentRoute
   '/place-job': typeof PlaceJobRoute
-  '/roster': typeof RosterRoute
+  '/roster': typeof RosterRouteWithChildren
   '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
   '/social-listening': typeof SocialListeningRoute
@@ -186,7 +198,9 @@ export interface FileRoutesByFullPath {
   '/onboarding/social': typeof OnboardingSocialRoute
   '/onboarding/topics': typeof OnboardingTopicsRoute
   '/onboarding/workspace': typeof OnboardingWorkspaceRoute
+  '/roster/add-shift': typeof RosterAddShiftRoute
   '/onboarding/': typeof OnboardingIndexRoute
+  '/roster/': typeof RosterIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -201,7 +215,6 @@ export interface FileRoutesByTo {
   '/participants': typeof ParticipantsRoute
   '/payment': typeof PaymentRoute
   '/place-job': typeof PlaceJobRoute
-  '/roster': typeof RosterRoute
   '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
   '/social-listening': typeof SocialListeningRoute
@@ -212,7 +225,9 @@ export interface FileRoutesByTo {
   '/onboarding/social': typeof OnboardingSocialRoute
   '/onboarding/topics': typeof OnboardingTopicsRoute
   '/onboarding/workspace': typeof OnboardingWorkspaceRoute
+  '/roster/add-shift': typeof RosterAddShiftRoute
   '/onboarding': typeof OnboardingIndexRoute
+  '/roster': typeof RosterIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -229,7 +244,7 @@ export interface FileRoutesById {
   '/participants': typeof ParticipantsRoute
   '/payment': typeof PaymentRoute
   '/place-job': typeof PlaceJobRoute
-  '/roster': typeof RosterRoute
+  '/roster': typeof RosterRouteWithChildren
   '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
   '/social-listening': typeof SocialListeningRoute
@@ -240,7 +255,9 @@ export interface FileRoutesById {
   '/onboarding/social': typeof OnboardingSocialRoute
   '/onboarding/topics': typeof OnboardingTopicsRoute
   '/onboarding/workspace': typeof OnboardingWorkspaceRoute
+  '/roster/add-shift': typeof RosterAddShiftRoute
   '/onboarding/': typeof OnboardingIndexRoute
+  '/roster/': typeof RosterIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -269,7 +286,9 @@ export interface FileRouteTypes {
     | '/onboarding/social'
     | '/onboarding/topics'
     | '/onboarding/workspace'
+    | '/roster/add-shift'
     | '/onboarding/'
+    | '/roster/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -284,7 +303,6 @@ export interface FileRouteTypes {
     | '/participants'
     | '/payment'
     | '/place-job'
-    | '/roster'
     | '/settings'
     | '/signup'
     | '/social-listening'
@@ -295,7 +313,9 @@ export interface FileRouteTypes {
     | '/onboarding/social'
     | '/onboarding/topics'
     | '/onboarding/workspace'
+    | '/roster/add-shift'
     | '/onboarding'
+    | '/roster'
   id:
     | '__root__'
     | '/'
@@ -322,7 +342,9 @@ export interface FileRouteTypes {
     | '/onboarding/social'
     | '/onboarding/topics'
     | '/onboarding/workspace'
+    | '/roster/add-shift'
     | '/onboarding/'
+    | '/roster/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -339,7 +361,7 @@ export interface RootRouteChildren {
   ParticipantsRoute: typeof ParticipantsRoute
   PaymentRoute: typeof PaymentRoute
   PlaceJobRoute: typeof PlaceJobRoute
-  RosterRoute: typeof RosterRoute
+  RosterRoute: typeof RosterRouteWithChildren
   SettingsRoute: typeof SettingsRoute
   SignupRoute: typeof SignupRoute
   SocialListeningRoute: typeof SocialListeningRoute
@@ -474,12 +496,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/roster/': {
+      id: '/roster/'
+      path: '/'
+      fullPath: '/roster/'
+      preLoaderRoute: typeof RosterIndexRouteImport
+      parentRoute: typeof RosterRoute
+    }
     '/onboarding/': {
       id: '/onboarding/'
       path: '/'
       fullPath: '/onboarding/'
       preLoaderRoute: typeof OnboardingIndexRouteImport
       parentRoute: typeof OnboardingRoute
+    }
+    '/roster/add-shift': {
+      id: '/roster/add-shift'
+      path: '/add-shift'
+      fullPath: '/roster/add-shift'
+      preLoaderRoute: typeof RosterAddShiftRouteImport
+      parentRoute: typeof RosterRoute
     }
     '/onboarding/workspace': {
       id: '/onboarding/workspace'
@@ -550,6 +586,19 @@ const OnboardingRouteWithChildren = OnboardingRoute._addFileChildren(
   OnboardingRouteChildren,
 )
 
+interface RosterRouteChildren {
+  RosterAddShiftRoute: typeof RosterAddShiftRoute
+  RosterIndexRoute: typeof RosterIndexRoute
+}
+
+const RosterRouteChildren: RosterRouteChildren = {
+  RosterAddShiftRoute: RosterAddShiftRoute,
+  RosterIndexRoute: RosterIndexRoute,
+}
+
+const RosterRouteWithChildren =
+  RosterRoute._addFileChildren(RosterRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AlertsRoute: AlertsRoute,
@@ -564,7 +613,7 @@ const rootRouteChildren: RootRouteChildren = {
   ParticipantsRoute: ParticipantsRoute,
   PaymentRoute: PaymentRoute,
   PlaceJobRoute: PlaceJobRoute,
-  RosterRoute: RosterRoute,
+  RosterRoute: RosterRouteWithChildren,
   SettingsRoute: SettingsRoute,
   SignupRoute: SignupRoute,
   SocialListeningRoute: SocialListeningRoute,

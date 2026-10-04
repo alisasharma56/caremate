@@ -1,5 +1,35 @@
 import { FileText } from "lucide-react";
-import * as styles from "./Participantdetail.css.ts";
+import {
+  panel,
+  header,
+  headerLeft,
+  avatar,
+  name,
+  tags,
+  headerActions,
+  actionButton,
+  primaryActionButton,
+  infoGrid,
+  infoBox,
+  infoLabel,
+  infoValue,
+  infoNote,
+  section,
+  sectionTitle,
+  fundingRow,
+  fundingTopRow,
+  fundingLabel,
+  fundingAmount,
+  fundingTrack,
+  fundingFill,
+  documentRow,
+  documentIcon,
+  documentBody,
+  documentTitle,
+  documentMeta,
+  documentActions,
+  uploadRow,
+} from "./Participantdetail.css.ts";
 import { PARTICIPANTS } from "../Participants.ts";
 import { useParticipantSelection } from "../Participantselectioncontext.tsx";
 
@@ -12,65 +42,65 @@ export function ParticipantDetail() {
     const participant = PARTICIPANTS.find((p) => p.id === selectedId) ?? PARTICIPANTS[0];
 
     return (
-        <div className={styles.panel}>
-            <div className={styles.header}>
-                <div className={styles.headerLeft}>
-                    <span className={styles.avatar} style={{ background: participant.avatarColor }}>
+        <div className={panel}>
+            <div className={header}>
+                <div className={headerLeft}>
+                    <span className={avatar} style={{ background: participant.avatarColor }}>
                         {participant.initials}
                     </span>
                     <div>
-                        <h1 className={styles.name}>{participant.name}</h1>
-                        <p className={styles.tags}>{participant.tags}</p>
+                        <h1 className={name}>{participant.name}</h1>
+                        <p className={tags}>{participant.tags}</p>
                     </div>
                 </div>
-                <div className={styles.headerActions}>
-                    <button type="button" className={styles.actionButton}>
+                <div className={headerActions}>
+                    <button type="button" className={actionButton}>
                         Edit profile
                     </button>
-                    <button type="button" className={styles.actionButton}>
+                    <button type="button" className={actionButton}>
                         View roster
                     </button>
-                    <button type="button" className={styles.primaryActionButton}>
+                    <button type="button" className={primaryActionButton}>
                         + Add document
                     </button>
                 </div>
             </div>
 
-            <div className={styles.infoGrid}>
-                <div className={styles.infoBox}>
-                    <span className={styles.infoLabel}>NDIS Number</span>
-                    <span className={styles.infoValue}>{participant.ndisNumber}</span>
+            <div className={infoGrid}>
+                <div className={infoBox}>
+                    <span className={infoLabel}>NDIS Number</span>
+                    <span className={infoValue}>{participant.ndisNumber}</span>
                 </div>
-                <div className={styles.infoBox}>
-                    <span className={styles.infoLabel}>Plan Period</span>
-                    <span className={styles.infoValue}>{participant.planPeriod}</span>
-                    <span className={styles.infoNote}>{participant.planReviewNote}</span>
+                <div className={infoBox}>
+                    <span className={infoLabel}>Plan Period</span>
+                    <span className={infoValue}>{participant.planPeriod}</span>
+                    <span className={infoNote}>{participant.planReviewNote}</span>
                 </div>
-                <div className={styles.infoBox}>
-                    <span className={styles.infoLabel}>Support Category</span>
-                    <span className={styles.infoValue}>{participant.supportCategory}</span>
+                <div className={infoBox}>
+                    <span className={infoLabel}>Support Category</span>
+                    <span className={infoValue}>{participant.supportCategory}</span>
                 </div>
-                <div className={styles.infoBox}>
-                    <span className={styles.infoLabel}>Plan Manager</span>
-                    <span className={styles.infoValue}>{participant.planManager}</span>
+                <div className={infoBox}>
+                    <span className={infoLabel}>Plan Manager</span>
+                    <span className={infoValue}>{participant.planManager}</span>
                 </div>
             </div>
 
-            <div className={styles.section}>
-                <h2 className={styles.sectionTitle}>Funding Tracker</h2>
+            <div className={section}>
+                <h2 className={sectionTitle}>Funding Tracker</h2>
                 {participant.funding.map((line) => {
                     const pct = Math.min(100, (line.spent / line.total) * 100);
                     return (
-                        <div key={line.label} className={styles.fundingRow}>
-                            <div className={styles.fundingTopRow}>
-                                <span className={styles.fundingLabel}>{line.label}</span>
-                                <span className={styles.fundingAmount}>
+                        <div key={line.label} className={fundingRow}>
+                            <div className={fundingTopRow}>
+                                <span className={fundingLabel}>{line.label}</span>
+                                <span className={fundingAmount}>
                                     {formatMoney(line.spent)} / {formatMoney(line.total)}
                                 </span>
                             </div>
-                            <div className={styles.fundingTrack}>
+                            <div className={fundingTrack}>
                                 <div
-                                    className={styles.fundingFill}
+                                    className={fundingFill}
                                     style={{ width: `${pct}%`, background: line.color }}
                                 />
                             </div>
@@ -79,23 +109,23 @@ export function ParticipantDetail() {
                 })}
             </div>
 
-            <div className={styles.section}>
-                <h2 className={styles.sectionTitle}>Documents &amp; Agreements</h2>
+            <div className={section}>
+                <h2 className={sectionTitle}>Documents &amp; Agreements</h2>
                 {participant.documents.map((doc) => (
-                    <div key={doc.id} className={styles.documentRow}>
-                        <span className={styles.documentIcon}>
+                    <div key={doc.id} className={documentRow}>
+                        <span className={documentIcon}>
                             <FileText size={16} />
                         </span>
-                        <span className={styles.documentBody}>
-                            <span className={styles.documentTitle}>{doc.title}</span>
-                            <span className={styles.documentMeta}>{doc.meta}</span>
+                        <span className={documentBody}>
+                            <span className={documentTitle}>{doc.title}</span>
+                            <span className={documentMeta}>{doc.meta}</span>
                         </span>
-                        <span className={styles.documentActions}>
-                            <button type="button" className={styles.actionButton}>
+                        <span className={documentActions}>
+                            <button type="button" className={actionButton}>
                                 View
                             </button>
                             {doc.hasDownload && (
-                                <button type="button" className={styles.actionButton}>
+                                <button type="button" className={actionButton}>
                                     Download
                                 </button>
                             )}
@@ -103,7 +133,7 @@ export function ParticipantDetail() {
                     </div>
                 ))}
 
-                <button type="button" className={styles.uploadRow}>
+                <button type="button" className={uploadRow}>
                     + Upload document
                 </button>
             </div>

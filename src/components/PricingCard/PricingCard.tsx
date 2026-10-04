@@ -1,4 +1,22 @@
-import * as styles from "./PricingCard.css.ts";
+import {
+  cardWrap,
+  badge,
+  card,
+  cardSelected,
+  tier as tierStyle,
+  priceRow,
+  price as priceStyle,
+  period as periodStyle,
+  description as descriptionStyle,
+  featureList,
+  featureRow,
+  featureIcon,
+  featureIconTone,
+  featureLabel,
+  featureLabelExcluded,
+  ctaButton,
+  ctaButtonSelected,
+} from "./PricingCard.css.ts";
 import Tick from "@/components/icons/Tick";
 import Cross from "@/components/icons/Cross";
 
@@ -33,13 +51,13 @@ export function PricingCard({
                                 onContinue,
                             }: PricingCardProps) {
     return (
-        <div className={styles.cardWrap}>
-            {popular && <span className={styles.badge}>Most popular</span>}
+        <div className={cardWrap}>
+            {popular && <span className={badge}>Most popular</span>}
 
             <div
                 role="button"
                 tabIndex={0}
-                className={`${styles.card} ${selected ? styles.cardSelected : ""}`}
+                className={`${card} ${selected ? cardSelected : ""}`}
                 onClick={onSelect}
                 onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
@@ -48,26 +66,26 @@ export function PricingCard({
                     }
                 }}
             >
-                <span className={styles.tier}>{tier}</span>
+                <span className={tierStyle}>{tier}</span>
 
-                <div className={styles.priceRow}>
-                    <span className={styles.price}>{price}</span>
-                    <span className={styles.period}>/{period}</span>
+                <div className={priceRow}>
+                    <span className={priceStyle}>{price}</span>
+                    <span className={periodStyle}>/{period}</span>
                 </div>
 
-                <p className={styles.description}>{description}</p>
+                <p className={descriptionStyle}>{description}</p>
 
-                <ul className={styles.featureList}>
+                <ul className={featureList}>
                     {features.map((feature) => (
-                        <li key={feature.label} className={styles.featureRow}>
+                        <li key={feature.label} className={featureRow}>
               <span
-                  className={`${styles.featureIcon} ${
-                      feature.included ? styles.featureIconTone.included : styles.featureIconTone.excluded
+                  className={`${featureIcon} ${
+                      feature.included ? featureIconTone.included : featureIconTone.excluded
                   }`}
               >
                 {feature.included ?  <Tick/> : <Cross/>}
               </span>
-                            <span className={feature.included ? styles.featureLabel : styles.featureLabelExcluded}>
+                            <span className={feature.included ? featureLabel : featureLabelExcluded}>
                 {feature.label}
               </span>
                         </li>
@@ -76,7 +94,7 @@ export function PricingCard({
 
                 <button
                     type="button"
-                    className={`${styles.ctaButton} ${selected ? styles.ctaButtonSelected : ""}`}
+                    className={`${ctaButton} ${selected ? ctaButtonSelected : ""}`}
                     onClick={(event) => {
                         event.stopPropagation();
                         onSelect();

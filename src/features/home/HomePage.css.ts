@@ -3,12 +3,12 @@ import { vars } from '@/styles/theme/tokens.css'
 
 export const page = style({
   minHeight: 'calc(100vh - 48px)',
-  padding: '40px 24px 40px 40px',
+  padding: 0,
   background: vars.color.base.white,
   color: vars.color.gray.darkest,
   '@media': {
     '(max-width: 640px)': {
-      padding: '24px 20px',
+      padding: 0,
     },
   },
 })
@@ -24,6 +24,36 @@ export const newsList = style({
   flexDirection: 'column',
   gap: 24,
 })
+
+export const filters = style({
+  display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16,
+  padding: '12px 20px', borderBottom: `1px solid ${vars.color.gray.lighter}`,
+  background: vars.color.base.white,
+})
+
+export const primaryFilters = style({ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 8 })
+export const secondaryFilters = style([primaryFilters, { marginLeft: 'auto' }])
+
+export const primaryButton = style({
+  minHeight: 34, padding: '8px 14px', border: '1px solid transparent', borderRadius: 7,
+  background: 'transparent', color: vars.color.gray.main, fontSize: 12, cursor: 'pointer',
+  ':hover': { background: vars.color.gray.lightest },
+  ':focus-visible': { outline: `2px solid ${vars.color.primary.main}`, outlineOffset: 2 },
+})
+export const secondaryButton = style([primaryButton, { borderColor: vars.color.gray.lighter }])
+export const selectedFilter = style({
+  background: vars.color.base.black, borderColor: vars.color.base.black, color: vars.color.base.white,
+  ':hover': { background: vars.color.gray.darkest },
+})
+
+export const feedLayout = style({
+  display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 320px', gap: 16, padding: '16px 20px 32px',
+  '@media': { '(max-width: 1100px)': { gridTemplateColumns: 'minmax(0, 1fr)' } },
+})
+export const feedColumn = style({ minWidth: 0 })
+export const sidebar = style({ minWidth: 0 })
+globalStyle(`${sidebar} > div`, { height: 'auto', overflowY: 'visible', paddingRight: 0 })
+globalStyle(`${sidebar} > div > div`, { paddingRight: 0 })
 
 globalStyle(`${newsList} > *`, {
   maxWidth: 'none',

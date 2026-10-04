@@ -37,12 +37,10 @@
 import { useState } from 'react'
 import { Outlet, useRouterState } from '@tanstack/react-router'
 import { Sidebar } from '@/components/sidebar'
-import { SideCardPanel } from "@/features/SidecardPanel/SideCardPanel.tsx";
 import { AppHeader } from '@/components/AppHeader/AppHeader'
 
 const standalonePaths = new Set(['/login', '/signup', '/payment'])
 
-const pathsWithSideCardPanel = new Set(['/'])
 
 export function RootLayout() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
@@ -51,9 +49,6 @@ export function RootLayout() {
       const pathname = state.location.pathname
       return standalonePaths.has(pathname) || pathname === '/onboarding' || pathname.startsWith('/onboarding/')
     },
-  })
-  const showSideCardPanel = useRouterState({
-    select: (state) => pathsWithSideCardPanel.has(state.location.pathname),
   })
 
   if (usesStandaloneLayout) {
@@ -69,7 +64,6 @@ export function RootLayout() {
             <section style={{ flex: 1, minWidth: 0 }}>
               <Outlet />
             </section>
-            {showSideCardPanel && <SideCardPanel />}
           </div>
         </section>
       </main>

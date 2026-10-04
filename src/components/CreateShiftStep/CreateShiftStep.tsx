@@ -1,7 +1,37 @@
 import { useState } from "react";
 import { ArrowRight, Check } from "lucide-react";
-import * as shared from "@/components/Orgdetailsstep/Setupform.css.ts";
-import * as styles from "./CreateShiftStep.css.ts";
+import {
+  heading,
+  title,
+  subtitle,
+  primaryButton,
+} from "@/components/Orgdetailsstep/Setupform.css.ts";
+import {
+  aiCard,
+  aiCardText,
+  aiCardTitle,
+  aiCardSubtitle,
+  aiCardIcon,
+  secondaryButton,
+  loadingCard,
+  loadingTitle,
+  loadingSubtitle,
+  suggestionsCard,
+  suggestionsHeader,
+  suggestionsHeaderTitle,
+  suggestionsHeaderHint,
+  shiftList,
+  shiftRow,
+  shiftAvatar,
+  shiftInfo,
+  shiftName,
+  shiftMeta,
+  checkbox,
+  checkboxTone,
+  suggestionsFooter,
+  acceptedCount as acceptedCountStyle,
+  regenerate,
+} from "./CreateShiftStep.css.ts";
 
 type Phase = "choice" | "loading" | "suggestions";
 
@@ -75,37 +105,37 @@ export function CreateShiftStep({ onGoToDashboard }: CreateShiftStepProps) {
 
     return (
         <div>
-            <div className={shared.heading}>
-                <h1 className={shared.title}>Create your first shift</h1>
-                <p className={shared.subtitle}>
+            <div className={heading}>
+                <h1 className={title}>Create your first shift</h1>
+                <p className={subtitle}>
                     Build your first shift manually, or let AI draft a schedule based on availability.
                 </p>
             </div>
 
             {phase === "choice" && (
                 <>
-                    <button type="button" className={styles.aiCard} onClick={generateRoster}>
-                        <div className={styles.aiCardText}>
-                            <span className={styles.aiCardTitle}>Generate Roster With AI</span>
-                            <span className={styles.aiCardSubtitle}>
+                    <button type="button" className={aiCard} onClick={generateRoster}>
+                        <div className={aiCardText}>
+                            <span className={aiCardTitle}>Generate Roster With AI</span>
+                            <span className={aiCardSubtitle}>
                 Suggest Shift based on worker availability and participant plan
               </span>
                         </div>
-                        <span className={styles.aiCardIcon}>
+                        <span className={aiCardIcon}>
               <ArrowRight size={16} />
             </span>
                     </button>
 
-                    <button type="button" className={styles.secondaryButton} onClick={onGoToDashboard}>
+                    <button type="button" className={secondaryButton} onClick={onGoToDashboard}>
                         Go to Dashboard
                     </button>
                 </>
             )}
 
             {phase === "loading" && (
-                <div className={styles.loadingCard}>
-                    <span className={styles.loadingTitle}>Generating Roster...</span>
-                    <span className={styles.loadingSubtitle}>
+                <div className={loadingCard}>
+                    <span className={loadingTitle}>Generating Roster...</span>
+                    <span className={loadingSubtitle}>
             Reading Availability, plan dates and support categories
           </span>
                 </div>
@@ -113,28 +143,28 @@ export function CreateShiftStep({ onGoToDashboard }: CreateShiftStepProps) {
 
             {phase === "suggestions" && (
                 <>
-                    <div className={styles.suggestionsCard}>
-                        <div className={styles.suggestionsHeader}>
-                            <span className={styles.suggestionsHeaderTitle}>{shifts.length} shifts suggested</span>
-                            <span className={styles.suggestionsHeaderHint}>Accept or remove each</span>
+                    <div className={suggestionsCard}>
+                        <div className={suggestionsHeader}>
+                            <span className={suggestionsHeaderTitle}>{shifts.length} shifts suggested</span>
+                            <span className={suggestionsHeaderHint}>Accept or remove each</span>
                         </div>
 
-                        <div className={styles.shiftList}>
+                        <div className={shiftList}>
                             {shifts.map((shift) => (
-                                <div key={shift.id} className={styles.shiftRow}>
-                                    <span className={styles.shiftAvatar}>{shift.day}</span>
-                                    <div className={styles.shiftInfo}>
-                    <span className={styles.shiftName}>
+                                <div key={shift.id} className={shiftRow}>
+                                    <span className={shiftAvatar}>{shift.day}</span>
+                                    <div className={shiftInfo}>
+                    <span className={shiftName}>
                       {shift.worker} → {shift.participant}
                     </span>
-                                        <span className={styles.shiftMeta}>
+                                        <span className={shiftMeta}>
                       {shift.time} · {shift.duration} · {shift.category}
                     </span>
                                     </div>
                                     <button
                                         type="button"
-                                        className={`${styles.checkbox} ${
-                                            shift.accepted ? styles.checkboxTone.checked : styles.checkboxTone.unchecked
+                                        className={`${checkbox} ${
+                                            shift.accepted ? checkboxTone.checked : checkboxTone.unchecked
                                         }`}
                                         onClick={() => toggleShift(shift.id)}
                                     >
@@ -144,17 +174,17 @@ export function CreateShiftStep({ onGoToDashboard }: CreateShiftStepProps) {
                             ))}
                         </div>
 
-                        <div className={styles.suggestionsFooter}>
-              <span className={styles.acceptedCount}>
+                        <div className={suggestionsFooter}>
+              <span className={acceptedCountStyle}>
                 {acceptedCount} of {shifts.length} shifts accepted
               </span>
-                            <button type="button" className={styles.regenerate} onClick={generateRoster}>
+                            <button type="button" className={regenerate} onClick={generateRoster}>
                                 Regenerate
                             </button>
                         </div>
                     </div>
 
-                    <button type="button" className={shared.primaryButton} onClick={onGoToDashboard}>
+                    <button type="button" className={primaryButton} onClick={onGoToDashboard}>
                         Save Shift and Go to Dashboard
                     </button>
                 </>

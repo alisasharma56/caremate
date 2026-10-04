@@ -5,6 +5,8 @@ export const header = style({
   display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '48px', flex: '0 0 48px', padding: '0 16px', borderBottom: `1px solid ${vars.color.gray.lighter}`, background: vars.color.base.white, color: vars.color.gray.main,
 })
 export const breadcrumb = style({ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px' })
+export const breadcrumbList = style({ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '8px', listStyle: 'none', margin: 0, padding: 0 })
+export const breadcrumbLink = style({ textDecoration: 'none', ':hover': { color: vars.color.primary.main, textDecoration: 'underline' }, ':focus-visible': { outline: `2px solid ${vars.color.primary.main}`, outlineOffset: 3, borderRadius: 2 } })
 export const menuButton = style({ display: 'grid', placeItems: 'center', width: '18px', height: '28px', padding: 0, border: 0, background: 'transparent', color: vars.color.gray.main, cursor: 'pointer', selectors: { '&:focus-visible': { outline: `2px solid ${vars.color.primary.main}`, borderRadius: '4px' } } })
 export const divider = style({ width: '1px', height: '18px', margin: '0 2px', background: vars.color.gray.lighter })
 export const chevron = style({ color: vars.color.gray.light, fontSize: '15px' })

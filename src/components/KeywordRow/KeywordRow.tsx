@@ -1,4 +1,9 @@
-import * as styles from "./KeywordRow.css.ts";
+import {
+  row,
+  rank as rankStyle,
+  keyword as keywordStyle,
+  change as changeStyle,
+} from "./KeywordRow.css.ts";
 
 interface KeywordRowProps {
     rank: number;
@@ -8,10 +13,10 @@ interface KeywordRowProps {
 
 export function KeywordRow({ rank, keyword, change }: KeywordRowProps) {
     return (
-        <div className={styles.row}>
-            <span className={styles.rank}>{rank}</span>
-            <span className={styles.keyword}>{keyword}</span>
-            <span className={styles.change}>{change}</span>
+        <div className={row}>
+            <span className={rankStyle}>{rank}</span>
+            <span className={keywordStyle}>{keyword}</span>
+            <span className={changeStyle}>{change}</span>
         </div>
     );
 }

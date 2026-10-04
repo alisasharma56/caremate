@@ -1,6 +1,21 @@
 import { useState } from "react";
-import * as styles from "@/components/Orgdetailsstep/Setupform.css.ts";
-import * as dayStyles from "./Addworkerstep.css.ts";
+import {
+  heading,
+  title,
+  subtitle,
+  field,
+  fieldLabel,
+  required,
+  input,
+  select,
+  fieldRow,
+  primaryButton,
+} from "@/components/Orgdetailsstep/Setupform.css.ts";
+import {
+  dayRow,
+  dayChip,
+  dayChipTone,
+} from "./Addworkerstep.css.ts";
 
 const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
@@ -23,29 +38,29 @@ export function AddWorkerStep({ onContinue }: AddWorkerStepProps) {
 
     return (
         <div>
-            <div className={styles.heading}>
-                <h1 className={styles.title}>Add your first worker</h1>
-                <p className={styles.subtitle}>You can add more workers later from the roster tab.</p>
+            <div className={heading}>
+                <h1 className={title}>Add your first worker</h1>
+                <p className={subtitle}>You can add more workers later from the roster tab.</p>
             </div>
 
-            <div className={styles.field} style={{ marginBottom: 16 }}>
-                <label className={styles.fieldLabel}>
-                    Full Name <span className={styles.required}>*</span>
+            <div className={field} style={{ marginBottom: 16 }}>
+                <label className={fieldLabel}>
+                    Full Name <span className={required}>*</span>
                 </label>
                 <input
                     type="text"
-                    className={styles.input}
+                    className={input}
                     placeholder="Full name"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                 />
             </div>
 
-            <div className={styles.field} style={{ marginBottom: 16 }}>
-                <label className={styles.fieldLabel}>
-                    Role <span className={styles.required}>*</span>
+            <div className={field} style={{ marginBottom: 16 }}>
+                <label className={fieldLabel}>
+                    Role <span className={required}>*</span>
                 </label>
-                <select className={styles.select} value={role} onChange={(e) => setRole(e.target.value)}>
+                <select className={select} value={role} onChange={(e) => setRole(e.target.value)}>
                     <option value="" disabled>
                         Select role
                     </option>
@@ -56,27 +71,27 @@ export function AddWorkerStep({ onContinue }: AddWorkerStepProps) {
                 </select>
             </div>
 
-            <div className={styles.fieldRow}>
-                <div className={styles.field}>
-                    <label className={styles.fieldLabel}>
-                        WWCC Number <span className={styles.required}>*</span>
+            <div className={fieldRow}>
+                <div className={field}>
+                    <label className={fieldLabel}>
+                        WWCC Number <span className={required}>*</span>
                     </label>
                     <input
                         type="text"
-                        className={styles.input}
+                        className={input}
                         placeholder="e.g. WWC1234567E"
                         value={wwccNumber}
                         onChange={(e) => setWwccNumber(e.target.value)}
                     />
                 </div>
 
-                <div className={styles.field}>
-                    <label className={styles.fieldLabel}>
-                        WWCC Expiry Date <span className={styles.required}>*</span>
+                <div className={field}>
+                    <label className={fieldLabel}>
+                        WWCC Expiry Date <span className={required}>*</span>
                     </label>
                     <input
                         type="text"
-                        className={styles.input}
+                        className={input}
                         placeholder="MM/DD/YYYY"
                         value={wwccExpiry}
                         onChange={(e) => setWwccExpiry(e.target.value)}
@@ -84,17 +99,17 @@ export function AddWorkerStep({ onContinue }: AddWorkerStepProps) {
                 </div>
             </div>
 
-            <div className={styles.field} style={{ marginBottom: 16 }}>
-                <label className={styles.fieldLabel}>
-                    Availability <span className={styles.required}>*</span>
+            <div className={field} style={{ marginBottom: 16 }}>
+                <label className={fieldLabel}>
+                    Availability <span className={required}>*</span>
                 </label>
-                <div className={dayStyles.dayRow}>
+                <div className={dayRow}>
                     {DAYS.map((day) => (
                         <button
                             key={day}
                             type="button"
-                            className={`${dayStyles.dayChip} ${
-                                availability.includes(day) ? dayStyles.dayChipTone.selected : dayStyles.dayChipTone.default
+                            className={`${dayChip} ${
+                                availability.includes(day) ? dayChipTone.selected : dayChipTone.default
                             }`}
                             onClick={() => toggleDay(day)}
                         >
@@ -104,7 +119,7 @@ export function AddWorkerStep({ onContinue }: AddWorkerStepProps) {
                 </div>
             </div>
 
-            <button type="button" className={styles.primaryButton} onClick={onContinue}>
+            <button type="button" className={primaryButton} onClick={onContinue}>
                 Save Worker
             </button>
         </div>

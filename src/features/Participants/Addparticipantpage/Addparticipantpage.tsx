@@ -1,5 +1,22 @@
 import { useState } from "react";
-import * as styles from "./Addparticipantpage.css.ts";
+import {
+  page,
+  header,
+  title,
+  headerActions,
+  cancelButton,
+  saveButton,
+  form,
+  fieldRow,
+  field,
+  fieldLabel,
+  inputBase,
+  select,
+  chipRow,
+  chip,
+  chipSelected,
+  textarea,
+} from "./Addparticipantpage.css.ts";
 
 const SUPPORT_CATEGORIES = [
     "Core - Daily Activities",
@@ -24,39 +41,39 @@ export function AddParticipantPage({ onCancel, onSave }: AddParticipantPageProps
     }
 
     return (
-        <div className={styles.page}>
-            <div className={styles.header}>
-                <h1 className={styles.title}>Add Participant</h1>
-                <div className={styles.headerActions}>
-                    <button type="button" className={styles.cancelButton} onClick={onCancel}>
+        <div className={page}>
+            <div className={header}>
+                <h1 className={title}>Add Participant</h1>
+                <div className={headerActions}>
+                    <button type="button" className={cancelButton} onClick={onCancel}>
                         Cancel
                     </button>
-                    <button type="button" className={styles.saveButton} onClick={onSave}>
+                    <button type="button" className={saveButton} onClick={onSave}>
                         Save
                     </button>
                 </div>
             </div>
 
-            <div className={styles.form}>
-                <div className={styles.fieldRow}>
-                    <div className={styles.field}>
-                        <label className={styles.fieldLabel}>Full name</label>
-                        <input type="text" className={styles.inputBase} placeholder="e.g. Noah Whitfield" />
+            <div className={form}>
+                <div className={fieldRow}>
+                    <div className={field}>
+                        <label className={fieldLabel}>Full name</label>
+                        <input type="text" className={inputBase} placeholder="e.g. Noah Whitfield" />
                     </div>
-                    <div className={styles.field}>
-                        <label className={styles.fieldLabel}>Date of birth</label>
-                        <input type="text" className={styles.inputBase} placeholder="mm / dd / yyyy" />
+                    <div className={field}>
+                        <label className={fieldLabel}>Date of birth</label>
+                        <input type="text" className={inputBase} placeholder="mm / dd / yyyy" />
                     </div>
                 </div>
 
-                <div className={styles.fieldRow}>
-                    <div className={styles.field}>
-                        <label className={styles.fieldLabel}>NDIS number</label>
-                        <input type="text" className={styles.inputBase} placeholder="e.g. 430 281 947" />
+                <div className={fieldRow}>
+                    <div className={field}>
+                        <label className={fieldLabel}>NDIS number</label>
+                        <input type="text" className={inputBase} placeholder="e.g. 430 281 947" />
                     </div>
-                    <div className={styles.field}>
-                        <label className={styles.fieldLabel}>State</label>
-                        <select className={styles.select} defaultValue="VIC">
+                    <div className={field}>
+                        <label className={fieldLabel}>State</label>
+                        <select className={select} defaultValue="VIC">
                             <option>VIC</option>
                             <option>NSW</option>
                             <option>QLD</option>
@@ -69,26 +86,26 @@ export function AddParticipantPage({ onCancel, onSave }: AddParticipantPageProps
                     </div>
                 </div>
 
-                <div className={styles.fieldRow}>
-                    <div className={styles.field}>
-                        <label className={styles.fieldLabel}>Plan start date</label>
-                        <input type="text" className={styles.inputBase} placeholder="mm / dd / yyyy" />
+                <div className={fieldRow}>
+                    <div className={field}>
+                        <label className={fieldLabel}>Plan start date</label>
+                        <input type="text" className={inputBase} placeholder="mm / dd / yyyy" />
                     </div>
-                    <div className={styles.field}>
-                        <label className={styles.fieldLabel}>Plan end date</label>
-                        <input type="text" className={styles.inputBase} placeholder="mm / dd / yyyy" />
+                    <div className={field}>
+                        <label className={fieldLabel}>Plan end date</label>
+                        <input type="text" className={inputBase} placeholder="mm / dd / yyyy" />
                     </div>
                 </div>
 
-                <div className={styles.field}>
-                    <label className={styles.fieldLabel}>Support categories</label>
-                    <div className={styles.chipRow}>
+                <div className={field}>
+                    <label className={fieldLabel}>Support categories</label>
+                    <div className={chipRow}>
                         {SUPPORT_CATEGORIES.map((category) => (
                             <button
                                 key={category}
                                 type="button"
-                                className={`${styles.chip} ${
-                                    selectedCategories.includes(category) ? styles.chipSelected : ""
+                                className={`${chip} ${
+                                    selectedCategories.includes(category) ? chipSelected : ""
                                 }`}
                                 onClick={() => toggleCategory(category)}
                             >
@@ -98,25 +115,25 @@ export function AddParticipantPage({ onCancel, onSave }: AddParticipantPageProps
                     </div>
                 </div>
 
-                <div className={styles.fieldRow}>
-                    <div className={styles.field}>
-                        <label className={styles.fieldLabel}>Plan manager name</label>
-                        <input type="text" className={styles.inputBase} placeholder="e.g. NDIS Plan Partners" />
+                <div className={fieldRow}>
+                    <div className={field}>
+                        <label className={fieldLabel}>Plan manager name</label>
+                        <input type="text" className={inputBase} placeholder="e.g. NDIS Plan Partners" />
                     </div>
-                    <div className={styles.field}>
-                        <label className={styles.fieldLabel}>Plan manager email</label>
-                        <input type="text" className={styles.inputBase} placeholder="payments@example.com" />
+                    <div className={field}>
+                        <label className={fieldLabel}>Plan manager email</label>
+                        <input type="text" className={inputBase} placeholder="payments@example.com" />
                     </div>
                 </div>
 
-                <div className={styles.fieldRow}>
-                    <div className={styles.field}>
-                        <label className={styles.fieldLabel}>Support coordinator</label>
-                        <input type="text" className={styles.inputBase} placeholder="Name (optional)" />
+                <div className={fieldRow}>
+                    <div className={field}>
+                        <label className={fieldLabel}>Support coordinator</label>
+                        <input type="text" className={inputBase} placeholder="Name (optional)" />
                     </div>
-                    <div className={styles.field}>
-                        <label className={styles.fieldLabel}>Primary worker assigned</label>
-                        <select className={styles.select} defaultValue="">
+                    <div className={field}>
+                        <label className={fieldLabel}>Primary worker assigned</label>
+                        <select className={select} defaultValue="">
                             <option value="" disabled>
                                 Unassigned
                             </option>
@@ -126,14 +143,14 @@ export function AddParticipantPage({ onCancel, onSave }: AddParticipantPageProps
                     </div>
                 </div>
 
-                <div className={styles.field}>
-                    <label className={styles.fieldLabel}>Emergency contact</label>
-                    <input type="text" className={styles.inputBase} placeholder="Name & phone number" />
+                <div className={field}>
+                    <label className={fieldLabel}>Emergency contact</label>
+                    <input type="text" className={inputBase} placeholder="Name & phone number" />
                 </div>
 
-                <div className={styles.field}>
-                    <label className={styles.fieldLabel}>Notes</label>
-                    <textarea className={styles.textarea} placeholder="Anything else the team should know..." />
+                <div className={field}>
+                    <label className={fieldLabel}>Notes</label>
+                    <textarea className={textarea} placeholder="Anything else the team should know..." />
                 </div>
             </div>
         </div>
