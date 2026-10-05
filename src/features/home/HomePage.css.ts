@@ -52,7 +52,10 @@ export const feedLayout = style({
 })
 export const feedColumn = style({ minWidth: 0 })
 export const sidebar = style({ minWidth: 0 })
-globalStyle(`${sidebar} > div`, { height: 'auto', overflowY: 'visible', paddingRight: 0 })
+globalStyle(`${sidebar} > div`, {
+  paddingRight: 0,
+  '@media': { '(max-width: 1100px)': { position: 'static', height: 'auto', overflowY: 'visible' } },
+})
 globalStyle(`${sidebar} > div > div`, { paddingRight: 0 })
 
 globalStyle(`${newsList} > *`, {

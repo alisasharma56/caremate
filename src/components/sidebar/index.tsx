@@ -12,12 +12,12 @@ import settingIcon from '@/assets/icon1/setting/index.svg'
 import socialListeningIcon from '@/assets/icon1/social-listening/index.svg'
 import workersIcon from '@/assets/icon1/workers/index.svg'
 import { styles } from '@/components/sidebar/Sidebar.style'
+import useFeed from '@/features/home/hooks/GetFeed'
 import { Link, useNavigate, type LinkProps } from '@tanstack/react-router'
 
 type SidebarItem = {
   label: string
   icon: string
-  badge?: number
   to: LinkProps['to']
 }
 
@@ -30,7 +30,7 @@ const sections: SidebarSection[] = [
   {
     label: 'Discover',
     items: [
-      { label: 'Feed', icon: feedIcon, to: '/', badge: 12 },
+      { label: 'Feed', icon: feedIcon, to: '/' },
       { label: 'Events', icon: eventsIcon, to: '/events' },
       { label: 'Analytics', icon: analyticsIcon, to: '/analytics' },
     ],
@@ -61,6 +61,11 @@ type SidebarProps = {
 
 export function Sidebar({ collapsed = false }: SidebarProps) {
   const navigate = useNavigate()
+  const { data: feed } = useFeed()
+  const feedCount = feed?.items.length ?? 0
+  const badges: Record<string, string | undefined> = {
+    Feed: feedCount ? `${feedCount}${feed?.has_more ? '+' : ''}` : undefined,
+  }
   return (
       <aside style={{ ...styles.aside, ...(collapsed ? styles.collapsedAside : undefined) }} aria-label="Primary navigation">
         <div style={{ ...styles.brand, ...(collapsed ? styles.collapsedBrand : undefined) }}>
@@ -86,7 +91,7 @@ export function Sidebar({ collapsed = false }: SidebarProps) {
                     >
                       <img src={item.icon} alt="" aria-hidden="true" style={styles.icon} />
                       {!collapsed ? <span>{item.label}</span> : null}
-                      {!collapsed && item.badge ? <span style={styles.badge}>{item.badge}</span> : null}
+                      {!collapsed && badges[item.label] ? <span style={styles.badge}>{badges[item.label]}</span> : null}
                     </Link>
                 ))}
               </div>

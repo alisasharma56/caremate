@@ -65,3 +65,20 @@ export const input = style({ padding: 10, border: `1px solid ${colors.border}`, 
 export const statTones = styleVariants({ primary: { color: colors.primary } });
 
 export const teamFilterInput = style([input, { width: 180 }])
+
+export const shiftButton = style({ display: 'block', width: '100%', textAlign: 'left', fontFamily: 'inherit', color: 'inherit', cursor: 'pointer', ':hover': { boxShadow: '0 2px 6px rgba(0,0,0,0.08)' }, ':focus-visible': { outline: `2px solid ${colors.primary}`, outlineOffset: 2 } })
+export const drawerOverlay = style({ position: 'fixed', inset: 0, background: 'rgba(0, 0, 0, 0.3)', display: 'flex', justifyContent: 'flex-end', zIndex: 50 })
+export const drawer = style({ width: 420, maxWidth: '100vw', height: '100%', background: colors.surface, boxShadow: '-12px 0 32px rgba(0,0,0,0.12)', display: 'flex', flexDirection: 'column' })
+export const drawerHeader = style({ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px 24px', borderBottom: `1px solid ${colors.border}` })
+export const drawerTitle = style({ fontSize: 18, fontWeight: 600, margin: 0 })
+export const closeButton = style([iconButton, { border: 0 }])
+export const drawerBody = style({ flex: 1, overflowY: 'auto', padding: '20px 24px', '@media': { '(max-width: 560px)': { padding: '16px' } } })
+export const drawerSection = style({ paddingBottom: 20, marginBottom: 20, borderBottom: `1px solid ${colors.border}`, selectors: { '&:last-child': { borderBottom: 0, marginBottom: 0 } } })
+export const clientCard = style({ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 })
+export const clientAvatar = style([avatar, { width: 40, height: 40, fontSize: 13 }])
+export const statusPill = styleVariants({ active: { background: vars.color.success.lightest, color: vars.color.success.main }, reviewDue: { background: vars.color.warning.lightest, color: vars.color.warning.main } }, value => ({ ...value, marginLeft: 'auto', fontSize: 10, fontWeight: 600, padding: '3px 8px', borderRadius: 12, whiteSpace: 'nowrap' }))
+export const detailList = style({ display: 'grid', gap: 12, margin: '0 0 16px' })
+export const detailTerm = style({ fontSize: 11, color: colors.muted, marginBottom: 2 })
+export const detailValue = style({ fontSize: 13, margin: 0 })
+export const otherShift = style([button, { width: '100%', justifyContent: 'space-between', marginBottom: 6 }])
+export const otherShiftCurrent = style({ borderColor: colors.primary, background: vars.color.primary.lightest, ':hover': { background: vars.color.primary.lightest } })

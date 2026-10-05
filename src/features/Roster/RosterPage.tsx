@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import { useRosterStore } from './store'
 import { ChevronLeft, ChevronRight, Plus, Sparkles } from 'lucide-react'
@@ -6,6 +6,7 @@ import { suggestions, dayNames, dateFormat } from './data'
 import type { RosterView, TeamFilter } from './data'
 import { RosterSchedule } from './RosterSchedule'
 import { RosterSummary } from './RosterSummary'
+import { ShiftDetailsDrawer } from './ShiftDetailsDrawer'
 import {
   page,
   main,
@@ -28,21 +29,36 @@ export function RosterPage() {
   const [view, setView] = useState<RosterView>('weekly')
   const [filterOpen, setFilterOpen] = useState(false)
   const [teamFilter, setTeamFilter] = useState<TeamFilter>('all')
+  const [selectedShiftId, setSelectedShiftId] = useState<string | null>(null)
+  const [selectedDay, setSelectedDay] = useState(0)
   const start = new Date(2026, 4, 4 + week * 7)
   const dates = dayNames.map((_, day) =>
     new Date(start.getFullYear(), start.getMonth(), start.getDate() + day),
   )
-  const todayIndex = Math.max(0, dates.findIndex(date => date.toDateString() === new Date().toDateString()))
-  const visibleDays = view === 'weekly' ? [0, 1, 2, 3, 4, 5, 6] : [todayIndex]
+  const visibleDays = view === 'weekly' ? [0, 1, 2, 3, 4, 5, 6] : [selectedDay]
   const weekShifts = shifts.filter(shift => (shift.week ?? 0) === week)
+  const selectedShift = weekShifts.find(shift => shift.id === selectedShiftId)
+  const closeShiftDetails = useCallback(() => setSelectedShiftId(null), [])
   const visibleSuggestions = suggestions.filter(item => !hiddenSuggestions.includes(item.id))
 
   function showToday() {
     const now = new Date()
     const base = new Date(2026, 4, 4)
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-    setWeek(Math.floor((today.getTime() - base.getTime()) / 604800000))
+    const daysSinceBase = Math.round((today.getTime() - base.getTime()) / 86400000)
+    setWeek(Math.floor(daysSinceBase / 7))
+    setSelectedDay(((daysSinceBase % 7) + 7) % 7)
     setView('today')
+  }
+
+  function step(direction: 1 | -1) {
+    if (view === 'weekly') {
+      setWeek(week + direction)
+      return
+    }
+    const day = selectedDay + direction
+    if (day < 0 || day > 6) setWeek(week + direction)
+    setSelectedDay((day + 7) % 7)
   }
 
   function publishShifts() {
@@ -76,11 +92,15 @@ export function RosterPage() {
     <div className={page}>
       <section className={main} aria-label="Roster schedule">
         <div className={toolbar}>
-          <button className={iconButton} aria-label="Previous week" onClick={() => setWeek(week - 1)}>
+          <button className={iconButton} aria-label={view === 'weekly' ? 'Previous week' : 'Previous day'} onClick={() => step(-1)}>
             <ChevronLeft size={16} />
           </button>
-          <span className={dateStyle}>{start.getDate()}–{dateFormat.format(dates[6])} {dates[6].getFullYear()}</span>
-          <button className={iconButton} aria-label="Next week" onClick={() => setWeek(week + 1)}>
+          <span className={dateStyle}>
+            {view === 'weekly'
+              ? `${start.getDate()}–${dateFormat.format(dates[6])} ${dates[6].getFullYear()}`
+              : `${dayNames[dates[selectedDay].getDay()]}, ${dateFormat.format(dates[selectedDay])} ${dates[selectedDay].getFullYear()}`}
+          </span>
+          <button className={iconButton} aria-label={view === 'weekly' ? 'Next week' : 'Next day'} onClick={() => step(1)}>
             <ChevronRight size={16} />
           </button>
           <div className={toggle}>
@@ -140,6 +160,7 @@ export function RosterPage() {
           week={week}
           teamFilter={teamFilter}
           visibleDays={visibleDays}
+          onSelectShift={shift => setSelectedShiftId(shift.id)}
         />
       </section>
       <RosterSummary
@@ -148,6 +169,15 @@ export function RosterPage() {
         onAccept={acceptSuggestion}
         onDismiss={id => setHiddenSuggestions(current => [...current, id])}
       />
+      {selectedShift && (
+        <ShiftDetailsDrawer
+          shift={selectedShift}
+          dates={dates}
+          weekShifts={weekShifts}
+          onSelectShift={shift => setSelectedShiftId(shift.id)}
+          onClose={closeShiftDetails}
+        />
+      )}
     </div>
   )
 }

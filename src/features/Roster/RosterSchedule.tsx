@@ -4,6 +4,7 @@ import { workers, dayNames } from './data';
 import type { Shift, RosterView, TeamFilter } from './data';
 import {
   shift as shiftStyle,
+  shiftButton,
   shiftStatus,
   badge,
   aiBadge,
@@ -23,15 +24,17 @@ import {
   workerName,
   cell,
 } from './Roster.css';
-function ShiftCard({ shift }: {
+function ShiftCard({ shift, onSelect }: {
     shift: Shift;
+    onSelect: (shift: Shift) => void;
 }) {
-    return <div className={`${shiftStyle} ${shift.status ? shiftStatus[shift.status] : ''}`}>
+    return <button type="button" className={`${shiftStyle} ${shiftButton} ${shift.status ? shiftStatus[shift.status] : ''}`}
+      aria-label={`${shift.client}, ${shift.time}. View shift details`} onClick={() => onSelect(shift)}>
     {shift.status === 'conflict' && <span className={badge}>Conflict</span>}
     {shift.status === 'suggested' && <span className={`${badge} ${aiBadge}`} title="AI suggested shift">AI</span>}
     <div>{shift.workerId ? shift.client : shift.time}</div>
     <div className={muted}>{shift.workerId ? shift.time : shift.client}</div>
-  </div>;
+  </button>;
 }
 interface RosterScheduleProps {
     dates: Date[];
@@ -40,17 +43,18 @@ interface RosterScheduleProps {
     week: number;
     teamFilter: TeamFilter;
     visibleDays: number[];
+    onSelectShift: (shift: Shift) => void;
 }
-export function RosterSchedule({ dates, view, shifts, week, teamFilter, visibleDays }: RosterScheduleProps) {
+export function RosterSchedule({ dates, view, shifts, week, teamFilter, visibleDays, onSelectShift }: RosterScheduleProps) {
     const rowClass = `${row} ${view === 'today' ? todayRow : ''}`;
     return (<div className={scroll}><div className={view === 'weekly' ? grid : undefined} role="table" aria-label="Worker shifts">
         <div className={rowClass} role="row"><div className={workerHeader} role="columnheader"><Users size={15}/> Workers</div>{visibleDays.map(day => <div className={dayHeader} role="columnheader" key={day}><span>{dayNames[dates[day].getDay()]}</span><strong>{dates[day].getDate()}</strong></div>)}</div>
-        <div className={rowClass} role="row"><div className={vacantLabel} role="rowheader">• Vacant shifts</div>{visibleDays.map(day => <div className={vacantCell} role="cell" key={day}>{shifts.filter(shift => !shift.workerId && shift.day === day).map(shift => <ShiftCard key={shift.id} shift={shift}/>)}</div>)}</div>
+        <div className={rowClass} role="row"><div className={vacantLabel} role="rowheader">• Vacant shifts</div>{visibleDays.map(day => <div className={vacantCell} role="cell" key={day}>{shifts.filter(shift => !shift.workerId && shift.day === day).map(shift => <ShiftCard key={shift.id} shift={shift} onSelect={onSelectShift}/>)}</div>)}</div>
         {(['alpha', 'beta'] as const).filter(team => teamFilter === 'all' || teamFilter === team).map(team => <Fragment key={team}>
           <div className={teamStyle[team]}>Team {team}</div>
           {workers.filter(worker => worker.team === team).map(worker => <div className={rowClass} role="row" key={worker.id}>
             <div className={workerStyle} role="rowheader"><span className={`${avatar} ${team === 'beta' ? betaAvatar : ''}`}>{worker.initials}</span><div><div className={workerName}>{worker.name}</div><div className={muted}>{week === 0 ? worker.hours : '0/38h'}</div></div></div>
-            {visibleDays.map(day => <div className={cell} role="cell" key={day}>{shifts.filter(shift => shift.workerId === worker.id && shift.day === day).map(shift => <ShiftCard key={shift.id} shift={shift}/>)}</div>)}
+            {visibleDays.map(day => <div className={cell} role="cell" key={day}>{shifts.filter(shift => shift.workerId === worker.id && shift.day === day).map(shift => <ShiftCard key={shift.id} shift={shift} onSelect={onSelectShift}/>)}</div>)}
           </div>)}
         </Fragment>)}
       </div></div>);

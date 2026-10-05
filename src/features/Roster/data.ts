@@ -16,18 +16,19 @@ export const workers = [
     { id: 'nisha', name: 'Nisha Godar', initials: 'NG', hours: '24/38h', team: 'beta' },
 ] as const;
 export const initialShifts: Shift[] = [
-    ...Array.from({ length: 7 }, (_, day) => ({ id: `vacant-${day}`, workerId: null, day, client: 'Client A', time: day === 0 ? '6:30–12:45' : '9:30–12:45' })),
+    ...Array.from({ length: 7 }, (_, day) => ({ id: `vacant-${day}`, workerId: null, day, client: 'Ethan Brooks', time: day === 0 ? '6:30–12:45' : '9:30–12:45', serviceType: 'Community Access', sessionType: 'Individual' as const })),
     ...workers.flatMap((worker, index) => [1, 2, 3, 4, 5].filter(day => index !== 1 || day !== 3).filter(day => index !== 2 || day < 3).map(day => ({
-        id: `${worker.id}-${day}`, workerId: worker.id, day, client: day < 4 ? 'M. Thompson' : 'K. Singh', time: day < 4 ? '9:30–12:45' : '1:00–3:45',
+        id: `${worker.id}-${day}`, workerId: worker.id, day, client: day < 4 ? 'Oliver Bennett' : 'Grace Phillips', time: day < 4 ? '9:30–12:45' : '1:00–3:45',
+        serviceType: day < 4 ? 'Personal Care' : 'Community Access', sessionType: 'Individual' as const,
         status: (index === 2 && day === 1 ? 'conflict' : (index === 0 && day === 3) || (index === 3 && day === 2) ? 'suggested' : undefined) as Shift['status'],
     }))),
-    { id: 'sanju-extra-1', workerId: 'sanju', day: 1, client: 'K. Singh', time: '1:00–3:45' },
-    { id: 'sanju-extra-3', workerId: 'sanju', day: 3, client: 'K. Singh', time: '1:00–3:45' },
-    { id: 'nisha-extra-1', workerId: 'nisha', day: 1, client: 'K. Singh', time: '1:00–3:45' },
+    { id: 'sanju-extra-1', workerId: 'sanju', day: 1, client: 'Grace Phillips', time: '1:00–3:45', serviceType: 'Community Access', sessionType: 'Group' },
+    { id: 'sanju-extra-3', workerId: 'sanju', day: 3, client: 'Grace Phillips', time: '1:00–3:45', serviceType: 'Community Access', sessionType: 'Group' },
+    { id: 'nisha-extra-1', workerId: 'nisha', day: 1, client: 'Grace Phillips', time: '1:00–3:45', serviceType: 'Community Access', sessionType: 'Group' },
 ];
 export const suggestions = [
-    { id: 'hours', title: 'Hours conflict', tone: 'error', description: 'Abhinav is at risk of exceeding weekly hours. Move the M. Thompson shift to Prabin Gurung, who has 16 hours remaining.' },
-    { id: 'vacant', title: 'Fill vacant shift', tone: 'warning', description: 'Vacant shift Fri 9:30–12:45 for Client A. Prabin Gurung is available and qualified. Suggest assigning.' },
+    { id: 'hours', title: 'Hours conflict', tone: 'error', description: 'Abhinav is at risk of exceeding weekly hours. Move the Oliver Bennett shift to Prabin Gurung, who has 16 hours remaining.' },
+    { id: 'vacant', title: 'Fill vacant shift', tone: 'warning', description: 'Vacant shift Fri 9:30–12:45 for Ethan Brooks. Prabin Gurung is available and qualified. Suggest assigning.' },
     { id: 'travel', title: 'Optimise travel', tone: 'success', description: 'Prabin Gurung has back-to-back shifts in different suburbs Thursday. Reordering would save ~40 min travel time.' },
 ] as const;
 export type RosterView = 'weekly' | 'today';
