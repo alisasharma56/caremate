@@ -3,11 +3,22 @@ import { colors, radii, space, vars } from '@/styles/theme/tokens.css'
 
 const EASE = 'cubic-bezier(0.2, 0, 0, 1)'
 
+// The board itself can need more than the viewport's width once 4 columns
+// each need their 240px minimum (e.g. a 14" laptop with a sidebar eating
+// into the available width). Scrolling happens here, inside this wrapper,
+// instead of the whole page — letting the page overflow sideways is what
+// produced the stray gap/scrollbar on narrow screens.
+export const boardScroll = style({
+    width: '100%',
+    overflowX: 'auto',
+})
+
 export const board = style({
     display: 'grid',
     gridTemplateColumns: 'repeat(4, minmax(240px, 1fr))',
     gap: space[4],
     alignItems: 'start',
+    minWidth: 'fit-content',
 })
 
 export const column = style({

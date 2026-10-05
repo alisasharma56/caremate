@@ -1,13 +1,21 @@
 import { style } from '@vanilla-extract/css'
-import { colors, radii, space, vars } from '@/styles/theme/tokens.css'
+import { colors,  space, vars } from '@/styles/theme/tokens.css'
 
 export const page = style({
     display: 'flex',
     flexDirection: 'column',
+    flex: 1,
+    width: '100%',
+    minWidth: 0,
+    boxSizing: 'border-box',
     gap: space[6],
     padding: space[6],
     background: colors.surface,
     minHeight: '100%',
+    // The Kanban board scrolls internally once its 4 columns need more room
+    // than a narrow (e.g. 14") screen has; this keeps that overflow from
+    // ever leaking out and skewing the rest of the page layout sideways.
+    overflowX: 'hidden',
 })
 
 export const header = style({
@@ -48,7 +56,7 @@ export const modeToggle = style({
     alignItems: 'center',
     gap: 4,
     padding: 4,
-    borderRadius: radii.md,
+    borderRadius: 8,
     border: `1px solid ${colors.border}`,
     background: colors.surface,
     flexShrink: 0,
@@ -60,7 +68,7 @@ export const modeButton = style({
     justifyContent: 'center',
     height: 26,
     padding: '4px 12px',
-    borderRadius: radii.md,
+    borderRadius: 8,
     border: 'none',
     fontFamily: vars.fontFamily.body,
     fontWeight: 500,
@@ -68,7 +76,7 @@ export const modeButton = style({
     lineHeight: '18px',
     letterSpacing: 0,
     textAlign: 'center',
-    color: vars.color.gray.main,
+    color: colors.foreground,
     background: 'transparent',
     cursor: 'pointer',
 })
