@@ -1,6 +1,6 @@
 import analyticsIcon from '@/assets/icon1/analytics/index.svg'
 import alertsIcon from '@/assets/icon1/alerts/index.svg'
-import breakingIcon from '@/assets/icon1/breaking/index.svg'
+import eventsIcon from '@/assets/icon1/events/index.svg'
 import clientsIcon from '@/assets/icon1/clients/index.svg'
 import feedIcon from '@/assets/icon1/feed/index.svg'
 import inboxIcon from '@/assets/icon1/inbox/index.svg'
@@ -31,7 +31,7 @@ const sections: SidebarSection[] = [
     label: 'Discover',
     items: [
       { label: 'Feed', icon: feedIcon, to: '/', badge: 12 },
-      { label: 'Events', icon: breakingIcon, to: '/breaking' },
+      { label: 'Events', icon: eventsIcon, to: '/events' },
       { label: 'Analytics', icon: analyticsIcon, to: '/analytics' },
     ],
   },

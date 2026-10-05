@@ -23,7 +23,7 @@ import { Route as NewsletterRouteImport } from './routes/newsletter'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as LeadsRouteImport } from './routes/leads'
 import { Route as InboxRouteImport } from './routes/inbox'
-import { Route as BreakingRouteImport } from './routes/breaking'
+import { Route as EventsRouteImport } from './routes/events'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as IndexRouteImport } from './routes/index'
@@ -107,9 +107,9 @@ const InboxRoute = InboxRouteImport.update({
   path: '/inbox',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BreakingRoute = BreakingRouteImport.update({
-  id: '/breaking',
-  path: '/breaking',
+const EventsRoute = EventsRouteImport.update({
+  id: '/events',
+  path: '/events',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AnalyticsRoute = AnalyticsRouteImport.update({
@@ -177,7 +177,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/alerts': typeof AlertsRoute
   '/analytics': typeof AnalyticsRoute
-  '/breaking': typeof BreakingRoute
+  '/events': typeof EventsRoute
   '/inbox': typeof InboxRoute
   '/leads': typeof LeadsRoute
   '/login': typeof LoginRoute
@@ -206,7 +206,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/alerts': typeof AlertsRoute
   '/analytics': typeof AnalyticsRoute
-  '/breaking': typeof BreakingRoute
+  '/events': typeof EventsRoute
   '/inbox': typeof InboxRoute
   '/leads': typeof LeadsRoute
   '/login': typeof LoginRoute
@@ -234,7 +234,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/alerts': typeof AlertsRoute
   '/analytics': typeof AnalyticsRoute
-  '/breaking': typeof BreakingRoute
+  '/events': typeof EventsRoute
   '/inbox': typeof InboxRoute
   '/leads': typeof LeadsRoute
   '/login': typeof LoginRoute
@@ -265,7 +265,7 @@ export interface FileRouteTypes {
     | '/'
     | '/alerts'
     | '/analytics'
-    | '/breaking'
+    | '/events'
     | '/inbox'
     | '/leads'
     | '/login'
@@ -294,7 +294,7 @@ export interface FileRouteTypes {
     | '/'
     | '/alerts'
     | '/analytics'
-    | '/breaking'
+    | '/events'
     | '/inbox'
     | '/leads'
     | '/login'
@@ -321,7 +321,7 @@ export interface FileRouteTypes {
     | '/'
     | '/alerts'
     | '/analytics'
-    | '/breaking'
+    | '/events'
     | '/inbox'
     | '/leads'
     | '/login'
@@ -351,7 +351,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AlertsRoute: typeof AlertsRoute
   AnalyticsRoute: typeof AnalyticsRoute
-  BreakingRoute: typeof BreakingRoute
+  EventsRoute: typeof EventsRoute
   InboxRoute: typeof InboxRoute
   LeadsRoute: typeof LeadsRoute
   LoginRoute: typeof LoginRoute
@@ -468,11 +468,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InboxRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/breaking': {
-      id: '/breaking'
-      path: '/breaking'
-      fullPath: '/breaking'
-      preLoaderRoute: typeof BreakingRouteImport
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/analytics': {
@@ -603,7 +603,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AlertsRoute: AlertsRoute,
   AnalyticsRoute: AnalyticsRoute,
-  BreakingRoute: BreakingRoute,
+  EventsRoute: EventsRoute,
   InboxRoute: InboxRoute,
   LeadsRoute: LeadsRoute,
   LoginRoute: LoginRoute,
