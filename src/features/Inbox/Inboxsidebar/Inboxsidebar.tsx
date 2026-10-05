@@ -40,7 +40,7 @@ import InstagramIcon from "@/components/icons/Instagram";
 import LinkedinIcon from "@/components/icons/LinkedIn";
 import Mail from "@/components/icons/Mail";
 import Search from "@/components/icons/Search";
-import { CONVERSATIONS, type Platform } from "../Conversation.ts";
+import { CONVERSATIONS, type Platform } from "@/data/conversation";
 import { useInboxSelection } from "../Inboxselectioncontext.tsx";
 
 type StatusFilter = "all" | "needsYou" | "aiActive";
@@ -53,7 +53,7 @@ const PLATFORM_ICON: Record<Platform, React.ReactNode> = {
     email: <Mail />,
 };
 
-export function InboxSidebar() {
+export const InboxSidebar = () => {
     const [autopilotOn, setAutopilotOn] = useState(true);
     const [platformFilter, setPlatformFilter] = useState<PlatformFilter>("all");
     const [statusTab, setStatusTab] = useState<StatusFilter>("all");
@@ -176,4 +176,4 @@ export function InboxSidebar() {
             </div>
         </div>
     );
-}
+};

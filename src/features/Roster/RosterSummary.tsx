@@ -1,5 +1,5 @@
 import { StatBox } from '@/components/Statbox/Statbox';
-import type { Shift, RosterSuggestion } from './data';
+import type { Shift, RosterSuggestion } from '@/data/roster';
 import {
   sidebar,
   sectionHeading,
@@ -23,7 +23,7 @@ interface RosterSummaryProps {
     onAccept: (id: string) => void;
     onDismiss: (id: string) => void;
 }
-export function RosterSummary({ shifts, visibleSuggestions, onAccept, onDismiss }: RosterSummaryProps) {
+export const RosterSummary = ({ shifts, visibleSuggestions, onAccept, onDismiss }: RosterSummaryProps) => {
     const vacant = shifts.filter(shift => !shift.workerId).length;
     const conflicts = shifts.filter(shift => shift.status === 'conflict').length;
     const suggested = shifts.filter(shift => shift.status === 'suggested').length;
@@ -41,4 +41,4 @@ export function RosterSummary({ shifts, visibleSuggestions, onAccept, onDismiss 
       {visibleSuggestions.map(item => <article className={suggestion} key={item.id}><h3 className={`${suggestionTitle} ${tones[item.tone]}`}><span>●</span>{item.title}</h3><p className={description}>{item.description}</p><button className={smallButton} onClick={() => onAccept(item.id)}>Accept</button><button className={dismiss} onClick={() => onDismiss(item.id)}>Dismiss</button></article>)}
       {!visibleSuggestions.length && <p className={description}>All suggestions reviewed.</p>}
     </aside>);
-}
+};

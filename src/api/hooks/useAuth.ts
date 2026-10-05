@@ -2,25 +2,9 @@ import { useCallback, useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import ApiClient from '@/services/apiClient.ts'
 import { CookieHandler } from '@/features/auth/cookieHandler.ts'
+import type { LoginPayload, LoginResponse, RegisterPayload } from '@/data/auth'
 
-interface LoginPayload {
-    email: string
-    password: string
-}
-
-interface RegisterPayload {
-    fullName: string
-    email: string
-    password: string
-}
-
-interface LoginResponse {
-    access_token: string
-    refresh_token: string
-    token_type: string
-}
-
-export function useAuth() {
+export const useAuth = () => {
     const navigate = useNavigate()
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [error, setError] = useState<string | null>(null)

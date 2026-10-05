@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import type { Welcome } from '@/features/home/data/feed'
+import type { Welcome } from '@/data/feed'
 import ApiClient from '@/services/api/ApiClient'
 
 const anchorFeedClient = new ApiClient<Welcome>(

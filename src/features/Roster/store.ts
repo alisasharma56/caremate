@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import { initialShifts } from './data';
-import type { NewShift, Shift } from './data';
+import { initialShifts } from '@/data/roster';
+import type { NewShift, Shift } from '@/data/roster';
 
 type RosterStore = {
     week: number;

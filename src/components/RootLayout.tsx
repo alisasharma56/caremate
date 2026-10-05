@@ -42,7 +42,7 @@ import { AppHeader } from '@/components/AppHeader/AppHeader'
 const standalonePaths = new Set(['/login', '/signup', '/payment'])
 
 
-export function RootLayout() {
+export const RootLayout = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
   const usesStandaloneLayout = useRouterState({
     select: (state) => {

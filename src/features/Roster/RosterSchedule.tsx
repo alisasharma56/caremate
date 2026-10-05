@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { Users } from 'lucide-react';
-import { workers, dayNames } from './data';
-import type { Shift, RosterView, TeamFilter } from './data';
+import { workers, dayNames } from '@/data/roster';
+import type { Shift, RosterView, TeamFilter } from '@/data/roster';
 import {
   shift as shiftStyle,
   shiftButton,
@@ -24,10 +24,10 @@ import {
   workerName,
   cell,
 } from './Roster.css';
-function ShiftCard({ shift, onSelect }: {
+const ShiftCard = ({ shift, onSelect }: {
     shift: Shift;
     onSelect: (shift: Shift) => void;
-}) {
+}) => {
     return <button type="button" className={`${shiftStyle} ${shiftButton} ${shift.status ? shiftStatus[shift.status] : ''}`}
       aria-label={`${shift.client}, ${shift.time}. View shift details`} onClick={() => onSelect(shift)}>
     {shift.status === 'conflict' && <span className={badge}>Conflict</span>}
@@ -35,7 +35,7 @@ function ShiftCard({ shift, onSelect }: {
     <div>{shift.workerId ? shift.client : shift.time}</div>
     <div className={muted}>{shift.workerId ? shift.time : shift.client}</div>
   </button>;
-}
+};
 interface RosterScheduleProps {
     dates: Date[];
     view: RosterView;
@@ -45,7 +45,7 @@ interface RosterScheduleProps {
     visibleDays: number[];
     onSelectShift: (shift: Shift) => void;
 }
-export function RosterSchedule({ dates, view, shifts, week, teamFilter, visibleDays, onSelectShift }: RosterScheduleProps) {
+export const RosterSchedule = ({ dates, view, shifts, week, teamFilter, visibleDays, onSelectShift }: RosterScheduleProps) => {
     const rowClass = `${row} ${view === 'today' ? todayRow : ''}`;
     return (<div className={scroll}><div className={view === 'weekly' ? grid : undefined} role="table" aria-label="Worker shifts">
         <div className={rowClass} role="row"><div className={workerHeader} role="columnheader"><Users size={15}/> Workers</div>{visibleDays.map(day => <div className={dayHeader} role="columnheader" key={day}><span>{dayNames[dates[day].getDay()]}</span><strong>{dates[day].getDate()}</strong></div>)}</div>
@@ -58,4 +58,4 @@ export function RosterSchedule({ dates, view, shifts, week, teamFilter, visibleD
           </div>)}
         </Fragment>)}
       </div></div>);
-}
+};

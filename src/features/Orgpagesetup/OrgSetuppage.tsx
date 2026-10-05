@@ -11,7 +11,7 @@ interface OrgSetupPageProps {
     onDone?: () => void;
 }
 
-export function OrgSetupPage({ onSkip, onDone }: OrgSetupPageProps) {
+export const OrgSetupPage = ({ onSkip, onDone }: OrgSetupPageProps) => {
     const [step, setStep] = useState<SetupStep>(SetupStep.OrgDetails);
 
     return (
@@ -33,4 +33,4 @@ export function OrgSetupPage({ onSkip, onDone }: OrgSetupPageProps) {
             )}
         </SetupLayout>
     );
-}
+};

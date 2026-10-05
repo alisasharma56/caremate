@@ -1,4 +1,4 @@
-// import type { Item } from '@/features/home/data/feed'
+// import type { Item } from '@/data/feed'
 // import ExternalLink from '@/components/icons/ExternalLink'
 // import Flame from '@/components/icons/Flame'
 // import {
@@ -287,13 +287,13 @@
 // }
 //
 import { useState } from 'react'
-import type { Item } from '@/features/home/data/feed'
+import type { Item } from '@/data/feed'
 import ExternalLink from '@/components/icons/ExternalLink'
 import Flame from '@/components/icons/Flame'
 import MessageCircle from "@/components/icons/MessageCircle";
 import CommentOpen from "@/components/icons/CommentOpen";
 import Share from '@/components/icons/Share'
-import useComments from '@/features/home/hooks/Comments/useComments.ts'
+import useComments from '@/api/hooks/Comments/useComments'
 import {
     authorName,
     avatar,
@@ -340,9 +340,9 @@ import {
 import {CommentsSection} from "@/components/Comment/comment.tsx";
 import Likes from "@/components/icons/Likes";
 import UnLike from "@/components/icons/UnLike";
-import useLikeStatus from '@/features/home/hooks/Likes/UseLikeStatus.ts'
-import useToggleLike from '@/features/home/hooks/Likes/useToggleLike'
-import useAddShare from '@/features/home/hooks/useAddShare.ts'
+import useLikeStatus from '@/api/hooks/Likes/UseLikeStatus'
+import useToggleLike from '@/api/hooks/Likes/useToggleLike'
+import useAddShare from '@/api/hooks/useAddShare'
 
 interface FeedCardProps {
     item: Item
@@ -356,21 +356,21 @@ interface FeedCardProps {
 
 const avatarTones = ['blue', 'green', 'orange', 'red', 'gold'] as const
 
-function avatarTone(value: string) {
+const avatarTone = (value: string) => {
     const hash = Array.from(value).reduce(
         (total, character) => total + character.codePointAt(0)!,
         0,
     )
 
     return avatarTones[hash % avatarTones.length]
-}
+};
 
-function formatLabel(value: string | null | undefined) {
+const formatLabel = (value: string | null | undefined) => {
     if (!value) return ''
     return value.replaceAll('_', ' ').replace(/\b\w/g, (letter) => letter.toUpperCase())
-}
+};
 
-function formatDate(value: string) {
+const formatDate = (value: string) => {
     if (!value) return ''
 
     const date = new Date(value)
@@ -381,18 +381,18 @@ function formatDate(value: string) {
             month: 'short',
             year: 'numeric',
         }).format(date)
-}
+};
 
-function readingTime(text: string) {
+const readingTime = (text: string) => {
     return Math.max(1, Math.ceil(text.trim().split(/\s+/).filter(Boolean).length / 200))
-}
+};
 
-export function FeedCard({
+export const FeedCard = ({
                              item,
                              onKeywordSelect,
                              onArticleSelect,
                              hideImage,
-                         }: FeedCardProps) {
+                         }: FeedCardProps) => {
     const { news, analytics, time_ago: timeAgo } = item
     const description = news.summary || news.snippet
     const states = (analytics.affected_states ?? []).join(', ') || 'All States'
@@ -607,4 +607,4 @@ export function FeedCard({
         </article>
 
     )
-}
+};

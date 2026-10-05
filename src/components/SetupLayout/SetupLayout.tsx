@@ -17,7 +17,7 @@ interface SetupLayoutProps {
     children: ReactNode;
 }
 
-export function SetupLayout({ step, onSkip, children }: SetupLayoutProps) {
+export const SetupLayout = ({ step, onSkip, children }: SetupLayoutProps) => {
     return (
         <div className={page}>
             <header className={header}>
@@ -35,4 +35,4 @@ export function SetupLayout({ step, onSkip, children }: SetupLayoutProps) {
             </div>
         </div>
     );
-}
+};

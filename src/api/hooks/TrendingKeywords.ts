@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import type { TrendingKeywordsResponse } from '@/features/home/data/trending'
+import type { TrendingKeywordsResponse } from '@/data/trending'
 import ApiClient from '@/services/api/ApiClient'
 
 const useTrendingKeywords = (days = 7) => {

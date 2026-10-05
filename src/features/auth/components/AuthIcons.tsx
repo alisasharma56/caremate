@@ -2,7 +2,7 @@ type IconProps = {
   className?: string
 }
 
-export function EyeOffIcon({ className }: IconProps) {
+export const EyeOffIcon = ({ className }: IconProps) => {
   return (
     <svg
       aria-hidden="true"
@@ -22,7 +22,7 @@ export function EyeOffIcon({ className }: IconProps) {
   )
 }
 
-export function EyeIcon({ className }: IconProps) {
+export const EyeIcon = ({ className }: IconProps) => {
   return (
     <svg
       aria-hidden="true"
@@ -41,7 +41,7 @@ export function EyeIcon({ className }: IconProps) {
   )
 }
 
-export function GoogleIcon({ className }: IconProps) {
+export const GoogleIcon = ({ className }: IconProps) => {
   return (
     <svg aria-hidden="true" className={className} viewBox="0 0 24 24">
       <path d="M21.6 12.2c0-.7-.1-1.4-.2-2H12v3.9h5.4a4.6 4.6 0 0 1-2 3v2.5h3.3c1.9-1.8 2.9-4.4 2.9-7.4Z" fill="#4285F4" />

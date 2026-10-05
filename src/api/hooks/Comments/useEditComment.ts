@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import ApiClient from '@/services/api/ApiClient'
-import type { Comment, EditCommentPayload } from '@/features/home/data/comment'
+import type { Comment, EditCommentPayload } from '@/data/comment'
 
 const useEditComment = (newsId: number) => {
     const queryClient = useQueryClient()

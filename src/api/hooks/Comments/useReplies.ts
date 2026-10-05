@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import ApiClient from '@/services/api/ApiClient'
-import type { Comment } from '@/features/home/data/comment'
+import type { Comment } from '@/data/comment'
 
 const useReplies = (commentId: number, enabled: boolean) => {
     const apiClient = new ApiClient<Comment[]>(

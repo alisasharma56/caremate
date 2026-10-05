@@ -2,7 +2,7 @@ import Facebook from '@/components/icons/Facebook'
 import Instagram from '@/components/icons/Instagram'
 import LinkedIn from '@/components/icons/LinkedIn'
 import Mail from '@/components/icons/Mail'
-import type { Lead, LeadPlatform } from '../Lead.ts'
+import type { Lead, LeadPlatform } from '@/data/lead'
 import { avatar, avatarTone, body, card, cardDragging, name, platformRow, summary } from './Leadcard.css.ts'
 
 const PLATFORM_LABEL: Record<LeadPlatform, string> = {
@@ -23,7 +23,7 @@ const PLATFORM_ICON: Record<LeadPlatform, React.ComponentType> = {
 // pointer events) and the floating clone that follows the cursor while
 // dragging. Keeping this separate means the floating clone looks exactly
 // like the real card instead of a stand-in label.
-export function LeadCardContent({ lead }: { lead: Lead }) {
+export const LeadCardContent = ({ lead }: { lead: Lead }) => {
     const initials = lead.name
         .split(' ')
         .map((part) => part.charAt(0))
@@ -57,7 +57,7 @@ interface LeadCardProps {
     isDragging?: boolean
 }
 
-export function LeadCard({ lead, onSelect, onPointerDown, isDragging }: LeadCardProps) {
+export const LeadCard = ({ lead, onSelect, onPointerDown, isDragging }: LeadCardProps) => {
     return (
         <button
             type="button"

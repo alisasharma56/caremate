@@ -31,14 +31,14 @@ interface AddParticipantPageProps {
     onSave: () => void;
 }
 
-export function AddParticipantPage({ onCancel, onSave }: AddParticipantPageProps) {
+export const AddParticipantPage = ({ onCancel, onSave }: AddParticipantPageProps) => {
     const [selectedCategories, setSelectedCategories] = useState<string[]>(["Core - Daily Activities"]);
 
-    function toggleCategory(category: string) {
+    const toggleCategory = (category: string) => {
         setSelectedCategories((current) =>
             current.includes(category) ? current.filter((c) => c !== category) : [...current, category],
         );
-    }
+    };
 
     return (
         <div className={page}>
@@ -155,4 +155,4 @@ export function AddParticipantPage({ onCancel, onSave }: AddParticipantPageProps
             </div>
         </div>
     );
-}
+};

@@ -1,11 +1,11 @@
 // import { useRef, useState } from 'react'
 // import { Send, MoreHorizontal, X } from 'lucide-react'
-// import useComments from '@/features/home/hooks/Comments/useComments.ts'
-// import useReplies from '@/features/home/hooks/Comments/useReplies'
-// import useAddComment from '@/features/home/hooks/Comments/useAddComment'
-// import useEditComment from '@/features/home/hooks/Comments/useEditComment'
-// import useDeleteComment from '@/features/home/hooks/Comments/useDeleteComment'
-// import type { Comment } from '@/features/home/data/comment'
+// import useComments from '@/api/hooks/Comments/useComments'
+// import useReplies from '@/api/hooks/Comments/useReplies'
+// import useAddComment from '@/api/hooks/Comments/useAddComment'
+// import useEditComment from '@/api/hooks/Comments/useEditComment'
+// import useDeleteComment from '@/api/hooks/Comments/useDeleteComment'
+// import type { Comment } from '@/data/comment'
 // import {
 //     section,
 //     statsRow,
@@ -319,13 +319,13 @@
 
 import { useRef, useState } from 'react'
 import { Send, MoreHorizontal, X } from 'lucide-react'
-import useComments from '@/features/home/hooks/Comments/useComments.ts'
-import useReplies from '@/features/home/hooks/Comments/useReplies'
-import useAddComment from '@/features/home/hooks/Comments/useAddComment'
-import useEditComment from '@/features/home/hooks/Comments/useEditComment'
-import useDeleteComment from '@/features/home/hooks/Comments/useDeleteComment'
-import useCurrentUser from '@/features/home/hooks/useCurentUser.ts'
-import type { Comment } from '@/features/home/data/comment'
+import useComments from '@/api/hooks/Comments/useComments'
+import useReplies from '@/api/hooks/Comments/useReplies'
+import useAddComment from '@/api/hooks/Comments/useAddComment'
+import useEditComment from '@/api/hooks/Comments/useEditComment'
+import useDeleteComment from '@/api/hooks/Comments/useDeleteComment'
+import useCurrentUser from '@/api/hooks/useCurentUser'
+import type { Comment } from '@/data/comment'
 import {
     section,
     statsRow,
@@ -368,11 +368,11 @@ interface CommentsSectionProps {
 
 const avatarPalette = ['#3B82F6', '#22C55E', '#F97316', '#EF4444', '#EAB308']
 
-function avatarColor(seed: number) {
+const avatarColor = (seed: number) => {
     return avatarPalette[seed % avatarPalette.length]
 }
 
-function timeAgo(dateStr: string) {
+const timeAgo = (dateStr: string) => {
     const diffMs = Date.now() - new Date(dateStr).getTime()
     const minutes = Math.floor(diffMs / 60000)
     if (minutes < 1) return 'Just now'
@@ -402,7 +402,7 @@ interface CommentRowProps {
     isSaving: boolean
 }
 
-function CommentRow({
+const CommentRow = ({
                         comment,
                         isReply,
                         currentUserId,
@@ -419,7 +419,7 @@ function CommentRow({
                         onToggleMenu,
                         onEditTextChange,
                         isSaving,
-                    }: CommentRowProps) {
+                    }: CommentRowProps) => {
     const isEditing = editingId === comment.id
     const isHighlighted = replyingToId === comment.id
     const isOwnComment = currentUserId !== null && comment.author.id === currentUserId
@@ -520,7 +520,7 @@ function CommentRow({
     )
 }
 
-export function CommentsSection({ newsId }: CommentsSectionProps) {
+export const CommentsSection = ({ newsId }: CommentsSectionProps) => {
     const [limit, setLimit] = useState(20)
     const { data, isLoading, isError } = useComments(newsId, limit)
     const list = (data?.items ?? []).filter((comment) => !comment.is_deleted)
@@ -540,7 +540,7 @@ export function CommentsSection({ newsId }: CommentsSectionProps) {
     const [openMenuId, setOpenMenuId] = useState<number | null>(null)
     const inputRef = useRef<HTMLInputElement>(null)
 
-    function handlePost() {
+    const handlePost = () => {
         const content = newCommentText.trim()
         if (!content) return
 
@@ -551,30 +551,30 @@ export function CommentsSection({ newsId }: CommentsSectionProps) {
         setReplyingTo(null)
     }
 
-    function startReply(id: number, author: string) {
+    const startReply = (id: number, author: string) => {
         setReplyingTo({ id, author })
         inputRef.current?.focus()
     }
 
-    function startEdit(comment: Comment) {
+    const startEdit = (comment: Comment) => {
         setEditingId(comment.id)
         setEditText(comment.content)
         setOpenMenuId(null)
     }
 
-    function saveEdit(commentId: number) {
+    const saveEdit = (commentId: number) => {
         editComment.mutate(
             { commentId, content: editText },
             { onSuccess: () => setEditingId(null) },
         )
     }
 
-    function handleDelete(commentId: number) {
+    const handleDelete = (commentId: number) => {
         deleteComment.mutate(commentId)
         setOpenMenuId(null)
     }
 
-    function copyText(text: string) {
+    const copyText = (text: string) => {
         navigator.clipboard?.writeText(text)
         setOpenMenuId(null)
     }

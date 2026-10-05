@@ -19,7 +19,7 @@ interface OrgDetailsStepProps {
     onContinue: () => void;
 }
 
-export function OrgDetailsStep({ onContinue }: OrgDetailsStepProps) {
+export const OrgDetailsStep = ({ onContinue }: OrgDetailsStepProps) => {
     const [registrationType, setRegistrationType] = useState("Registered Provider");
     const [payRate, setPayRate] = useState("Custom Rates");
     const [shiftStart, setShiftStart] = useState("08:00 AM");
@@ -103,4 +103,4 @@ export function OrgDetailsStep({ onContinue }: OrgDetailsStepProps) {
             </button>
         </div>
     );
-}
+};

@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query'
-import type { Welcome } from '@/features/home/data/feed'
+import type { Welcome } from '@/data/feed'
 import ApiClient from '@/services/api/ApiClient'
 
-function publicationTime(publishedAt: string, publishedDate: string) {
+const publicationTime = (publishedAt: string, publishedDate: string) => {
   const timestamp = Date.parse(publishedAt || publishedDate)
   return Number.isNaN(timestamp) ? 0 : timestamp
 }
 
-function newestFirst(feed: Welcome): Welcome {
+const newestFirst = (feed: Welcome): Welcome => {
   return {
     ...feed,
     items: [...feed.items].sort(

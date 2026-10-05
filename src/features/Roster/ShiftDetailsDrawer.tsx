@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { Link } from '@tanstack/react-router';
 import { X } from 'lucide-react';
-import { PARTICIPANTS } from '@/features/Participants/Participants';
-import { dayNames, workers } from './data';
-import type { Shift } from './data';
+import { PARTICIPANTS } from '@/data/participants';
+import { dayNames, workers } from '@/data/roster';
+import type { Shift } from '@/data/roster';
 import {
   drawerOverlay,
   drawer,
@@ -36,7 +36,7 @@ interface ShiftDetailsDrawerProps {
     onClose: () => void;
 }
 
-export function ShiftDetailsDrawer({ shift, dates, weekShifts, onSelectShift, onClose }: ShiftDetailsDrawerProps) {
+export const ShiftDetailsDrawer = ({ shift, dates, weekShifts, onSelectShift, onClose }: ShiftDetailsDrawerProps) => {
     const participant = PARTICIPANTS.find(item => item.name === shift.client);
     const worker = workers.find(item => item.id === shift.workerId);
     const date = dates[shift.day];
@@ -113,4 +113,4 @@ export function ShiftDetailsDrawer({ shift, dates, weekShifts, onSelectShift, on
             </aside>
         </div>
     );
-}
+};

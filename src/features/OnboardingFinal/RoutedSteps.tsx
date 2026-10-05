@@ -5,7 +5,7 @@ import { OnboardingStep } from '@/components/OnboardingLayout/OnboardingStep'
 import { RoleStep } from '@/components/RoleStep/RoleStep'
 import { TopicsStep } from '@/components/TopicStep/TopicStep'
 
-export function RoleOnboardingPage() {
+export const RoleOnboardingPage = () => {
   const navigate = useNavigate()
 
   return (
@@ -20,7 +20,7 @@ export function RoleOnboardingPage() {
   )
 }
 
-export function TopicsOnboardingPage() {
+export const TopicsOnboardingPage = () => {
   const navigate = useNavigate()
 
   return (
@@ -36,7 +36,7 @@ export function TopicsOnboardingPage() {
   )
 }
 
-export function LocationOnboardingPage() {
+export const LocationOnboardingPage = () => {
   const navigate = useNavigate()
 
   return (

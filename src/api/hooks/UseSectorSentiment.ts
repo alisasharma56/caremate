@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import type { SectorSentimentResponse } from '@/features/home/data/sectorsentiment.ts'
+import type { SectorSentimentResponse } from '@/data/sectorsentiment'
 import ApiClient from '@/services/api/ApiClient'
 
 const useSectorSentiment = (days = 30) => {

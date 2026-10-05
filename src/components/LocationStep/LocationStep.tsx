@@ -30,7 +30,7 @@ interface LocationStepProps {
     onContinue: (state: string) => void;
 }
 
-export function LocationStep({ onBack, onContinue }: LocationStepProps) {
+export const LocationStep = ({ onBack, onContinue }: LocationStepProps) => {
     const [selected, setSelected] = useState<string | null>(null);
 
     return (
@@ -72,4 +72,4 @@ export function LocationStep({ onBack, onContinue }: LocationStepProps) {
             </div>
         </div>
     );
-}
+};

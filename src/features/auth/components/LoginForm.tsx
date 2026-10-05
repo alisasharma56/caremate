@@ -103,7 +103,7 @@
 
 import { useState, type FormEvent } from 'react'
 import { InputField } from '@/components/InputField'
-import { useAuth } from '@/features/auth/useAuth.ts'
+import { useAuth } from '@/api/hooks/useAuth'
 import { EyeIcon, EyeOffIcon, GoogleIcon } from './AuthIcons'
 import {
     divider,
@@ -120,11 +120,11 @@ import {
     textLink,
 } from './Login.css'
 
-export function LoginForm() {
+export const LoginForm = () => {
     const [showPassword, setShowPassword] = useState(false)
     const { login, isSubmitting, error } = useAuth()
 
-    function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
         void login({

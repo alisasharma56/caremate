@@ -36,14 +36,14 @@ interface TopicsStepProps {
     onContinue: (topics: string[]) => void;
 }
 
-export function TopicsStep({ onBack, onContinue }: TopicsStepProps) {
+export const TopicsStep = ({ onBack, onContinue }: TopicsStepProps) => {
     const [selected, setSelected] = useState<string[]>(["SIL/SDA", "Allied Health"]);
 
-    function toggleTopic(topic: string) {
+    const toggleTopic = (topic: string) => {
         setSelected((current) =>
             current.includes(topic) ? current.filter((t) => t !== topic) : [...current, topic],
         );
-    }
+    };
 
     return (
         <div className={stepWrap}>
@@ -84,4 +84,4 @@ export function TopicsStep({ onBack, onContinue }: TopicsStepProps) {
             </div>
         </div>
     );
-}
+};

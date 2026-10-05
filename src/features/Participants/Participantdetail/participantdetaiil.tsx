@@ -30,14 +30,14 @@ import {
   documentActions,
   uploadRow,
 } from "./Participantdetail.css.ts";
-import { PARTICIPANTS } from "../Participants.ts";
+import { PARTICIPANTS } from "@/data/participants";
 import { useParticipantSelection } from "../Participantselectioncontext.tsx";
 
-function formatMoney(value: number) {
+const formatMoney = (value: number) => {
     return `$${value.toLocaleString("en-AU")}`;
-}
+};
 
-export function ParticipantDetail() {
+export const ParticipantDetail = () => {
     const { selectedId } = useParticipantSelection();
     const participant = PARTICIPANTS.find((p) => p.id === selectedId) ?? PARTICIPANTS[0];
 
@@ -139,4 +139,4 @@ export function ParticipantDetail() {
             </div>
         </div>
     );
-}
+};

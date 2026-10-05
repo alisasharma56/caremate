@@ -2,7 +2,7 @@ const ACCOUNTS_KEY = 'caremate.accounts'
 const CURRENT_USER_KEY = 'caremate.currentUser'
 const ONBOARDED_USERS_KEY = 'caremate.onboardedUsers'
 
-function readList(key: string): string[] {
+const readList = (key: string): string[] => {
   try {
     return JSON.parse(localStorage.getItem(key) ?? '[]') as string[]
   } catch {
@@ -10,11 +10,11 @@ function readList(key: string): string[] {
   }
 }
 
-export function normalizeEmail(email: string) {
+export const normalizeEmail = (email: string) => {
   return email.trim().toLowerCase()
 }
 
-export function registerAccount(email: string) {
+export const registerAccount = (email: string) => {
   const normalizedEmail = normalizeEmail(email)
   const accounts = readList(ACCOUNTS_KEY)
 
@@ -23,23 +23,23 @@ export function registerAccount(email: string) {
   }
 }
 
-export function accountExists(email: string) {
+export const accountExists = (email: string) => {
   return readList(ACCOUNTS_KEY).includes(normalizeEmail(email))
 }
 
-export function signIn(email: string) {
+export const signIn = (email: string) => {
   localStorage.setItem(CURRENT_USER_KEY, normalizeEmail(email))
 }
 
-export function getCurrentUser() {
+export const getCurrentUser = () => {
   return localStorage.getItem(CURRENT_USER_KEY)
 }
 
-export function hasCompletedOnboarding(email: string) {
+export const hasCompletedOnboarding = (email: string) => {
   return readList(ONBOARDED_USERS_KEY).includes(normalizeEmail(email))
 }
 
-export function completeOnboarding(email: string) {
+export const completeOnboarding = (email: string) => {
   const normalizedEmail = normalizeEmail(email)
   const onboardedUsers = readList(ONBOARDED_USERS_KEY)
 

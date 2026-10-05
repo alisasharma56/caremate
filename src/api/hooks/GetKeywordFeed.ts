@@ -1,29 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
+import type { KeywordFeedResponse } from '@/data/keywordfeed'
 import ApiClient from '@/services/api/ApiClient'
-
-export interface KeywordFeedItem {
-  news_id: number
-  headline: string
-  snippet: string
-  published_date: string
-  time_ago: string
-  sentiment_overall: string
-  sentiment_positive_pct: number
-  sentiment_negative_pct: number
-  sentiment_neutral_pct: number
-  keywords: string[]
-  urgency: string
-  impactness: number
-  url: string
-  photo_url: string | null
-}
-
-export interface KeywordFeedResponse {
-  keyword: string
-  items: KeywordFeedItem[]
-  next_cursor: number
-  has_more: boolean
-}
 
 const useKeywordFeed = (keyword: string, cursor?: number) => {
   const apiClient = new ApiClient<KeywordFeedResponse>(

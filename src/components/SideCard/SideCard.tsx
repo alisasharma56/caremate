@@ -13,7 +13,7 @@ interface SideCardProps {
     children: ReactNode;
 }
 
-export function SideCard({ title, meta, children }: SideCardProps) {
+export const SideCard = ({ title, meta, children }: SideCardProps) => {
     return (
         <div className={card}>
             <div className={cardHeader}>
@@ -23,4 +23,4 @@ export function SideCard({ title, meta, children }: SideCardProps) {
             <div className={body}>{children}</div>
         </div>
     );
-}
+};

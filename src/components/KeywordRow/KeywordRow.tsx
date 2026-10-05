@@ -11,7 +11,7 @@ interface KeywordRowProps {
     change: string;
 }
 
-export function KeywordRow({ rank, keyword, change }: KeywordRowProps) {
+export const KeywordRow = ({ rank, keyword, change }: KeywordRowProps) => {
     return (
         <div className={row}>
             <span className={rankStyle}>{rank}</span>

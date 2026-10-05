@@ -19,7 +19,7 @@ interface SentimentBarRowProps {
     deltaTone: "green" | "red" | "blue";
 }
 
-export function SentimentBarRow({ label, positivePct, neutralPct, negativePct, delta, deltaTone }: SentimentBarRowProps) {
+export const SentimentBarRow = ({ label, positivePct, neutralPct, negativePct, delta, deltaTone }: SentimentBarRowProps) => {
     return (
         <div className={row}>
             <div className={top}>

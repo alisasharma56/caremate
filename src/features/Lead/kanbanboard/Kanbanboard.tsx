@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { LEAD_COLUMNS, type Lead, type LeadStatus } from '../Lead.ts'
+import { LEAD_COLUMNS, type Lead, type LeadStatus } from '@/data/lead'
 import { LeadCard, LeadCardContent } from '../Leadcard/Leadcard.tsx'
 import {
     board,
@@ -30,18 +30,18 @@ interface DragState {
 
 const DRAG_THRESHOLD = 6
 
-export function KanbanBoard({ leads, onSelectLead, onMoveLead }: KanbanBoardProps) {
+export const KanbanBoard = ({ leads, onSelectLead, onMoveLead }: KanbanBoardProps) => {
     const [drag, setDrag] = useState<DragState | null>(null)
     const [dragOverStatus, setDragOverStatus] = useState<LeadStatus | null>(null)
     const suppressClickRef = useRef(false)
 
-    function statusAtPoint(x: number, y: number): LeadStatus | null {
+    const statusAtPoint = (x: number, y: number): LeadStatus | null => {
         const el = document.elementFromPoint(x, y)
         const columnEl = el?.closest<HTMLElement>('[data-column-status]')
         return (columnEl?.dataset.columnStatus as LeadStatus | undefined) ?? null
     }
 
-    function handlePointerDown(event: React.PointerEvent<HTMLButtonElement>, lead: Lead) {
+    const handlePointerDown = (event: React.PointerEvent<HTMLButtonElement>, lead: Lead) => {
         if (event.pointerType === 'mouse' && event.button !== 0) return
 
         const rect = event.currentTarget.getBoundingClientRect()
@@ -51,7 +51,7 @@ export function KanbanBoard({ leads, onSelectLead, onMoveLead }: KanbanBoardProp
 
         let moved = false
 
-        function handleMove(moveEvent: PointerEvent) {
+        const handleMove = (moveEvent: PointerEvent) => {
             if (!moved) {
                 const dx = moveEvent.clientX - (rect.left + offsetX)
                 const dy = moveEvent.clientY - (rect.top + offsetY)
@@ -64,7 +64,7 @@ export function KanbanBoard({ leads, onSelectLead, onMoveLead }: KanbanBoardProp
             setDragOverStatus(statusAtPoint(moveEvent.clientX, moveEvent.clientY))
         }
 
-        function handleUp(upEvent: PointerEvent) {
+        const handleUp = (upEvent: PointerEvent) => {
             window.removeEventListener('pointermove', handleMove)
             window.removeEventListener('pointerup', handleUp)
             window.removeEventListener('pointercancel', handleUp)
@@ -88,7 +88,7 @@ export function KanbanBoard({ leads, onSelectLead, onMoveLead }: KanbanBoardProp
         window.addEventListener('pointercancel', handleUp)
     }
 
-    function handleSelect(lead: Lead) {
+    const handleSelect = (lead: Lead) => {
         if (suppressClickRef.current) return
         onSelectLead?.(lead)
     }

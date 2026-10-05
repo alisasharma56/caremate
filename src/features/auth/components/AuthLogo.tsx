@@ -4,7 +4,7 @@ type AuthLogoProps = {
   compact?: boolean
 }
 
-export function AuthLogo({ compact = false }: AuthLogoProps) {
+export const AuthLogo = ({ compact = false }: AuthLogoProps) => {
   return (
     <a
       aria-label="CareMate home"

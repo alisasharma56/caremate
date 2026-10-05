@@ -10,7 +10,7 @@ interface OnboardingStep1PageProps {
     onComplete?: () => void;
 }
 
-export function OnboardingStep1Page({ onComplete }: OnboardingStep1PageProps) {
+export const OnboardingStep1Page = ({ onComplete }: OnboardingStep1PageProps) => {
     const [step, setStep] = useState<OnboardingStep>(OnboardingStep.Role);
     const navigate = useNavigate();
     return (
@@ -37,4 +37,4 @@ export function OnboardingStep1Page({ onComplete }: OnboardingStep1PageProps) {
             )}
         </OnboardingLayout>
     );
-}
+};

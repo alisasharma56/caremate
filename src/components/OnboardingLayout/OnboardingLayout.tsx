@@ -20,7 +20,7 @@ interface OnboardingLayoutProps {
     children: ReactNode;
 }
 
-export function OnboardingLayout({ step, onSkip, children }: OnboardingLayoutProps) {
+export const OnboardingLayout = ({ step, onSkip, children }: OnboardingLayoutProps) => {
     return (
         <div className={page}>
             <header className={header}>
@@ -52,4 +52,4 @@ export function OnboardingLayout({ step, onSkip, children }: OnboardingLayoutPro
             <div className={content}>{children}</div>
         </div>
     );
-}
+};

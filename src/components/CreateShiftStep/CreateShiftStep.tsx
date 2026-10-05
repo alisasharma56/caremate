@@ -83,23 +83,23 @@ interface CreateShiftStepProps {
     onGoToDashboard: () => void;
 }
 
-export function CreateShiftStep({ onGoToDashboard }: CreateShiftStepProps) {
+export const CreateShiftStep = ({ onGoToDashboard }: CreateShiftStepProps) => {
     const [phase, setPhase] = useState<Phase>("choice");
     const [shifts, setShifts] = useState<Shift[]>(INITIAL_SHIFTS);
 
-    function generateRoster() {
+    const generateRoster = () => {
         setPhase("loading");
         setTimeout(() => {
             setShifts(INITIAL_SHIFTS);
             setPhase("suggestions");
         }, 1400);
-    }
+    };
 
-    function toggleShift(id: string) {
+    const toggleShift = (id: string) => {
         setShifts((current) =>
             current.map((s) => (s.id === id ? { ...s, accepted: !s.accepted } : s)),
         );
-    }
+    };
 
     const acceptedCount = shifts.filter((s) => s.accepted).length;
 
@@ -191,4 +191,4 @@ export function CreateShiftStep({ onGoToDashboard }: CreateShiftStepProps) {
             )}
         </div>
     );
-}
+};

@@ -36,7 +36,7 @@ interface RoleStepProps {
     onContinue: (roleId: string) => void;
 }
 
-export function RoleStep({ onContinue }: RoleStepProps) {
+export const RoleStep = ({ onContinue }: RoleStepProps) => {
     const [selected, setSelected] = useState<string | null>(null);
 
     return (
@@ -76,4 +76,4 @@ export function RoleStep({ onContinue }: RoleStepProps) {
             </div>
         </div>
     );
-}
+};

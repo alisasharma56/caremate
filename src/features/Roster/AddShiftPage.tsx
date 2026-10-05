@@ -1,9 +1,9 @@
 import { useNavigate } from '@tanstack/react-router';
 import { AddShiftForm } from './AddShiftForm';
-import { dayNames } from './data';
+import { dayNames } from '@/data/roster';
 import { useRosterStore } from './store';
 
-export function AddShiftPage() {
+export const AddShiftPage = () => {
     const navigate = useNavigate();
     const week = useRosterStore(state => state.week);
     const addShift = useRosterStore(state => state.addShift);
@@ -15,4 +15,4 @@ export function AddShiftPage() {
         addShift(shift);
         returnToRoster();
     }} />;
-}
+};

@@ -1,6 +1,6 @@
 // import { SideCard } from "../SideCard/SideCard.tsx";
 // import { BarRow } from "../Barrow/Barrow.tsx";
-// import useTrendingKeywords from "@/features/home/hooks/TrendingKeywords.ts";
+// import useTrendingKeywords from "@/api/hooks/TrendingKeywords";
 //
 // function formatLabel(value: string) {
 //     return value.replaceAll('_', ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
@@ -44,19 +44,19 @@
 
 import { SideCard } from "../SideCard/SideCard.tsx";
 import { BarRow } from "../Barrow/Barrow.tsx";
-import useTrendingKeywords from "@/features/home/hooks/TrendingKeywords.ts";
+import useTrendingKeywords from "@/api/hooks/TrendingKeywords";
 
-function formatLabel(value: string) {
+const formatLabel = (value: string) => {
     return value.replaceAll('_', ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
-}
+};
 
-function toneFromScore(score: number): "green" | "blue" | "red" {
+const toneFromScore = (score: number): "green" | "blue" | "red" => {
     if (score > 75) return "green";
     if (score >= 40) return "blue";
     return "red";
-}
+};
 
-export function TrendingCard() {
+export const TrendingCard = () => {
     const { data, isLoading, isError } = useTrendingKeywords();
 
     if (isLoading) {
@@ -90,4 +90,4 @@ export function TrendingCard() {
             ))}
         </SideCard>
     );
-}
+};

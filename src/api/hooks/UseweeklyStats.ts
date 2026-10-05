@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import type { WeeklyStats } from '@/features/home/data/weeklystats.ts'
+import type { WeeklyStats } from '@/data/weeklystats'
 import ApiClient from '@/services/api/ApiClient'
 
 const useWeeklyStats = () => {

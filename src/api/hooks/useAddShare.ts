@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import ApiClient from '@/services/api/ApiClient'
-import type { ShareStatus } from '@/features/home/data/share'
+import type { ShareStatus } from '@/data/share'
 
 const useAddShare = (newsId: number) => {
     const queryClient = useQueryClient()

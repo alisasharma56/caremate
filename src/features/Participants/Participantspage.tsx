@@ -4,7 +4,7 @@ import { ParticipantDetail } from "../Participants/Participantdetail/participant
 import { ParticipantSelectionProvider } from "../Participants/Participantselectioncontext.tsx";
 import { AddParticipantPage } from "../Participants/Addparticipantpage/Addparticipantpage.tsx";
 
-export function ParticipantsPage() {
+export const ParticipantsPage = () => {
     const [showAdd, setShowAdd] = useState(false);
 
     if (showAdd) {
@@ -19,4 +19,4 @@ export function ParticipantsPage() {
             </div>
         </ParticipantSelectionProvider>
     );
-}
+};

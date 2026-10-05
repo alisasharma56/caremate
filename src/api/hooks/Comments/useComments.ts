@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import ApiClient from '@/services/api/ApiClient'
-import type { CommentsResponse } from '@/features/home/data/comment'
+import type { CommentsResponse } from '@/data/comment'
 
 const useComments = (newsId: number, limit = 20) => {
     const apiClient = new ApiClient<CommentsResponse>(

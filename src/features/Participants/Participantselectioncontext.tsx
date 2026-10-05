@@ -7,7 +7,7 @@ interface ParticipantSelectionContextValue {
 
 const ParticipantSelectionContext = createContext<ParticipantSelectionContextValue | null>(null);
 
-export function ParticipantSelectionProvider({ children }: { children: ReactNode }) {
+export const ParticipantSelectionProvider = ({ children }: { children: ReactNode }) => {
     const [selectedId, setSelectedId] = useState<string>("1");
 
     return (
@@ -15,12 +15,12 @@ export function ParticipantSelectionProvider({ children }: { children: ReactNode
             {children}
         </ParticipantSelectionContext.Provider>
     );
-}
+};
 
-export function useParticipantSelection() {
+export const useParticipantSelection = () => {
     const ctx = useContext(ParticipantSelectionContext);
     if (!ctx) {
         throw new Error("useParticipantSelection must be used within a ParticipantSelectionProvider");
     }
     return ctx;
-}
+};

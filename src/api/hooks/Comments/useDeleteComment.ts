@@ -1,6 +1,6 @@
 // import { useMutation, useQueryClient } from '@tanstack/react-query'
 // import ApiClient, { ApiError } from '@/services/api/ApiClient'
-// import type { CommentsResponse } from '@/features/home/data/comment'
+// import type { CommentsResponse } from '@/data/comment'
 //
 // const useDeleteComment = (newsId: number) => {
 //     const queryClient = useQueryClient()
@@ -58,7 +58,7 @@
 
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import ApiClient, { ApiError } from '@/services/api/ApiClient'
-import type { Comment, CommentsResponse } from '@/features/home/data/comment'
+import type { Comment, CommentsResponse } from '@/data/comment'
 
 interface DeleteCommentContext {
     previousComments: Array<[readonly unknown[], CommentsResponse | undefined]>

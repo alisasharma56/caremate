@@ -42,10 +42,10 @@ import {
   footerHintDot,
 } from "./Chatpanel.css.ts";
 import { FollowUpModal } from "../Folloupmodal/Followupmodal.tsx";
-import { CONVERSATIONS } from "../Conversation.ts";
+import { CONVERSATIONS } from "@/data/conversation";
 import { useInboxSelection } from "../Inboxselectioncontext.tsx";
 
-export function ChatPanel() {
+export const ChatPanel = () => {
     const { selectedId } = useInboxSelection();
     const conversation = CONVERSATIONS.find((c) => c.id === selectedId) ?? CONVERSATIONS[0];
 
@@ -191,4 +191,4 @@ export function ChatPanel() {
             )}
         </div>
     );
-}
+};

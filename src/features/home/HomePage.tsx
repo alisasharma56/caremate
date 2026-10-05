@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
-import useFeed from '@/features/home/hooks/GetFeed'
-import useAnchorFeed from '@/features/home/hooks/GetAnchorFeed'
-import useKeywordFeed, {
-  type KeywordFeedItem,
-} from '@/features/home/hooks/GetKeywordFeed'
-import type { Item, Welcome } from '@/features/home/data/feed'
+import useFeed from '@/api/hooks/GetFeed'
+import useAnchorFeed from '@/api/hooks/GetAnchorFeed'
+import useKeywordFeed from '@/api/hooks/GetKeywordFeed'
+import type { Item, Welcome } from '@/data/feed'
+import type { KeywordFeedItem } from '@/data/keywordfeed'
 import { SideCardPanel } from '@/features/SidecardPanel/SideCardPanel'
 import { FeedCard } from '@/components/FeedCard/FeedCard'
 import { PRIMARY_FILTERS, SECONDARY_FILTERS, filterFeedItems } from './feedFilters'
@@ -33,11 +32,11 @@ import {
   sidebar,
 } from '@/features/home/HomePage.css'
 
-function formatKeyword(value: string) {
+const formatKeyword = (value: string) => {
   return value.replaceAll('_', ' ').replace(/\b\w/g, (letter) => letter.toUpperCase())
 }
 
-function keywordItemToFeedItem(item: KeywordFeedItem): Item {
+const keywordItemToFeedItem = (item: KeywordFeedItem): Item => {
   return {
     news: {
       id: item.news_id,
@@ -87,7 +86,7 @@ function keywordItemToFeedItem(item: KeywordFeedItem): Item {
   }
 }
 
-export function HomePage() {
+export const HomePage = () => {
   const [primaryFilter, setPrimaryFilter] = useState('')
   const [secondaryFilter, setSecondaryFilter] = useState('')
   const [selectedKeyword, setSelectedKeyword] = useState('')

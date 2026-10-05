@@ -7,7 +7,7 @@ interface InboxSelectionContextValue {
 
 const InboxSelectionContext = createContext<InboxSelectionContextValue | null>(null);
 
-export function InboxSelectionProvider({ children }: { children: ReactNode }) {
+export const InboxSelectionProvider = ({ children }: { children: ReactNode }) => {
     const [selectedId, setSelectedId] = useState<string>("1");
 
     return (
@@ -15,12 +15,12 @@ export function InboxSelectionProvider({ children }: { children: ReactNode }) {
             {children}
         </InboxSelectionContext.Provider>
     );
-}
+};
 
-export function useInboxSelection() {
+export const useInboxSelection = () => {
     const ctx = useContext(InboxSelectionContext);
     if (!ctx) {
         throw new Error("useInboxSelection must be used within an InboxSelectionProvider");
     }
     return ctx;
-}
+};

@@ -21,7 +21,7 @@ interface BarRowProps {
     deltaTone?: Tone;
 }
 
-export function BarRow({ label, percent, tone, showArrow, delta, deltaTone }: BarRowProps) {
+export const BarRow = ({ label, percent, tone, showArrow, delta, deltaTone }: BarRowProps) => {
     return (
         <div className={row}>
             <div className={top}>
@@ -38,6 +38,6 @@ export function BarRow({ label, percent, tone, showArrow, delta, deltaTone }: Ba
             </div>
         </div>
     );
-}
+};
 
 

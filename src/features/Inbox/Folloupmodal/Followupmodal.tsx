@@ -28,13 +28,13 @@ interface FollowUpModalProps {
     onClose: () => void;
 }
 
-export function FollowUpModal({
+export const FollowUpModal = ({
                                   contactName,
                                   daysWithoutResponse,
                                   lastActivePlatform,
                                   suggestedMessage,
                                   onClose,
-                              }: FollowUpModalProps) {
+                              }: FollowUpModalProps) => {
     const [message, setMessage] = useState(suggestedMessage);
     const [editing, setEditing] = useState(false);
 
@@ -94,4 +94,4 @@ export function FollowUpModal({
             </div>
         </div>
     );
-}
+};

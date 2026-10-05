@@ -6,7 +6,7 @@ interface PrivateRouteProps {
     children: ReactNode
 }
 
-export function PrivateRoute({ children }: PrivateRouteProps) {
+export const PrivateRoute = ({ children }: PrivateRouteProps) => {
     if (!CookieHandler.hasSession()) {
         return <Navigate to="/login" replace />
     }

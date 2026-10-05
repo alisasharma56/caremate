@@ -17,7 +17,7 @@ import {
   avatar,
 } from './AppHeader.css'
 
-function formatDeviceDateTime(date: Date) {
+const formatDeviceDateTime = (date: Date) => {
   const dateText = new Intl.DateTimeFormat(undefined, {
     weekday: 'short',
     day: 'numeric',
@@ -37,7 +37,7 @@ type AppHeaderProps = {
   onToggleSidebar: () => void
 }
 
-export function AppHeader({ isSidebarCollapsed, onToggleSidebar }: AppHeaderProps) {
+export const AppHeader = ({ isSidebarCollapsed, onToggleSidebar }: AppHeaderProps) => {
   const matches = useMatches()
   const pathname = useRouterState({ select: state => state.location.pathname })
   const breadcrumbs: Breadcrumb[] = [...matches].reverse().find(match => match.staticData.breadcrumbs)?.staticData.breadcrumbs

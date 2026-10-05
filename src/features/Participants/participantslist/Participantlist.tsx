@@ -20,14 +20,14 @@ import {
   statusBadgeTone,
   itemSince,
 } from "./Participantslist.css.ts";
-import { PARTICIPANTS } from "../Participants.ts";
+import { PARTICIPANTS } from "@/data/participants";
 import { useParticipantSelection } from "../Participantselectioncontext.tsx";
 
 interface ParticipantsListProps {
     onAdd: () => void;
 }
 
-export function ParticipantsList({ onAdd }: ParticipantsListProps) {
+export const ParticipantsList = ({ onAdd }: ParticipantsListProps) => {
     const { selectedId, setSelectedId } = useParticipantSelection();
 
     return (
@@ -80,4 +80,4 @@ export function ParticipantsList({ onAdd }: ParticipantsListProps) {
             </div>
         </div>
     );
-}
+};

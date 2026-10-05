@@ -3,17 +3,17 @@ import { StatBox } from "../Statbox/Statbox.tsx";
 import {
   grid,
 } from "../Statbox/Statbox.css.ts";
-import useWeeklyStats from "@/features/home/hooks/UseweeklyStats.ts";
+import useWeeklyStats from "@/api/hooks/UseweeklyStats";
 
-function formatLabel(value: string) {
+const formatLabel = (value: string) => {
     return value.replaceAll('_', ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
-}
+};
 
-function formatDelta(changePct: number) {
+const formatDelta = (changePct: number) => {
     return `${changePct > 0 ? '+' : ''}${changePct}%`;
-}
+};
 
-export function ThisWeekCard() {
+export const ThisWeekCard = () => {
     const { data, isLoading, isError } = useWeeklyStats();
 
     if (isLoading) {
@@ -56,4 +56,4 @@ export function ThisWeekCard() {
             </div>
         </SideCard>
     );
-}
+};

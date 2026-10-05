@@ -19,7 +19,7 @@ export interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   variant?: 'default' | 'compact'
 }
 
-export function InputField({
+export const InputField = ({
   id,
   label,
   required,
@@ -29,7 +29,7 @@ export function InputField({
   containerClassName,
   variant = 'default',
   ...inputProps
-}: InputFieldProps) {
+}: InputFieldProps) => {
   const generatedId = useId()
   const inputId = id ?? generatedId
   const inputClassName = [

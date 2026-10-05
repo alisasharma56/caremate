@@ -48,17 +48,17 @@ const channelIcons: Record<ChannelId, string> = {
   email: emailIcon,
 }
 
-export function SocialSetup() {
+export const SocialSetup = () => {
   const navigate = useNavigate()
   const [connected, setConnected] = useState<Set<ChannelId>>(() => new Set(['facebook']))
 
-  function finishOnboarding() {
+  const finishOnboarding = () => {
     const currentUser = getCurrentUser()
     if (currentUser) completeOnboarding(currentUser)
     void navigate({ to: '/', replace: true })
   }
 
-  function toggleChannel(channel: ChannelId) {
+  const toggleChannel = (channel: ChannelId) => {
     setConnected((current) => {
       const next = new Set(current)
       if (next.has(channel)) next.delete(channel)

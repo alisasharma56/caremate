@@ -1,6 +1,6 @@
 // import { SideCard } from "../SideCard/SideCard.tsx";
 // import { BarRow } from "../Barrow/Barrow.tsx";
-// import useSectorSentiment from "@/features/home/hooks/UseSectorSentiment.ts";
+// import useSectorSentiment from "@/api/hooks/UseSectorSentiment";
 //
 // function formatLabel(value: string) {
 //     return value.replaceAll('_', ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
@@ -50,23 +50,23 @@
 /// SectorSentimentCard.tsx
 import { SideCard } from "../SideCard/SideCard.tsx";
 import { SentimentBarRow } from "./SentimentBarRow.tsx";
-import useSectorSentiment from "@/features/home/hooks/UseSectorSentiment.ts";
+import useSectorSentiment from "@/api/hooks/UseSectorSentiment";
 
-function formatLabel(value: string) {
+const formatLabel = (value: string) => {
     return value.replaceAll('_', ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
-}
+};
 
-function formatDelta(net: number) {
+const formatDelta = (net: number) => {
     return `${net > 0 ? '+' : ''}${net}%`;
-}
+};
 
-function toneFromNet(net: number): "green" | "red" | "blue" {
+const toneFromNet = (net: number): "green" | "red" | "blue" => {
     if (net > 0) return "green";
     if (net < 0) return "red";
     return "blue";
-}
+};
 
-export function SectorSentimentCard() {
+export const SectorSentimentCard = () => {
     const { data, isLoading, isError } = useSectorSentiment();
 
     if (isLoading) {
@@ -102,4 +102,4 @@ export function SectorSentimentCard() {
             ))}
         </SideCard>
     );
-}
+};

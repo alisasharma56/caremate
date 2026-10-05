@@ -2,8 +2,8 @@ import { useCallback, useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import { useRosterStore } from './store'
 import { ChevronLeft, ChevronRight, Plus, Sparkles } from 'lucide-react'
-import { suggestions, dayNames, dateFormat } from './data'
-import type { RosterView, TeamFilter } from './data'
+import { suggestions, dayNames, dateFormat } from '@/data/roster'
+import type { RosterView, TeamFilter } from '@/data/roster'
 import { RosterSchedule } from './RosterSchedule'
 import { RosterSummary } from './RosterSummary'
 import { ShiftDetailsDrawer } from './ShiftDetailsDrawer'
@@ -24,7 +24,7 @@ import {
   notice as noticeStyle,
 } from './Roster.css'
 
-export function RosterPage() {
+export const RosterPage = () => {
   const { week, setWeek, shifts, setShifts, hiddenSuggestions, setHiddenSuggestions, notice, setNotice, published, setPublished } = useRosterStore()
   const [view, setView] = useState<RosterView>('weekly')
   const [filterOpen, setFilterOpen] = useState(false)
@@ -41,7 +41,7 @@ export function RosterPage() {
   const closeShiftDetails = useCallback(() => setSelectedShiftId(null), [])
   const visibleSuggestions = suggestions.filter(item => !hiddenSuggestions.includes(item.id))
 
-  function showToday() {
+  const showToday = () => {
     const now = new Date()
     const base = new Date(2026, 4, 4)
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
@@ -51,7 +51,7 @@ export function RosterPage() {
     setView('today')
   }
 
-  function step(direction: 1 | -1) {
+  const step = (direction: 1 | -1) => {
     if (view === 'weekly') {
       setWeek(week + direction)
       return
@@ -61,12 +61,12 @@ export function RosterPage() {
     setSelectedDay((day + 7) % 7)
   }
 
-  function publishShifts() {
+  const publishShifts = () => {
     setPublished(true)
     setNotice('This roster has been marked as published in this preview.')
   }
 
-  function acceptSuggestion(id: string) {
+  const acceptSuggestion = (id: string) => {
     if (week !== 0) {
       setNotice('Navigate to 4–10 May to apply these suggestions.')
       return

@@ -17,7 +17,7 @@ interface StatBoxProps {
     trend?: "up" | "down";
 }
 
-export function StatBox({ value, label, delta, tone, trend = "up", valueClassName }: StatBoxProps) {
+export const StatBox = ({ value, label, delta, tone, trend = "up", valueClassName }: StatBoxProps) => {
     const Icon = trend === "up" ? ArrowUpRight : ArrowDownRight;
     return (
         <div className={box}>
@@ -31,4 +31,4 @@ export function StatBox({ value, label, delta, tone, trend = "up", valueClassNam
             )}
         </div>
     );
-}
+};

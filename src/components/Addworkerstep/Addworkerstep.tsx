@@ -23,18 +23,18 @@ interface AddWorkerStepProps {
     onContinue: () => void;
 }
 
-export function AddWorkerStep({ onContinue }: AddWorkerStepProps) {
+export const AddWorkerStep = ({ onContinue }: AddWorkerStepProps) => {
     const [fullName, setFullName] = useState("");
     const [role, setRole] = useState("");
     const [wwccNumber, setWwccNumber] = useState("");
     const [wwccExpiry, setWwccExpiry] = useState("");
     const [availability, setAvailability] = useState<string[]>(["Wed"]);
 
-    function toggleDay(day: string) {
+    const toggleDay = (day: string) => {
         setAvailability((current) =>
             current.includes(day) ? current.filter((d) => d !== day) : [...current, day],
         );
-    }
+    };
 
     return (
         <div>
@@ -124,4 +124,4 @@ export function AddWorkerStep({ onContinue }: AddWorkerStepProps) {
             </button>
         </div>
     );
-}
+};

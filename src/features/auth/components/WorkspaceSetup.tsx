@@ -52,24 +52,24 @@ import {
   inboxButton,
 } from './WorkspaceSetup.css'
 
-function Chevron() {
+const Chevron = () => {
   return <svg className={chevron} viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="m1 1 5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
 }
 
-function SelectField({ id, label }: { id: string; label: string }) {
+const SelectField = ({ id, label }: { id: string; label: string }) => {
   return <div className={selectGroup}><label className={labelStyle} htmlFor={id}>{label} <span className={required}>*</span></label><div className={selectWrap}><select className={select} id={id} name={id} defaultValue="" required><option value="" disabled>name@email.com</option><option value="option-1">Option 1</option><option value="option-2">Option 2</option></select><Chevron /></div></div>
 }
 
-export function WorkspaceSetup() {
+export const WorkspaceSetup = () => {
   const navigate = useNavigate()
 
-  function finishOnboarding() {
+  const finishOnboarding = () => {
     const currentUser = getCurrentUser()
     if (currentUser) completeOnboarding(currentUser)
     void navigate({ to: '/', replace: true })
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     void navigate({ to: '/onboarding/invite-team' })
   }
@@ -109,17 +109,17 @@ export function WorkspaceSetup() {
   )
 }
 
-export function InviteTeam() {
+export const InviteTeam = () => {
   const navigate = useNavigate()
   const [invitations, setInvitations] = useState<Array<{ email: string; role: string }>>([])
 
-  function finishOnboarding() {
+  const finishOnboarding = () => {
     const currentUser = getCurrentUser()
     if (currentUser) completeOnboarding(currentUser)
     void navigate({ to: '/', replace: true })
   }
 
-  function addInvitation(event: FormEvent<HTMLFormElement>) {
+  const addInvitation = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const form = event.currentTarget
     const data = new FormData(form)

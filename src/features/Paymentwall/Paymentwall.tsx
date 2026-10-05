@@ -155,7 +155,7 @@ const PLANS: PricingPlan[] = [
     },
 ];
 
-export function Paymentwall() {
+export const Paymentwall = () => {
     const [selectedId, setSelectedId] = useState<string>("community");
     const navigate = useNavigate();
 
@@ -189,4 +189,4 @@ export function Paymentwall() {
             </div>
         </div>
     );
-}
+};

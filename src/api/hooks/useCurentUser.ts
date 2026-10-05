@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import ApiClient from '@/services/api/ApiClient'
 import { CookieHandler } from '@/features/auth/cookieHandler.ts'
-import type { CurrentUser } from '@/features/home/data/user.ts'
+import type { CurrentUser } from '@/data/user'
 
 const useCurrentUser = () => {
     const apiClient = new ApiClient<CurrentUser>('PORTAL', '/caremate/auth/me')

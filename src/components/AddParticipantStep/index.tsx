@@ -16,7 +16,7 @@ interface AddParticipantStepProps {
     onContinue: () => void;
 }
 
-export function AddParticipantStep({ onContinue }: AddParticipantStepProps) {
+export const AddParticipantStep = ({ onContinue }: AddParticipantStepProps) => {
     const [fullName, setFullName] = useState("");
     const [ndisNumber, setNdisNumber] = useState("");
     const [planStart, setPlanStart] = useState("");
@@ -104,4 +104,4 @@ export function AddParticipantStep({ onContinue }: AddParticipantStepProps) {
             </button>
         </div>
     );
-}
+};

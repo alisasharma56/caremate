@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import type { Lead } from '../Lead.ts'
+import type { Lead } from '@/data/lead'
 import {
     avatarTone,
     calendarTable,
@@ -35,33 +35,33 @@ interface CalendarViewProps {
 
 const DAY_LABELS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
-function startOfWeek(date: Date) {
+const startOfWeek = (date: Date) => {
     const day = date.getDay()
     const diff = (day === 0 ? -6 : 1) - day
     const start = new Date(date)
     start.setDate(date.getDate() + diff)
     start.setHours(0, 0, 0, 0)
     return start
-}
+};
 
-function toIsoDate(date: Date) {
+const toIsoDate = (date: Date) => {
     return date.toISOString().slice(0, 10)
-}
+};
 
-function isSameDay(a: Date, b: Date) {
+const isSameDay = (a: Date, b: Date) => {
     return toIsoDate(a) === toIsoDate(b)
-}
+};
 
-function initialsOf(name: string) {
+const initialsOf = (name: string) => {
     return name
         .split(' ')
         .map((part) => part.charAt(0))
         .join('')
         .slice(0, 2)
         .toUpperCase()
-}
+};
 
-export function CalendarView({ leads, onSelectLead }: CalendarViewProps) {
+export const CalendarView = ({ leads, onSelectLead }: CalendarViewProps) => {
     const [anchorDate, setAnchorDate] = useState(() => new Date())
     const today = useMemo(() => new Date(), [])
 
@@ -101,17 +101,17 @@ export function CalendarView({ leads, onSelectLead }: CalendarViewProps) {
         return map
     }, [leads])
 
-    function goToPreviousMonth() {
+    const goToPreviousMonth = () => {
         setAnchorDate((current) => new Date(current.getFullYear(), current.getMonth() - 1, 1))
-    }
+    };
 
-    function goToNextMonth() {
+    const goToNextMonth = () => {
         setAnchorDate((current) => new Date(current.getFullYear(), current.getMonth() + 1, 1))
-    }
+    };
 
-    function goToToday() {
+    const goToToday = () => {
         setAnchorDate(new Date())
-    }
+    };
 
     return (
         <div className={wrap}>
@@ -198,4 +198,4 @@ export function CalendarView({ leads, onSelectLead }: CalendarViewProps) {
             </div>
         </div>
     )
-}
+};

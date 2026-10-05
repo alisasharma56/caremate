@@ -15,7 +15,7 @@ interface StepSidebarProps {
     currentStep: SetupStep;
 }
 
-export function StepSidebar({ currentStep }: StepSidebarProps) {
+export const StepSidebar = ({ currentStep }: StepSidebarProps) => {
     return (
         <nav className={sidebar}>
             <span className={labelStyle}>Setup Steps</span>
@@ -34,4 +34,4 @@ export function StepSidebar({ currentStep }: StepSidebarProps) {
             })}
         </nav>
     );
-}
+};

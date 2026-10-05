@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import type { EmergingKeywordsResponse } from '@/features/home/data/emergingkeywords.ts'
+import type { EmergingKeywordsResponse } from '@/data/emergingkeywords'
 import ApiClient from '@/services/api/ApiClient'
 
 const useEmergingKeywords = () => {

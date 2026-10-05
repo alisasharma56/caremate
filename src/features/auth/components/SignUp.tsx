@@ -2,7 +2,7 @@ import { AuthLogo } from './AuthLogo'
 import { SignUpForm } from './SignUpForm'
 import { header, page, signUpContent, subtitle, title } from './Login.css'
 
-export function SignUp() {
+export const SignUp = () => {
   return (
     <main className={page}>
       <AuthLogo compact />

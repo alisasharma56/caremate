@@ -38,7 +38,7 @@ interface PricingCardProps {
     onContinue: () => void;
 }
 
-export function PricingCard({
+export const PricingCard = ({
                                 tier,
                                 price,
                                 period,
@@ -49,7 +49,7 @@ export function PricingCard({
                                 selected,
                                 onSelect,
                                 onContinue,
-                            }: PricingCardProps) {
+                            }: PricingCardProps) => {
     return (
         <div className={cardWrap}>
             {popular && <span className={badge}>Most popular</span>}
@@ -106,4 +106,4 @@ export function PricingCard({
             </div>
         </div>
     );
-}
+};

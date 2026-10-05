@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { PARTICIPANTS } from '@/features/Participants/Participants';
-import { dayNames, workers } from './data';
-import type { NewShift } from './data';
+import { PARTICIPANTS } from '@/data/participants';
+import { dayNames, workers } from '@/data/roster';
+import type { NewShift } from '@/data/roster';
 import {
   shiftForm,
   modalHeading,
@@ -26,11 +26,11 @@ interface AddShiftFormProps {
     onSave: (shift: NewShift) => void;
 }
 
-function inputDate(date: Date) {
+const inputDate = (date: Date) => {
     return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-}
+};
 
-export function AddShiftForm({ dates, onClose, onSave }: AddShiftFormProps) {
+export const AddShiftForm = ({ dates, onClose, onSave }: AddShiftFormProps) => {
     const [date, setDate] = useState('');
     const [session, setSession] = useState<'Individual' | 'Group'>('Individual');
     const selectedDay = dates.findIndex(item => inputDate(item) === date);
@@ -107,4 +107,4 @@ export function AddShiftForm({ dates, onClose, onSave }: AddShiftFormProps) {
                 </div>
             </form>
     );
-}
+};

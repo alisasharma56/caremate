@@ -1,13 +1,13 @@
 import { SideCard } from "../SideCard/SideCard.tsx";
 import { KeywordRow } from "../KeywordRow/KeywordRow.tsx";
-import useEmergingKeywords from "@/features/home/hooks/UseEmergingKeyword.ts";
+import useEmergingKeywords from "@/api/hooks/UseEmergingKeyword";
 
-function formatChange(risePct: number) {
+const formatChange = (risePct: number) => {
     const arrow = risePct >= 90 ? '↑↑' : '↑';
     return `${arrow} ${risePct}%`;
-}
+};
 
-export function EmergingKeywordsCard() {
+export const EmergingKeywordsCard = () => {
     const { data, isLoading, isError } = useEmergingKeywords();
 
     if (isLoading) {
@@ -40,4 +40,4 @@ export function EmergingKeywordsCard() {
             ))}
         </SideCard>
     );
-}
+};

@@ -8,7 +8,7 @@ import {ThisWeekCard} from "@/components/ThisWeekcard";
 import {SectorSentimentCard} from "@/components/SentimentSectorCard";
 import {EmergingKeywordsCard} from "@/components/EmergingKeywordsCard";
 
-export function SideCardPanel() {
+export const SideCardPanel = () => {
     return (
         <div className={scrollWrap}>
             <div className={stack}>
@@ -19,4 +19,4 @@ export function SideCardPanel() {
             </div>
         </div>
     );
-}
+};

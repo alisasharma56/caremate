@@ -8,7 +8,7 @@ import {
   title,
 } from './Login.css'
 
-export function Login() {
+export const Login = () => {
   return (
     <main className={page}>
       <AuthLogo />

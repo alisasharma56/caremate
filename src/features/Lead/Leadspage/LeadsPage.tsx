@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { CalendarView } from '../Calenderview/CalanderView.tsx'
 import { KanbanBoard } from '../kanbanboard/Kanbanboard.tsx'
-import { LEADS, type Lead, type LeadStatus } from '../Lead.ts'
+import { LEADS, type Lead, type LeadStatus } from '@/data/lead'
 import {
     header,
     headerText,
@@ -15,16 +15,16 @@ import {
 
 type LeadsView = 'kanban' | 'calendar'
 
-export function LeadsPage() {
+export const LeadsPage = () => {
     const [view, setView] = useState<LeadsView>('kanban')
     const [leads, setLeads] = useState<Lead[]>(LEADS)
 
-    function handleSelectLead(lead: Lead) {
+    const handleSelectLead = (lead: Lead) => {
         // Hook up to a lead detail drawer/page once that's built.
         console.log('Selected lead', lead)
     }
 
-    function handleMoveLead(leadId: string, status: LeadStatus) {
+    const handleMoveLead = (leadId: string, status: LeadStatus) => {
         setLeads((current) =>
             current.map((lead) => (lead.id === leadId ? { ...lead, status } : lead)),
         )

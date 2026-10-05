@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import ApiClient from '@/services/api/ApiClient.ts'
-import type { LikeStatus } from '@/features/home/data/like.ts'
+import type { LikeStatus } from '@/data/like'
 
 const useToggleLike = (newsId: number) => {
     const queryClient = useQueryClient()

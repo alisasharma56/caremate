@@ -1,3 +1,5 @@
+import type { AuthTokens } from '@/data/auth'
+
 const ACCESS_TOKEN_KEY = 'access_token'
 const REFRESH_TOKEN_KEY = 'refresh_token'
 
@@ -8,24 +10,19 @@ interface CookieOptions {
     secure?: boolean
 }
 
-function setCookie(name: string, value: string, options: CookieOptions = {}) {
+const setCookie = (name: string, value: string, options: CookieOptions = {}) => {
     const { days = 7, path = '/', sameSite = 'Lax', secure = true } = options
     const expires = new Date(Date.now() + days * 24 * 60 * 60 * 1000).toUTCString()
     document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=${path}; SameSite=${sameSite}${secure ? '; Secure' : ''}`
 }
 
-function getCookie(name: string): string | null {
+const getCookie = (name: string): string | null => {
     const match = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`))
     return match ? decodeURIComponent(match[1]) : null
 }
 
-function removeCookie(name: string, path = '/') {
+const removeCookie = (name: string, path = '/') => {
     document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=${path}`
-}
-
-export interface AuthTokens {
-    accessToken: string
-    refreshToken: string
 }
 
 export const CookieHandler = {

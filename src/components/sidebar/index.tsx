@@ -12,7 +12,7 @@ import settingIcon from '@/assets/icon1/setting/index.svg'
 import socialListeningIcon from '@/assets/icon1/social-listening/index.svg'
 import workersIcon from '@/assets/icon1/workers/index.svg'
 import { styles } from '@/components/sidebar/Sidebar.style'
-import useFeed from '@/features/home/hooks/GetFeed'
+import useFeed from '@/api/hooks/GetFeed'
 import { Link, useNavigate, type LinkProps } from '@tanstack/react-router'
 
 type SidebarItem = {
@@ -59,7 +59,7 @@ type SidebarProps = {
   collapsed?: boolean
 }
 
-export function Sidebar({ collapsed = false }: SidebarProps) {
+export const Sidebar = ({ collapsed = false }: SidebarProps) => {
   const navigate = useNavigate()
   const { data: feed } = useFeed()
   const feedCount = feed?.items.length ?? 0

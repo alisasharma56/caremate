@@ -1,4 +1,4 @@
-import type { Item } from './data/feed'
+import type { Item } from '@/data/feed'
 
 export const PRIMARY_FILTERS = [
   { value: 'policy', label: 'Policy' },
@@ -14,16 +14,16 @@ export const SECONDARY_FILTERS = [
   { value: 'allied_health', label: 'Allied Health' },
 ] as const
 
-function normalizeFilter(value: string): string {
+const normalizeFilter = (value: string): string => {
   const normalized = value.trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '')
   return normalized === 'support_coord' ? 'support_coordinator' : normalized
 }
 
-function matchesFilter(values: string[] | undefined, selected: string): boolean {
+const matchesFilter = (values: string[] | undefined, selected: string): boolean => {
   return !selected || Boolean(values?.some(value => normalizeFilter(value) === normalizeFilter(selected)))
 }
 
-export function filterFeedItems(items: Item[], primary: string, secondary: string): Item[] {
+export const filterFeedItems = (items: Item[], primary: string, secondary: string): Item[] => {
   return items.filter(item =>
     matchesFilter(item.analytics.primary_filter, primary) &&
     matchesFilter(item.analytics.secondary_filter, secondary),
