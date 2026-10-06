@@ -24,6 +24,7 @@ export function useAuth() {
     const navigate = useNavigate()
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [error, setError] = useState<string | null>(null)
+    const [successMessage, setSuccessMessage] = useState<string | null>(null)
 
     const login = useCallback(
         async (payload: LoginPayload) => {
@@ -50,10 +51,21 @@ export function useAuth() {
         async (payload: RegisterPayload) => {
             setIsSubmitting(true)
             setError(null)
+            setSuccessMessage(null)
             try {
                 const client = new ApiClient('AUTH', '/auth/register')
-                await client.post(payload, { skipAuth: true })
-                void navigate({ to: '/login', replace: true })
+                await client.post(
+                    {
+                        full_name: payload.fullName,
+                        email: payload.email,
+                        password: payload.password,
+                    },
+                    { skipAuth: true },
+                )
+                setSuccessMessage('Registration successful. Now login.')
+                setTimeout(() => {
+                    void navigate({ to: '/login', replace: true })
+                }, 1500)
             } catch {
                 setError('Could not create account')
             } finally {
@@ -73,6 +85,7 @@ export function useAuth() {
         register,
         logout,
         isSubmitting,
+        successMessage,
         error,
         isAuthenticated: CookieHandler.hasSession(),
     }
