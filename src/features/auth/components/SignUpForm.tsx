@@ -127,7 +127,7 @@ import {
 
 export function SignUpForm() {
     const [showPassword, setShowPassword] = useState(false)
-    const { register, isSubmitting, error } = useAuth()
+    const { register, isSubmitting, error, successMessage } = useAuth()
 
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
@@ -191,9 +191,15 @@ export function SignUpForm() {
                 type={showPassword ? 'text' : 'password'}
             />
 
-            {error && <p role="alert">{error}</p>}
 
-            <button className={signInButton} disabled={isSubmitting} type="submit">
+            {error && <p role="alert">{error}</p>}
+            {successMessage && <p role="status">{successMessage}</p>}
+
+            <button
+                className={signInButton}
+                disabled={isSubmitting || Boolean(successMessage)}
+                type="submit"
+            >
                 {isSubmitting ? 'Creating account…' : 'Sign Up'}
             </button>
 
