@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import {AnalyticsPage} from "@/features/Analytics/AnalyticsPage/AnalyticsPage.tsx";
 
 export const Route = createFileRoute('/analytics')({
   staticData: { breadcrumbs: [{ label: 'Discover' }, { label: 'Analytics' }] },
@@ -6,5 +7,5 @@ export const Route = createFileRoute('/analytics')({
 })
 
 function RouteComponent() {
-  return <div>Hello "/analytics"!</div>
+  return <div><AnalyticsPage/></div>
 }
