@@ -18,15 +18,24 @@ const newestFirst = (feed: Welcome): Welcome => {
   }
 }
 
-const useFeed = () => {
+export const feedQueryKey = (primaryFilter = '', secondaryFilter = '') =>
+  ['feed', primaryFilter, secondaryFilter] as const
+
+const useFeed = (primaryFilter = '', secondaryFilter = '') => {
   const apiClient = new ApiClient<Welcome>(
     'PORTAL',
     '/caremate/newsfeed/feed',
   )
 
   return useQuery<Welcome, Error>({
-    queryKey: ['feed'],
-    queryFn: apiClient.getUnPaginatedList,
+    queryKey: feedQueryKey(primaryFilter, secondaryFilter),
+    queryFn: () =>
+      apiClient.get({
+        params: {
+          primary_filter: primaryFilter || undefined,
+          secondary_filter: secondaryFilter || undefined,
+        },
+      }),
     select: newestFirst,
     staleTime: 0,
     refetchOnMount: 'always',

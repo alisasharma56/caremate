@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
-import useFeed from '@/api/hooks/GetFeed'
+import useFeed, { feedQueryKey } from '@/api/hooks/GetFeed'
 import useAnchorFeed from '@/api/hooks/GetAnchorFeed'
 import useKeywordFeed from '@/api/hooks/GetKeywordFeed'
 import type { Item, Welcome } from '@/data/feed'
 import type { KeywordFeedItem } from '@/data/keywordfeed'
 import { SideCardPanel } from '@/features/SidecardPanel/SideCardPanel'
 import { FeedCard } from '@/components/FeedCard/FeedCard'
-import { PRIMARY_FILTERS, SECONDARY_FILTERS, filterFeedItems } from './feedFilters'
+import { PRIMARY_FILTERS, SECONDARY_FILTERS } from './feedFilters'
 import {
   page,
   message,
@@ -92,12 +92,11 @@ export const HomePage = () => {
   const [selectedKeyword, setSelectedKeyword] = useState('')
   const [anchorError, setAnchorError] = useState('')
   const queryClient = useQueryClient()
-  const feedQuery = useFeed()
+  const feedQuery = useFeed(primaryFilter, secondaryFilter)
   const anchorFeed = useAnchorFeed()
   const keywordFeedQuery = useKeywordFeed(selectedKeyword)
   const keywordItems = keywordFeedQuery.data?.items.map(keywordItemToFeedItem)
   const feedItems = feedQuery.data?.items ?? []
-  const visibleItems = filterFeedItems(feedItems, primaryFilter, secondaryFilter)
 
   const resetFilters = () => {
     setPrimaryFilter('')
@@ -118,7 +117,8 @@ export const HomePage = () => {
   const goToArticle = async (newsId: number) => {
     setAnchorError('')
 
-    if (feedQuery.data?.items.some((item) => item.news.id === newsId)) {
+    const unfilteredFeed = queryClient.getQueryData<Welcome>(feedQueryKey())
+    if (unfilteredFeed?.items.some((item) => item.news.id === newsId)) {
       setSelectedKeyword('')
       resetFilters()
       scrollToArticle(newsId)
@@ -132,7 +132,7 @@ export const HomePage = () => {
         return
       }
 
-      queryClient.setQueryData<Welcome>(['feed'], (current) => {
+      queryClient.setQueryData<Welcome>(feedQueryKey(), (current) => {
         if (!current) return anchoredFeed
 
         const existingIds = new Set(current.items.map((item) => item.news.id))
@@ -195,16 +195,16 @@ export const HomePage = () => {
         </div>
       ) : null}
 
-      {!feedQuery.isPending && !feedQuery.isError && feedQuery.data?.items.length === 0 ? (
+      {!feedQuery.isPending && !feedQuery.isError && feedItems.length === 0 && !primaryFilter && !secondaryFilter ? (
         <p className={message}>No news is available.</p>
       ) : null}
 
-      {!feedQuery.isPending && !feedQuery.isError && feedItems.length > 0 && visibleItems.length === 0 ? (
+      {!feedQuery.isPending && !feedQuery.isError && feedItems.length === 0 && (primaryFilter || secondaryFilter) ? (
         <p className={message}>No news matches the selected filters. Try another selection or clear the filters.</p>
       ) : null}
 
       <div className={newsList}>
-        {visibleItems.map((item) => (
+        {feedItems.map((item) => (
           <FeedCard
             item={item}
             key={item.news.id}
