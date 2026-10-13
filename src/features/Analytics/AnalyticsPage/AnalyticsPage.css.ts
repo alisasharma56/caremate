@@ -56,36 +56,27 @@ export const filterBtn = style({
     minWidth: 125,
 })
 
-export const audiences = style({ display: 'flex', alignItems: 'center', gap: 8 })
-
-export const audienceChip = style({
-    height: 30,
-    padding: '0 14px',
-    borderRadius: 9999,
-    border: '1px solid #e2e2e2',
-    background: '#ffffff',
-    fontFamily: 'inherit',
-    fontSize: 13,
-    fontWeight: 500,
-    color: '#6b7280',
-    cursor: 'pointer',
-    whiteSpace: 'nowrap',
-})
-
-export const audienceChipActive = style({ background: '#050505', borderColor: '#050505', color: '#ffffff' })
-
+// No sidebar any more: the content takes the full width.
 export const body = style({
-    display: 'grid',
-    gridTemplateColumns: 'minmax(0, 1fr) 300px',
-    gap: 20,
+    display: 'block',
     padding: 20,
-    alignItems: 'start',
+    minWidth: 0,
 })
 
-export const main = style({ display: 'flex', flexDirection: 'column', gap: 20, minWidth: 0 })
+export const main = style({
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
+    minWidth: 0,
+    containerType: 'inline-size',
+})
 
 export const cardRow = style({
     display: 'grid',
     gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
     gap: 16,
+    '@container': {
+        ['(max-width: 800px)']: { gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' },
+        ['(max-width: 420px)']: { gridTemplateColumns: 'minmax(0, 1fr)' },
+    },
 })
