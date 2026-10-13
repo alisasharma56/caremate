@@ -1,18 +1,20 @@
-import { useState } from 'react'
-import { ChevronDown } from 'lucide-react'
-import { AUDIENCES, FILTERS, TOPICS } from '../AnalyticsPage/analytics.ts'
+import { FILTERS, TOPICS } from '../AnalyticsPage/analytics.ts'
 import { SentimentImpactCard } from '../Components/SentimentImpactCard/SentimentImpactCard.tsx'
 import { TopicChartCard } from '../Components/TopicChartCard/TopicChartCard.tsx'
 import { TopicStatCard } from '../Components/TopicStatcard/TopicStatCard.tsx'
 import {
-    audienceChip, audienceChipActive, audiences, beta, body, cardRow, filterBtn, filters, header,
-    headerLeft, main, page, title,
+    beta, body, cardRow, filterBtn, filters, header, headerLeft, main, page, title,
 } from './AnalyticsPage.css.ts'
-import {SideCardPanel} from "@/features/SidecardPanel/SideCardPanel.tsx";
+import {
+    ProviderParticipantCard
+} from '@/features/Analytics/Components/ProviderparticipantCard/ProviderParticipantcard.tsx'
+import {
+    ParticipantOutcomesCard
+} from '@/features/Analytics/Components/ParticipantOutcomesCard/ParticipantOutcomesCard.tsx'
+import { PublishingPatternCard } from '@/features/Analytics/Components/PublishingPatternCard/PublishingPatternCard.tsx'
+import Dropdown from '@/components/icons/Dropdown'
 
 export function AnalyticsPage() {
-    const [audience, setAudience] = useState(AUDIENCES[0])
-
     return (
         <div className={page}>
             <div className={header}>
@@ -21,24 +23,10 @@ export function AnalyticsPage() {
                     <span className={beta}>BETA</span>
                 </div>
                 <div className={filters}>
-                    {[FILTERS.range, FILTERS.state, FILTERS.topic].map((f) => (
-                        <button type="button" className={filterBtn} key={f}>
-                            {f}
-                            <ChevronDown size={16} />
-                        </button>
-                    ))}
-                    <div className={audiences}>
-                        {AUDIENCES.map((a) => (
-                            <button
-                                type="button"
-                                key={a}
-                                className={`${audienceChip} ${audience === a ? audienceChipActive : ''}`}
-                                onClick={() => setAudience(a)}
-                            >
-                                {a}
-                            </button>
-                        ))}
-                    </div>
+                    <button type="button" className={filterBtn}>
+                        {FILTERS.range}
+                        <Dropdown />
+                    </button>
                 </div>
             </div>
 
@@ -51,8 +39,10 @@ export function AnalyticsPage() {
                         {TOPICS.map((t) => <TopicChartCard key={t.id} topic={t} />)}
                     </div>
                     <SentimentImpactCard />
+                    <ProviderParticipantCard />
+                    <ParticipantOutcomesCard />
+                    <PublishingPatternCard />
                 </div>
-              <SideCardPanel/>
             </div>
         </div>
     )
